@@ -2,9 +2,9 @@
 locale: "zh-CN"
 title: "Chico Gong 的技术博客"
 title_separator: "-"
-subtitle: "技术分享 | 学习笔记 | 实战经验"
+subtitle: "Conversational AI & Real-time Communication"
 name: "Chico Gong"
-description: "分享前端开发、后端架构、人工智能和云原生技术的学习心得。涵盖React、Node.js、Python、Kubernetes等技术栈的实战经验。"
+description: "专注对话式AI和实时通信技术的开发者。分享Conversational AI、WebRTC、语音交互和大语言模型等前沿技术的实战经验。"
 url: "https://realtime-ai.chat"
 baseurl: ""
 repository: "chicogong/chicogong.github.io"
@@ -14,25 +14,28 @@ masthead_title: # 覆盖网站标题显示 (default: site.title)
 breadcrumbs: true # 面包屑导航
 
 # Minimal Mistakes 主题配置
-minimal_mistakes_skin: "air" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin: "mint" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Author
 author:
   name: "Chico Gong"
   avatar: "https://github.com/chicogong.png"
-  bio: "一个热爱技术和分享的开发者<br/>专注全栈开发、微服务架构、AI应用"
+  bio: "Conversational AI Enthusiast<br/>Real-time Communication Developer<br/>专注于创建自然的人机交互体验"
   location: "中国"
-  email: "your-email@example.com"
+  email: "chicogong@tencent.com"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/chicogong"
+    - label: "邮箱"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:chicogong@tencent.com"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/your-profile"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/your-twitter"
-    - label: "邮箱"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:your-email@example.com"
 
 # Site Footer
 footer:
@@ -40,9 +43,9 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/chicogong"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/your-twitter"
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:chicogong@tencent.com"
 
 # Reading Files
 include:
