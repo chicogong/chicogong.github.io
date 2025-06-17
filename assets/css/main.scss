@@ -97,40 +97,39 @@ body {
   font-size: 16px;
   line-height: 1.7;
   color: var(--text-primary);
-  background: var(--bg-secondary);
+  background: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  padding-top: 80px; /* 为固定导航栏留出空间 */
 }
 
 /* 4. 页面布局优化 */
 .page {
   background: var(--bg-primary);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  margin: var(--spacing-lg) 0;
-  overflow: hidden;
-  transition: var(--transition-base);
-}
-
-.page:hover {
-  box-shadow: var(--shadow-xl);
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  overflow: visible;
 }
 
 .page__content {
-  padding: var(--spacing-3xl) var(--spacing-2xl);
+  padding: 0;
   max-width: none;
 }
 
 /* 5. 导航栏现代化设计 */
 .masthead {
-  background: var(--gradient-hero);
-  border-bottom: none;
-  box-shadow: var(--shadow-lg);
-  position: sticky;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
 }
 
 .masthead__inner-wrap {
@@ -142,18 +141,23 @@ body {
 .site-title {
   font-weight: 800;
   font-size: 1.75rem;
-  color: white !important;
+  color: #333 !important;
   text-decoration: none;
   font-family: var(--font-family-heading);
   transition: var(--transition-base);
+  background: var(--gradient-tech);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .site-title:hover {
   transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .site-subtitle {
-  color: rgba(255, 255, 255, 0.8);
+  color: #666;
   font-size: 0.95rem;
   margin-top: var(--spacing-xs);
   font-weight: 400;
@@ -165,7 +169,7 @@ body {
 }
 
 .greedy-nav a {
-  color: white;
+  color: #333;
   font-weight: 500;
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius);
@@ -181,7 +185,8 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--gradient-hero);
+  opacity: 0.1;
   transition: var(--transition-base);
 }
 
@@ -190,13 +195,13 @@ body {
 }
 
 .greedy-nav a:hover {
-  color: white;
+  color: #667eea;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .greedy-nav .current {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--gradient-hero);
   color: white;
   box-shadow: var(--shadow-sm);
 }
