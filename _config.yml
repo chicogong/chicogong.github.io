@@ -1,46 +1,110 @@
-# Site configuration
-title: Chico Gong
-tagline: 技术分享 | 学习笔记 | 生活感悟
+# The Site Configuration
+
+# Import the theme
+remote_theme: cotes2020/jekyll-theme-chirpy
+
+# The language of the webpage
+lang: zh-CN
+
+# Change to your timezone
+timezone: Asia/Shanghai
+
+# jekyll-seo-tag settings
+title: Chico Gong 的技术博客
+
+tagline: 一个热爱技术和分享的开发者的个人博客
+
 description: >-
-  一个热爱技术和分享的开发者的个人博客。分享前端开发、后端架构和新兴技术的学习心得。
+  分享前端开发、后端架构、人工智能和云原生技术的学习心得。
+  涵盖React、Node.js、Python、Kubernetes等技术栈的实战经验。
 
-# Replace with the website url, e.g. 'https://username.github.io'
-url: 'https://realtime-ai.chat'
+# Fill in the protocol & hostname for your site.
+url: "https://realtime-ai.chat"
 
-# Author information
-author:
+github:
+  username: chicogong
+
+social:
   name: Chico Gong
   email: your-email@example.com
+  links:
+    - https://github.com/chicogong
+    - https://twitter.com/your-twitter
 
-# Theme settings (使用GitHub Pages支持的主题)
-theme: minima
+# Web Analytics Settings
+analytics:
+  google:
+    id: # 可以后续添加Google Analytics ID
 
-# GitHub Pages settings
-github_username: chicogong
-twitter_username: your-twitter
+# Prefer color scheme setting.
+theme_mode: # 留空表示跟随系统设置，用户可以手动切换
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-permalink: pretty
+# the avatar on sidebar
+avatar: /assets/img/avatar.jpg
 
-# Pagination
-paginate: 5
-paginate_path: "/page:num/"
+# boolean type, the global switch for TOC in posts.
+toc: true
 
-# Jekyll plugins (GitHub Pages 兼容)
+comments:
+  provider: # 可以后续配置评论系统
+
+pwa:
+  enabled: true
+  cache:
+    enabled: true
+
+paginate: 10
+
+# The base URL of your site
+baseurl: ""
+
+# ------------ The following options are not recommended to be modified ------------------
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-paginate
-
-# Exclude files
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/ 
+  - jekyll-archives
+  - jekyll-paginate 
