@@ -1,0 +1,1020 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>React Hooks 最佳实践：从入门到精通 - Chico Gong’s Tech Blog</title>
+<meta name="description" content="React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。">
+
+
+  <meta name="author" content="Chico Gong">
+  
+  <meta property="article:author" content="Chico Gong">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_Hans">
+<meta property="og:site_name" content="Chico Gong's Tech Blog">
+<meta property="og:title" content="React Hooks 最佳实践：从入门到精通">
+<meta property="og:url" content="http://0.0.0.0:4000/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/">
+
+
+  <meta property="og:description" content="React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。">
+
+
+
+  <meta property="og:image" content="https://github.com/chicogong.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2024-01-10T09:00:00+08:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://0.0.0.0:4000/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Chico Gong",
+      "url": "http://0.0.0.0:4000/",
+      "sameAs": ["https://github.com/chicogong","https://twitter.com/your-twitter"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Chico Gong's Tech Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Chico Gong's Tech Blog
+          <span class="site-subtitle">Conversational AI & Real-time Communication</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" title="返回主页">首页</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" title="了解更多关于我的信息">关于我</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/" title="浏览所有文章">文章</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" title="按分类浏览文章">分类</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" title="按标签浏览文章">标签</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" title="按年份浏览文章">归档</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/" title="查看我的开源项目">项目</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/" title="联系方式和社交媒体">联系</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://0.0.0.0:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91" itemprop="item"><span itemprop="name">%e5%89%8d%e7%ab%af%e5%bc%80%e5%8f%91</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#react" itemprop="item"><span itemprop="name">React</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">React Hooks 最佳实践：从入门到精通</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="https://github.com/chicogong.png" alt="Chico Gong" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Chico Gong</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <table>
+  <tbody>
+    <tr>
+      <td>🤖 Conversational AI Enthusiast</td>
+      <td>📞 Real-time Communication Developer</td>
+      <td>⚡ Building next-gen voice interaction systems</td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Shanghai, China</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:chicogong@tencent.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:chicogong@tencent.com">
+            <meta itemprop="email" content="chicogong@tencent.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <a href="/"><span class="nav__sub-title">首页</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/about/"><span class="nav__sub-title">关于我</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/posts/"><span class="nav__sub-title">文章</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/categories/"><span class="nav__sub-title">分类</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/tags/"><span class="nav__sub-title">标签</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/year-archive/"><span class="nav__sub-title">归档</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/projects/"><span class="nav__sub-title">项目</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/contact/"><span class="nav__sub-title">联系</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="React Hooks 最佳实践：从入门到精通">
+    <meta itemprop="description" content="React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。">
+    <meta itemprop="datePublished" content="2024-01-10T09:00:00+08:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">React Hooks 最佳实践：从入门到精通
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-list"></i> 目录</h4></header>
+              <ul class="toc__menu"><li><a href="#为什么使用hooks">为什么使用Hooks？</a></li><li><a href="#核心hooks使用技巧">核心Hooks使用技巧</a><ul><li><a href="#1-usestate的优化使用">1. useState的优化使用</a></li><li><a href="#2-useeffect的正确使用">2. useEffect的正确使用</a></li></ul></li><li><a href="#自定义hooks实战">自定义Hooks实战</a><ul><li><a href="#实用的数据获取hook">实用的数据获取Hook</a></li></ul></li><li><a href="#性能优化技巧">性能优化技巧</a><ul><li><a href="#1-使用usememo避免重复计算">1. 使用useMemo避免重复计算</a></li><li><a href="#2-使用usecallback优化函数引用">2. 使用useCallback优化函数引用</a></li></ul></li><li><a href="#常见陷阱与解决方案">常见陷阱与解决方案</a><ul><li><a href="#1-闭包陷阱">1. 闭包陷阱</a></li><li><a href="#2-无限循环问题">2. 无限循环问题</a></li></ul></li><li><a href="#测试hooks">测试Hooks</a></li><li><a href="#总结">总结</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。</p>
+
+<h2 id="为什么使用hooks">为什么使用Hooks？</h2>
+
+<p>Hooks让我们能够在函数组件中使用状态和其他React特性，相比类组件有以下优势：</p>
+
+<ul>
+  <li><strong>更简洁的代码</strong>：避免了class的复杂语法</li>
+  <li><strong>更好的逻辑复用</strong>：通过自定义Hooks</li>
+  <li><strong>更容易测试</strong>：函数组件更容易进行单元测试</li>
+  <li><strong>更好的性能优化</strong>：结合useMemo和useCallback</li>
+</ul>
+
+<h2 id="核心hooks使用技巧">核心Hooks使用技巧</h2>
+
+<h3 id="1-usestate的优化使用">1. useState的优化使用</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ❌ 避免：频繁的状态更新</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">loading</span><span class="p">,</span> <span class="nx">setLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">[</span><span class="nx">error</span><span class="p">,</span> <span class="nx">setError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+<span class="c1">// ✅ 推荐：使用useReducer管理复杂状态</span>
+<span class="kd">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{</span> <span class="na">count</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="na">loading</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="na">error</span><span class="p">:</span> <span class="kc">null</span> <span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">reducer</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">switch</span> <span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="dl">'</span><span class="s1">increment</span><span class="dl">'</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="p">...</span><span class="nx">state</span><span class="p">,</span> <span class="na">count</span><span class="p">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">};</span>
+    <span class="k">case</span> <span class="dl">'</span><span class="s1">set_loading</span><span class="dl">'</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">{</span> <span class="p">...</span><span class="nx">state</span><span class="p">,</span> <span class="na">loading</span><span class="p">:</span> <span class="nx">action</span><span class="p">.</span><span class="nx">payload</span> <span class="p">};</span>
+    <span class="nl">default</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nx">state</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="2-useeffect的正确使用">2. useEffect的正确使用</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ✅ 正确的依赖数组</span>
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">fetchUserData</span><span class="p">(</span><span class="nx">userId</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">userId</span><span class="p">]);</span> <span class="c1">// 只有userId变化时才重新执行</span>
+
+<span class="c1">// ✅ 清理副作用</span>
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Timer tick</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span> <span class="c1">// 清理定时器</span>
+<span class="p">},</span> <span class="p">[]);</span>
+</code></pre></div></div>
+
+<h2 id="自定义hooks实战">自定义Hooks实战</h2>
+
+<h3 id="实用的数据获取hook">实用的数据获取Hook</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">useApi</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">data</span><span class="p">,</span> <span class="nx">setData</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">loading</span><span class="p">,</span> <span class="nx">setLoading</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">error</span><span class="p">,</span> <span class="nx">setError</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">fetchData</span> <span class="o">=</span> <span class="k">async</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">setLoading</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+        <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+        <span class="nx">setData</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">setError</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+        <span class="nx">setLoading</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">fetchData</span><span class="p">();</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">url</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">loading</span><span class="p">,</span> <span class="nx">error</span> <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// 使用方式</span>
+<span class="kd">function</span> <span class="nx">UserProfile</span><span class="p">({</span> <span class="nx">userId</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span> <span class="nx">loading</span><span class="p">,</span> <span class="nx">error</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useApi</span><span class="p">(</span><span class="s2">`/api/users/</span><span class="p">${</span><span class="nx">userId</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">loading</span><span class="p">)</span> <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Loading</span><span class="p">...</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>  <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nb">Error</span><span class="p">:</span> <span class="p">{</span><span class="nx">error</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>  
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="性能优化技巧">性能优化技巧</h2>
+
+<h3 id="1-使用usememo避免重复计算">1. 使用useMemo避免重复计算</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">ExpensiveComponent</span><span class="p">({</span> <span class="nx">items</span><span class="p">,</span> <span class="nx">filter</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">filteredItems</span> <span class="o">=</span> <span class="nx">useMemo</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">items</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">category</span> <span class="o">===</span> <span class="nx">filter</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">items</span><span class="p">,</span> <span class="nx">filter</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">filteredItems</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/li</span><span class="err">&gt;
+</span>      <span class="p">))}</span>
+    <span class="o">&lt;</span><span class="sr">/ul</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="2-使用usecallback优化函数引用">2. 使用useCallback优化函数引用</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">TodoList</span><span class="p">({</span> <span class="nx">todos</span><span class="p">,</span> <span class="nx">onToggle</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">handleToggle</span> <span class="o">=</span> <span class="nx">useCallback</span><span class="p">((</span><span class="nx">id</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">onToggle</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[</span><span class="nx">onToggle</span><span class="p">]);</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">todos</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="o">=&gt;</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">TodoItem</span> 
+          <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span> 
+          <span class="nx">todo</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">}</span> 
+          <span class="nx">onToggle</span><span class="o">=</span><span class="p">{</span><span class="nx">handleToggle</span><span class="p">}</span> 
+        <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="p">))}</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="常见陷阱与解决方案">常见陷阱与解决方案</h2>
+
+<h3 id="1-闭包陷阱">1. 闭包陷阱</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ❌ 问题：获取到的总是初始值</span>
+<span class="kd">function</span> <span class="nx">Counter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">count</span><span class="p">,</span> <span class="nx">setCount</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">setCount</span><span class="p">(</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 总是 0 + 1</span>
+    <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">count</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span><span class="p">}</span>
+
+<span class="c1">// ✅ 解决方案：使用函数式更新</span>
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setCount</span><span class="p">(</span><span class="nx">prevCount</span> <span class="o">=&gt;</span> <span class="nx">prevCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[]);</span>
+</code></pre></div></div>
+
+<h3 id="2-无限循环问题">2. 无限循环问题</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ❌ 会导致无限循环</span>
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">setData</span><span class="p">(</span><span class="nx">processData</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+<span class="p">},</span> <span class="p">[</span><span class="nx">data</span><span class="p">]);</span>
+
+<span class="c1">// ✅ 正确的做法</span>
+<span class="nx">useEffect</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">processedData</span> <span class="o">=</span> <span class="nx">processData</span><span class="p">(</span><span class="nx">initialData</span><span class="p">);</span>
+  <span class="nx">setData</span><span class="p">(</span><span class="nx">processedData</span><span class="p">);</span>
+<span class="p">},</span> <span class="p">[]);</span> <span class="c1">// 空依赖数组，只执行一次</span>
+</code></pre></div></div>
+
+<h2 id="测试hooks">测试Hooks</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">renderHook</span><span class="p">,</span> <span class="nx">act</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@testing-library/react-hooks</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">useCounter</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./useCounter</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">should increment counter</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">result</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">renderHook</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">useCounter</span><span class="p">());</span>
+
+  <span class="nx">act</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">increment</span><span class="p">();</span>
+  <span class="p">});</span>
+
+  <span class="nx">expect</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">count</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="总结">总结</h2>
+
+<p>React Hooks为我们提供了强大的工具来构建现代化的React应用。关键是要：</p>
+
+<ol>
+  <li><strong>理解每个Hook的用途</strong>和最佳使用场景</li>
+  <li><strong>正确管理依赖数组</strong>，避免不必要的重渲染</li>
+  <li><strong>合理使用自定义Hooks</strong>来复用逻辑</li>
+  <li><strong>注意性能优化</strong>，但不要过度优化</li>
+  <li><strong>编写测试</strong>来确保Hooks的正确性</li>
+</ol>
+
+<p>掌握这些最佳实践，将帮助你编写更高质量、更可维护的React代码！</p>
+
+<hr />
+
+<p><em>你在使用React Hooks时遇到过哪些问题？欢迎在评论区分享你的经验！</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#hooks" class="page__taxonomy-item" rel="tag">Hooks</a><span class="sep">, </span>
+    
+      <a href="/tags/#javascript" class="page__taxonomy-item" rel="tag">JavaScript</a><span class="sep">, </span>
+    
+      <a href="/tags/#react" class="page__taxonomy-item" rel="tag">React</a><span class="sep">, </span>
+    
+      <a href="/tags/#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5" class="page__taxonomy-item" rel="tag">最佳实践</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#react" class="page__taxonomy-item" rel="tag">React</a><span class="sep">, </span>
+    
+      <a href="/categories/#%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91" class="page__taxonomy-item" rel="tag">前端开发</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=React+Hooks+%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%20http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%2589%258D%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%2Freact%2Freact-hooks-best-practices%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%2589%258D%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%2Freact%2Freact-hooks-best-practices%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%2589%258D%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%2Freact%2Freact-hooks-best-practices%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" class="pagination--pager" title="Node.js微服务架构实战：从单体到分布式的演进之路
+">Previous</a>
+    
+    
+      <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" class="pagination--pager" title="WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/webrtc-teaser.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          8 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="mailto:chicogong@tencent.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 Chico Gong. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

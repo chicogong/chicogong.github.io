@@ -18,8 +18,8 @@ description: >-
 url: "https://realtime-ai.chat"
 baseurl: ""
 repository: "chicogong/chicogong.github.io"
-teaser: "/assets/images/tech-teaser.jpg"
-logo: "/assets/images/logo.png"
+# teaser: "/assets/images/tech-teaser.jpg"  # 暂时注释掉不存在的图片
+# logo: "/assets/images/logo.png"  # 暂时注释掉不存在的图片
 breadcrumbs: true
 words_per_minute: 200
 

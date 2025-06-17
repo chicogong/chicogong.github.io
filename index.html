@@ -9,13 +9,13 @@ classes: wide
   <div class="hero-container">
     <div class="hero-content">
       <div class="hero-badge">
-        <span>🚀 Tech Enthusiast</span>
+        <span>🚀 技术博客</span>
       </div>
       <h1 class="hero-title">
         Hi, I'm <span class="highlight">Chico Gong</span>
       </h1>
       <p class="hero-subtitle">
-        Conversational AI Enthusiast & Real-time Communication Developer
+        对话式AI专家 & 实时通信开发者
       </p>
       <p class="hero-description">
         专注于构建智能对话系统和实时通信平台，分享AI、WebRTC、语音技术的实战经验
@@ -23,7 +23,7 @@ classes: wide
       <div class="hero-buttons">
         <a href="/posts/" class="btn btn-primary">
           <i class="fas fa-book-open"></i>
-          探索文章
+          技术文章
         </a>
         <a href="/about/" class="btn btn-secondary">
           <i class="fas fa-user"></i>
@@ -32,17 +32,11 @@ classes: wide
       </div>
     </div>
     <div class="hero-visual">
-      <div class="floating-card">
-        <div class="card-icon">🤖</div>
-        <div class="card-title">AI</div>
-      </div>
-      <div class="floating-card">
-        <div class="card-icon">📞</div>
-        <div class="card-title">WebRTC</div>
-      </div>
-      <div class="floating-card">
-        <div class="card-icon">🎙️</div>
-        <div class="card-title">Voice</div>
+      <div class="tech-stack">
+        <div class="tech-item">🤖 AI</div>
+        <div class="tech-item">📞 WebRTC</div>
+        <div class="tech-item">🎙️ Voice</div>
+        <div class="tech-item">☁️ Cloud</div>
       </div>
     </div>
   </div>
@@ -53,50 +47,22 @@ classes: wide
   <div class="container">
     <div class="section-header">
       <h2>技术专长</h2>
-      <p>深入探索前沿技术，分享实战经验</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🤖</div>
         <h3>对话式AI</h3>
         <p>深入探讨ChatGPT、Claude等大语言模型的应用，分享自然语言处理和智能对话系统的开发经验</p>
-        <a href="/categories/#conversational-ai" class="feature-link">查看文章 →</a>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📞</div>
         <h3>实时通信</h3>
         <p>WebRTC技术深度解析，音视频通话、屏幕共享、实时协作等应用的架构设计和性能优化</p>
-        <a href="/categories/#webrtc" class="feature-link">查看文章 →</a>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🎙️</div>
         <h3>语音技术</h3>
         <p>语音识别、语音合成、语音增强等技术的实现原理和实际应用，构建智能语音交互系统</p>
-        <a href="/categories/#voice-tech" class="feature-link">查看文章 →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Stats Section -->
-<section class="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-number">{{ site.posts.size }}+</div>
-        <div class="stat-label">技术文章</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">{{ site.categories.size }}+</div>
-        <div class="stat-label">技术分类</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">3+</div>
-        <div class="stat-label">年经验</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">开源项目</div>
       </div>
     </div>
   </div>
@@ -107,7 +73,6 @@ classes: wide
   <div class="container">
     <div class="section-header">
       <h2>最新文章</h2>
-      <p>最新的技术洞察和实战经验分享</p>
     </div>
     <div class="posts-grid">
       {% for post in site.posts limit:6 %}
@@ -122,11 +87,13 @@ classes: wide
             <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
           </h3>
           <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+          {% if post.tags %}
           <div class="post-tags">
             {% for tag in post.tags limit:3 %}
               <span class="tag">{{ tag }}</span>
             {% endfor %}
           </div>
+          {% endif %}
         </article>
       {% endfor %}
     </div>
@@ -136,22 +103,32 @@ classes: wide
   </div>
 </section>
 
-<!-- CTA Section -->
-<section class="cta">
+<!-- Contact Section -->
+<section class="contact">
   <div class="container">
-    <div class="cta-content">
-      <h2>🚀 开始技术交流</h2>
+    <div class="contact-content">
+      <h2>🚀 技术交流</h2>
       <p>欢迎与我讨论AI技术、实时通信或任何有趣的技术话题</p>
-      <div class="cta-buttons">
-        <a href="/contact/" class="btn btn-primary">联系我</a>
-        <a href="/projects/" class="btn btn-secondary">查看项目</a>
+      <div class="contact-links">
+        <a href="mailto:chicogong@tencent.com" class="contact-link">
+          <i class="fas fa-envelope"></i>
+          发邮件
+        </a>
+        <a href="https://github.com/chicogong" class="contact-link">
+          <i class="fab fa-github"></i>
+          GitHub
+        </a>
+        <a href="/contact/" class="contact-link">
+          <i class="fas fa-comments"></i>
+          联系我
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-/* 全局重置和基础样式 */
+/* 基础样式重置 */
 * {
   margin: 0;
   padding: 0;
@@ -161,59 +138,45 @@ classes: wide
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 /* Hero Section */
 .hero {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   color: white;
   position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-  opacity: 0.3;
 }
 
 .hero-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
   align-items: center;
-  position: relative;
-  z-index: 1;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 2rem 1rem;
 }
 
 .hero-badge {
   display: inline-block;
   background: rgba(255, 255, 255, 0.2);
   padding: 0.5rem 1rem;
-  border-radius: 50px;
+  border-radius: 25px;
   font-size: 0.9rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   backdrop-filter: blur(10px);
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
 }
 
 .highlight {
@@ -224,7 +187,7 @@ classes: wide
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   opacity: 0.9;
   margin-bottom: 1rem;
   font-weight: 400;
@@ -234,7 +197,8 @@ classes: wide
   font-size: 1.1rem;
   opacity: 0.8;
   line-height: 1.6;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  max-width: 500px;
 }
 
 .hero-buttons {
@@ -247,12 +211,13 @@ classes: wide
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
-  border-radius: 50px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  font-size: 0.9rem;
 }
 
 .btn-primary {
@@ -262,13 +227,13 @@ classes: wide
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary {
   background: transparent;
   color: white;
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-secondary:hover {
@@ -289,81 +254,55 @@ classes: wide
 
 /* Hero Visual */
 .hero-visual {
-  position: relative;
-  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.floating-card {
-  position: absolute;
+.tech-stack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.tech-item {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 2rem;
+  border-radius: 15px;
+  padding: 1.5rem 1rem;
   text-align: center;
-  animation: float 6s ease-in-out infinite;
-}
-
-.floating-card:nth-child(1) {
-  top: 0;
-  left: 0;
-  animation-delay: 0s;
-}
-
-.floating-card:nth-child(2) {
-  top: 50%;
-  right: 0;
-  animation-delay: 2s;
-}
-
-.floating-card:nth-child(3) {
-  bottom: 0;
-  left: 50%;
-  animation-delay: 4s;
-}
-
-.card-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.card-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
+  transition: transform 0.3s ease;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+.tech-item:hover {
+  transform: translateY(-5px);
 }
 
 /* Sections */
 section {
-  padding: 5rem 0;
+  padding: 4rem 0;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .section-header h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
   color: #333;
-}
-
-.section-header p {
-  font-size: 1.1rem;
-  color: #666;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 .section-footer {
   text-align: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 /* Features */
@@ -373,32 +312,32 @@ section {
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
 .feature-card {
   background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
 
 .feature-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .feature-card h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin-bottom: 1rem;
   color: #333;
 }
@@ -406,86 +345,56 @@ section {
 .feature-card p {
   color: #666;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.feature-link {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s ease;
-}
-
-.feature-link:hover {
-  color: #5a6fd8;
-}
-
-/* Stats */
-.stats {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 3rem;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 1.1rem;
-  opacity: 0.9;
+  font-size: 0.95rem;
 }
 
 /* Recent Posts */
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
 }
 
 .post-card {
   background: white;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
 }
 
 .post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .post-meta {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   margin-bottom: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #666;
+  align-items: center;
 }
 
 .post-category {
   background: #667eea;
   color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
 .post-title a {
   color: #333;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.3rem;
-  line-height: 1.3;
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  display: block;
+  margin-bottom: 0.8rem;
 }
 
 .post-title a:hover {
@@ -495,61 +404,70 @@ section {
 .post-excerpt {
   color: #666;
   line-height: 1.6;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .post-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .tag {
   background: #f0f0f0;
   color: #666;
-  padding: 0.25rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
 }
 
-/* CTA */
-.cta {
+/* Contact */
+.contact {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-align: center;
 }
 
-.cta-content h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
+.contact-content h2 {
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 1rem;
 }
 
-.cta-content p {
+.contact-content p {
   font-size: 1.1rem;
   opacity: 0.9;
   margin-bottom: 2rem;
-  max-width: 600px;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.cta-buttons {
+.contact-links {
   display: flex;
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.cta .btn-primary {
-  background: white;
-  color: #667eea;
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
 }
 
-.cta .btn-secondary {
-  background: transparent;
-  color: white;
-  border-color: rgba(255, 255, 255, 0.3);
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  transform: translateY(-2px);
 }
 
 /* Responsive Design */
@@ -557,18 +475,30 @@ section {
   .hero-container {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 3rem;
   }
   
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
   
-  .hero-visual {
-    height: 300px;
+  .hero-subtitle {
+    font-size: 1.1rem;
   }
   
-  .floating-card {
-    padding: 1.5rem;
+  .hero-description {
+    font-size: 1rem;
+    max-width: none;
+  }
+  
+  .tech-stack {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 250px;
+  }
+  
+  .tech-item {
+    padding: 1rem 0.5rem;
+    font-size: 0.9rem;
   }
   
   .features-grid,
@@ -576,46 +506,53 @@ section {
     grid-template-columns: 1fr;
   }
   
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
   .section-header h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .hero-buttons,
-  .cta-buttons {
+  .contact-links {
     flex-direction: column;
     align-items: center;
   }
   
-  .btn {
+  .btn,
+  .contact-link {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
     justify-content: center;
+  }
+  
+  .hero {
+    min-height: 70vh;
+  }
+  
+  section {
+    padding: 3rem 0;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 1rem;
-  }
-  
   .hero-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .tech-item {
+    font-size: 0.8rem;
+    padding: 0.8rem 0.4rem;
   }
   
-  .floating-card {
-    padding: 1rem;
+  .post-card,
+  .feature-card {
+    padding: 1.2rem;
   }
   
-  .card-icon {
-    font-size: 2rem;
+  .contact-content h2 {
+    font-size: 1.6rem;
+  }
+  
+  .contact-content p {
+    font-size: 1rem;
   }
 }
 </style>

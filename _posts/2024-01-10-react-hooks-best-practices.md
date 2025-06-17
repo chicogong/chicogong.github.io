@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "React Hooks 最佳实践：从入门到精通"
 date: 2024-01-10 09:00:00 +0800
 categories: [前端开发, React]

@@ -1,0 +1,2068 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>云原生Kubernetes实战指南：从入门到生产环境部署 - Chico Gong’s Tech Blog</title>
+<meta name="description" content="Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。">
+
+
+  <meta name="author" content="Chico Gong">
+  
+  <meta property="article:author" content="Chico Gong">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_Hans">
+<meta property="og:site_name" content="Chico Gong's Tech Blog">
+<meta property="og:title" content="云原生Kubernetes实战指南：从入门到生产环境部署">
+<meta property="og:url" content="http://0.0.0.0:4000/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/">
+
+
+  <meta property="og:description" content="Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。">
+
+
+
+  <meta property="og:image" content="https://github.com/chicogong.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2024-01-15T11:45:00+08:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://0.0.0.0:4000/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Chico Gong",
+      "url": "http://0.0.0.0:4000/",
+      "sameAs": ["https://github.com/chicogong","https://twitter.com/your-twitter"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Chico Gong's Tech Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Chico Gong's Tech Blog
+          <span class="site-subtitle">Conversational AI & Real-time Communication</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" title="返回主页">首页</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" title="了解更多关于我的信息">关于我</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/" title="浏览所有文章">文章</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" title="按分类浏览文章">分类</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" title="按标签浏览文章">标签</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" title="按年份浏览文章">归档</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/" title="查看我的开源项目">项目</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/" title="联系方式和社交媒体">联系</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://0.0.0.0:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#%E4%BA%91%E5%8E%9F%E7%94%9F" itemprop="item"><span itemprop="name">%e4%ba%91%e5%8e%9f%e7%94%9f</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#devops" itemprop="item"><span itemprop="name">Devops</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">云原生Kubernetes实战指南：从入门到生产环境部署</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="https://github.com/chicogong.png" alt="Chico Gong" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Chico Gong</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <table>
+  <tbody>
+    <tr>
+      <td>🤖 Conversational AI Enthusiast</td>
+      <td>📞 Real-time Communication Developer</td>
+      <td>⚡ Building next-gen voice interaction systems</td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Shanghai, China</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:chicogong@tencent.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:chicogong@tencent.com">
+            <meta itemprop="email" content="chicogong@tencent.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <a href="/"><span class="nav__sub-title">首页</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/about/"><span class="nav__sub-title">关于我</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/posts/"><span class="nav__sub-title">文章</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/categories/"><span class="nav__sub-title">分类</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/tags/"><span class="nav__sub-title">标签</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/year-archive/"><span class="nav__sub-title">归档</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/projects/"><span class="nav__sub-title">项目</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/contact/"><span class="nav__sub-title">联系</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="云原生Kubernetes实战指南：从入门到生产环境部署">
+    <meta itemprop="description" content="Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。">
+    <meta itemprop="datePublished" content="2024-01-15T11:45:00+08:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">云原生Kubernetes实战指南：从入门到生产环境部署
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          11 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-list"></i> 目录</h4></header>
+              <ul class="toc__menu"><li><a href="#什么是kubernetes">什么是Kubernetes？</a></li><li><a href="#核心概念详解">核心概念详解</a><ul><li><a href="#1-基础对象">1. 基础对象</a></li><li><a href="#2-配置管理">2. 配置管理</a></li><li><a href="#3-持久化存储">3. 持久化存储</a></li></ul></li><li><a href="#高级功能实战">高级功能实战</a><ul><li><a href="#1-自动扩缩容hpa">1. 自动扩缩容（HPA）</a></li><li><a href="#2-网络策略和安全">2. 网络策略和安全</a></li><li><a href="#3-ingress和负载均衡">3. Ingress和负载均衡</a></li></ul></li><li><a href="#cicd集成">CI/CD集成</a><ul><li><a href="#1-gitlab-ci配置">1. GitLab CI配置</a></li><li><a href="#2-helm-charts">2. Helm Charts</a></li></ul></li><li><a href="#监控和日志">监控和日志</a><ul><li><a href="#1-prometheus监控">1. Prometheus监控</a></li><li><a href="#2-日志收集">2. 日志收集</a></li></ul></li><li><a href="#生产环境最佳实践">生产环境最佳实践</a><ul><li><a href="#1-集群安全加固">1. 集群安全加固</a></li><li><a href="#2-备份和灾难恢复">2. 备份和灾难恢复</a></li><li><a href="#3-性能优化脚本">3. 性能优化脚本</a></li></ul></li><li><a href="#故障排查指南">故障排查指南</a><ul><li><a href="#1-常用调试命令">1. 常用调试命令</a></li><li><a href="#2-问题诊断脚本">2. 问题诊断脚本</a></li></ul></li><li><a href="#总结">总结</a><ul><li><a href="#关键要点">关键要点：</a></li><li><a href="#学习路径">学习路径：</a></li></ul></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。</p>
+
+<h2 id="什么是kubernetes">什么是Kubernetes？</h2>
+
+<p>Kubernetes（简称K8s）是一个开源的容器编排系统，用于自动化应用程序的部署、扩展和管理。它提供了：</p>
+
+<ul>
+  <li><strong>容器编排</strong>：管理大量容器的生命周期</li>
+  <li><strong>服务发现</strong>：自动发现和连接服务</li>
+  <li><strong>负载均衡</strong>：分发流量到健康的实例</li>
+  <li><strong>自动扩缩容</strong>：根据负载自动调整实例数量</li>
+  <li><strong>滚动更新</strong>：零停机时间的应用更新</li>
+</ul>
+
+<h2 id="核心概念详解">核心概念详解</h2>
+
+<h3 id="1-基础对象">1. 基础对象</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># pod.yaml - Pod是K8s中最小的部署单元</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Pod</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-pod</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">v1.0</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app-container</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.20</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">80</span>
+    <span class="na">resources</span><span class="pi">:</span>
+      <span class="na">requests</span><span class="pi">:</span>
+        <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">64Mi"</span>
+        <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">250m"</span>
+      <span class="na">limits</span><span class="pi">:</span>
+        <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">128Mi"</span>
+        <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">500m"</span>
+    <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">ENV_VAR</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">production"</span>
+    <span class="na">livenessProbe</span><span class="pi">:</span>
+      <span class="na">httpGet</span><span class="pi">:</span>
+        <span class="na">path</span><span class="pi">:</span> <span class="s">/health</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+      <span class="na">initialDelaySeconds</span><span class="pi">:</span> <span class="m">30</span>
+      <span class="na">periodSeconds</span><span class="pi">:</span> <span class="m">10</span>
+    <span class="na">readinessProbe</span><span class="pi">:</span>
+      <span class="na">httpGet</span><span class="pi">:</span>
+        <span class="na">path</span><span class="pi">:</span> <span class="s">/ready</span>
+        <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+      <span class="na">initialDelaySeconds</span><span class="pi">:</span> <span class="m">5</span>
+      <span class="na">periodSeconds</span><span class="pi">:</span> <span class="m">5</span>
+
+<span class="nn">---</span>
+<span class="c1"># service.yaml - Service提供稳定的网络端点</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">80</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">ClusterIP</span>
+
+<span class="nn">---</span>
+<span class="c1"># deployment.yaml - Deployment管理Pod的副本</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-deployment</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app-container</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.20</span>
+        <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">80</span>
+  <span class="na">strategy</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s">RollingUpdate</span>
+    <span class="na">rollingUpdate</span><span class="pi">:</span>
+      <span class="na">maxSurge</span><span class="pi">:</span> <span class="m">1</span>
+      <span class="na">maxUnavailable</span><span class="pi">:</span> <span class="m">1</span>
+</code></pre></div></div>
+
+<h3 id="2-配置管理">2. 配置管理</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># configmap.yaml - 配置数据</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-config</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">database_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgresql://localhost:5432/mydb"</span>
+  <span class="na">debug_mode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">false"</span>
+  <span class="na">app.properties</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">server.port=8080</span>
+    <span class="s">logging.level=INFO</span>
+    <span class="s">cache.enabled=true</span>
+
+<span class="s">---</span>
+<span class="c1"># secret.yaml - 敏感信息</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-secrets</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="c1"># 注意：这些值需要base64编码</span>
+  <span class="na">database-password</span><span class="pi">:</span> <span class="s">cGFzc3dvcmQxMjM=</span>  <span class="c1"># password123</span>
+  <span class="na">api-key</span><span class="pi">:</span> <span class="s">YWJjZGVmZ2hpams=</span>            <span class="c1"># abcdefghijk</span>
+
+<span class="nn">---</span>
+<span class="c1"># deployment-with-config.yaml - 使用配置的部署</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-with-config</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">configured-app</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">configured-app</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">my-app:v1.0</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="c1"># 从ConfigMap获取环境变量</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DATABASE_URL</span>
+          <span class="na">valueFrom</span><span class="pi">:</span>
+            <span class="na">configMapKeyRef</span><span class="pi">:</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">app-config</span>
+              <span class="na">key</span><span class="pi">:</span> <span class="s">database_url</span>
+        <span class="c1"># 从Secret获取敏感信息</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_PASSWORD</span>
+          <span class="na">valueFrom</span><span class="pi">:</span>
+            <span class="na">secretKeyRef</span><span class="pi">:</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">app-secrets</span>
+              <span class="na">key</span><span class="pi">:</span> <span class="s">database-password</span>
+        <span class="na">volumeMounts</span><span class="pi">:</span>
+        <span class="c1"># 挂载配置文件</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">config-volume</span>
+          <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/etc/config</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">secret-volume</span>
+          <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/etc/secrets</span>
+          <span class="na">readOnly</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">config-volume</span>
+        <span class="na">configMap</span><span class="pi">:</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">app-config</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">secret-volume</span>
+        <span class="na">secret</span><span class="pi">:</span>
+          <span class="na">secretName</span><span class="pi">:</span> <span class="s">app-secrets</span>
+</code></pre></div></div>
+
+<h3 id="3-持久化存储">3. 持久化存储</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># pv.yaml - 持久卷</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PersistentVolume</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">mysql-pv</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">capacity</span><span class="pi">:</span>
+    <span class="na">storage</span><span class="pi">:</span> <span class="s">10Gi</span>
+  <span class="na">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+  <span class="na">persistentVolumeReclaimPolicy</span><span class="pi">:</span> <span class="s">Retain</span>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">standard</span>
+  <span class="na">hostPath</span><span class="pi">:</span>
+    <span class="na">path</span><span class="pi">:</span> <span class="s">/data/mysql</span>
+
+<span class="nn">---</span>
+<span class="c1"># pvc.yaml - 持久卷声明</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PersistentVolumeClaim</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">mysql-pvc</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">accessModes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ReadWriteOnce</span>
+  <span class="na">resources</span><span class="pi">:</span>
+    <span class="na">requests</span><span class="pi">:</span>
+      <span class="na">storage</span><span class="pi">:</span> <span class="s">10Gi</span>
+  <span class="na">storageClassName</span><span class="pi">:</span> <span class="s">standard</span>
+
+<span class="nn">---</span>
+<span class="c1"># mysql-deployment.yaml - 使用持久存储的数据库</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">mysql</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">mysql</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">mysql</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mysql</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:8.0</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">MYSQL_ROOT_PASSWORD</span>
+          <span class="na">valueFrom</span><span class="pi">:</span>
+            <span class="na">secretKeyRef</span><span class="pi">:</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">mysql-secret</span>
+              <span class="na">key</span><span class="pi">:</span> <span class="s">root-password</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">MYSQL_DATABASE</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">myapp"</span>
+        <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">3306</span>
+        <span class="na">volumeMounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mysql-storage</span>
+          <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/var/lib/mysql</span>
+        <span class="na">resources</span><span class="pi">:</span>
+          <span class="na">requests</span><span class="pi">:</span>
+            <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">512Mi"</span>
+            <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">500m"</span>
+          <span class="na">limits</span><span class="pi">:</span>
+            <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1Gi"</span>
+            <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1000m"</span>
+      <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">mysql-storage</span>
+        <span class="na">persistentVolumeClaim</span><span class="pi">:</span>
+          <span class="na">claimName</span><span class="pi">:</span> <span class="s">mysql-pvc</span>
+</code></pre></div></div>
+
+<h2 id="高级功能实战">高级功能实战</h2>
+
+<h3 id="1-自动扩缩容hpa">1. 自动扩缩容（HPA）</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># hpa.yaml - 水平Pod自动扩缩容</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">autoscaling/v2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">HorizontalPodAutoscaler</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-hpa</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">scaleTargetRef</span><span class="pi">:</span>
+    <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-deployment</span>
+  <span class="na">minReplicas</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">maxReplicas</span><span class="pi">:</span> <span class="m">10</span>
+  <span class="na">metrics</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">Resource</span>
+    <span class="na">resource</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">cpu</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">Utilization</span>
+        <span class="na">averageUtilization</span><span class="pi">:</span> <span class="m">70</span>
+  <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">Resource</span>
+    <span class="na">resource</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">memory</span>
+      <span class="na">target</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">Utilization</span>
+        <span class="na">averageUtilization</span><span class="pi">:</span> <span class="m">80</span>
+  <span class="na">behavior</span><span class="pi">:</span>
+    <span class="na">scaleDown</span><span class="pi">:</span>
+      <span class="na">stabilizationWindowSeconds</span><span class="pi">:</span> <span class="m">300</span>
+      <span class="na">policies</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">Percent</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="m">50</span>
+        <span class="na">periodSeconds</span><span class="pi">:</span> <span class="m">15</span>
+    <span class="na">scaleUp</span><span class="pi">:</span>
+      <span class="na">stabilizationWindowSeconds</span><span class="pi">:</span> <span class="m">0</span>
+      <span class="na">policies</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">type</span><span class="pi">:</span> <span class="s">Percent</span>
+        <span class="na">value</span><span class="pi">:</span> <span class="m">100</span>
+        <span class="na">periodSeconds</span><span class="pi">:</span> <span class="m">15</span>
+
+<span class="nn">---</span>
+<span class="c1"># vpa.yaml - 垂直Pod自动扩缩容</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">autoscaling.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">VerticalPodAutoscaler</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-vpa</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">targetRef</span><span class="pi">:</span>
+    <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">my-app-deployment</span>
+  <span class="na">updatePolicy</span><span class="pi">:</span>
+    <span class="na">updateMode</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Auto"</span>  <span class="c1"># 或 "Off", "Initial"</span>
+  <span class="na">resourcePolicy</span><span class="pi">:</span>
+    <span class="na">containerPolicies</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">containerName</span><span class="pi">:</span> <span class="s">app-container</span>
+      <span class="na">maxAllowed</span><span class="pi">:</span>
+        <span class="na">cpu</span><span class="pi">:</span> <span class="m">2</span>
+        <span class="na">memory</span><span class="pi">:</span> <span class="s">4Gi</span>
+      <span class="na">minAllowed</span><span class="pi">:</span>
+        <span class="na">cpu</span><span class="pi">:</span> <span class="s">100m</span>
+        <span class="na">memory</span><span class="pi">:</span> <span class="s">128Mi</span>
+</code></pre></div></div>
+
+<h3 id="2-网络策略和安全">2. 网络策略和安全</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># network-policy.yaml - 网络访问控制</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">networking.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">NetworkPolicy</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-network-policy</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">podSelector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+  <span class="na">policyTypes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">Ingress</span>
+  <span class="pi">-</span> <span class="s">Egress</span>
+  <span class="na">ingress</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">from</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">podSelector</span><span class="pi">:</span>
+        <span class="na">matchLabels</span><span class="pi">:</span>
+          <span class="na">role</span><span class="pi">:</span> <span class="s">frontend</span>
+    <span class="pi">-</span> <span class="na">namespaceSelector</span><span class="pi">:</span>
+        <span class="na">matchLabels</span><span class="pi">:</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">trusted</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+  <span class="na">egress</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">to</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">podSelector</span><span class="pi">:</span>
+        <span class="na">matchLabels</span><span class="pi">:</span>
+          <span class="na">app</span><span class="pi">:</span> <span class="s">database</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="m">5432</span>
+
+<span class="nn">---</span>
+<span class="c1"># rbac.yaml - 基于角色的访问控制</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-service-account</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">default</span>
+
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-role</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">rules</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">"</span><span class="pi">]</span>
+  <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">configmaps"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">secrets"</span><span class="pi">]</span>
+  <span class="na">verbs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">get"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">list"</span><span class="pi">]</span>
+<span class="pi">-</span> <span class="na">apiGroups</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">apps"</span><span class="pi">]</span>
+  <span class="na">resources</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">deployments"</span><span class="pi">]</span>
+  <span class="na">verbs</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">get"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">list"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">patch"</span><span class="pi">]</span>
+
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">RoleBinding</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-role-binding</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">subjects</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">kind</span><span class="pi">:</span> <span class="s">ServiceAccount</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-service-account</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">default</span>
+<span class="na">roleRef</span><span class="pi">:</span>
+  <span class="na">kind</span><span class="pi">:</span> <span class="s">Role</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-role</span>
+  <span class="na">apiGroup</span><span class="pi">:</span> <span class="s">rbac.authorization.k8s.io</span>
+
+<span class="nn">---</span>
+<span class="c1"># pod-security-policy.yaml - Pod安全策略</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">policy/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">PodSecurityPolicy</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">restricted-psp</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">privileged</span><span class="pi">:</span> <span class="no">false</span>
+  <span class="na">allowPrivilegeEscalation</span><span class="pi">:</span> <span class="no">false</span>
+  <span class="na">requiredDropCapabilities</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">ALL</span>
+  <span class="na">volumes</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s1">'</span><span class="s">configMap'</span>
+    <span class="pi">-</span> <span class="s1">'</span><span class="s">emptyDir'</span>
+    <span class="pi">-</span> <span class="s1">'</span><span class="s">projected'</span>
+    <span class="pi">-</span> <span class="s1">'</span><span class="s">secret'</span>
+    <span class="pi">-</span> <span class="s1">'</span><span class="s">downwardAPI'</span>
+    <span class="pi">-</span> <span class="s1">'</span><span class="s">persistentVolumeClaim'</span>
+  <span class="na">runAsUser</span><span class="pi">:</span>
+    <span class="na">rule</span><span class="pi">:</span> <span class="s1">'</span><span class="s">MustRunAsNonRoot'</span>
+  <span class="na">seLinux</span><span class="pi">:</span>
+    <span class="na">rule</span><span class="pi">:</span> <span class="s1">'</span><span class="s">RunAsAny'</span>
+  <span class="na">fsGroup</span><span class="pi">:</span>
+    <span class="na">rule</span><span class="pi">:</span> <span class="s1">'</span><span class="s">RunAsAny'</span>
+</code></pre></div></div>
+
+<h3 id="3-ingress和负载均衡">3. Ingress和负载均衡</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ingress.yaml - Ingress资源</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">networking.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-ingress</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">nginx.ingress.kubernetes.io/rewrite-target</span><span class="pi">:</span> <span class="s">/</span>
+    <span class="na">nginx.ingress.kubernetes.io/ssl-redirect</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+    <span class="na">nginx.ingress.kubernetes.io/use-regex</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+    <span class="na">cert-manager.io/cluster-issuer</span><span class="pi">:</span> <span class="s2">"</span><span class="s">letsencrypt-prod"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">tls</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">hosts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">myapp.example.com</span>
+    <span class="na">secretName</span><span class="pi">:</span> <span class="s">app-tls-secret</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">myapp.example.com</span>
+    <span class="na">http</span><span class="pi">:</span>
+      <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">/api/v1</span>
+        <span class="na">pathType</span><span class="pi">:</span> <span class="s">Prefix</span>
+        <span class="na">backend</span><span class="pi">:</span>
+          <span class="na">service</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">api-service</span>
+            <span class="na">port</span><span class="pi">:</span>
+              <span class="na">number</span><span class="pi">:</span> <span class="m">80</span>
+      <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">/</span>
+        <span class="na">pathType</span><span class="pi">:</span> <span class="s">Prefix</span>
+        <span class="na">backend</span><span class="pi">:</span>
+          <span class="na">service</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">frontend-service</span>
+            <span class="na">port</span><span class="pi">:</span>
+              <span class="na">number</span><span class="pi">:</span> <span class="m">80</span>
+
+<span class="nn">---</span>
+<span class="c1"># load-balancer-service.yaml - LoadBalancer类型服务</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-loadbalancer</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">service.beta.kubernetes.io/aws-load-balancer-type</span><span class="pi">:</span> <span class="s">nlb</span>
+    <span class="na">service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled</span><span class="pi">:</span> <span class="s2">"</span><span class="s">true"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">LoadBalancer</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">my-app</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+</code></pre></div></div>
+
+<h2 id="cicd集成">CI/CD集成</h2>
+
+<h3 id="1-gitlab-ci配置">1. GitLab CI配置</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .gitlab-ci.yml</span>
+<span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">build</span>
+  <span class="pi">-</span> <span class="s">test</span>
+  <span class="pi">-</span> <span class="s">deploy-staging</span>
+  <span class="pi">-</span> <span class="s">deploy-production</span>
+
+<span class="na">variables</span><span class="pi">:</span>
+  <span class="na">DOCKER_REGISTRY</span><span class="pi">:</span> <span class="s">registry.gitlab.com/myproject</span>
+  <span class="na">KUBE_NAMESPACE_STAGING</span><span class="pi">:</span> <span class="s">myapp-staging</span>
+  <span class="na">KUBE_NAMESPACE_PRODUCTION</span><span class="pi">:</span> <span class="s">myapp-production</span>
+
+<span class="na">build</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">build</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">docker:latest</span>
+  <span class="na">services</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">docker:dind</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">docker build -t $DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA .</span>
+    <span class="pi">-</span> <span class="s">docker push $DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA</span>
+  <span class="na">only</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">main</span>
+    <span class="pi">-</span> <span class="s">develop</span>
+
+<span class="na">test</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">test</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">$DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">npm test</span>
+    <span class="pi">-</span> <span class="s">npm run lint</span>
+  <span class="na">coverage</span><span class="pi">:</span> <span class="s1">'</span><span class="s">/Coverage:</span><span class="nv"> </span><span class="s">\d+\.\d+%/'</span>
+
+<span class="na">deploy-staging</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">deploy-staging</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">bitnami/kubectl:latest</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">kubectl config use-context $KUBE_CONTEXT_STAGING</span>
+    <span class="pi">-</span> <span class="s">kubectl set image deployment/myapp-deployment app=$DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA -n $KUBE_NAMESPACE_STAGING</span>
+    <span class="pi">-</span> <span class="s">kubectl rollout status deployment/myapp-deployment -n $KUBE_NAMESPACE_STAGING</span>
+  <span class="na">environment</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">staging</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">https://staging.myapp.com</span>
+  <span class="na">only</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">develop</span>
+
+<span class="na">deploy-production</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">deploy-production</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">bitnami/kubectl:latest</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">kubectl config use-context $KUBE_CONTEXT_PRODUCTION</span>
+    <span class="pi">-</span> <span class="s">kubectl set image deployment/myapp-deployment app=$DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA -n $KUBE_NAMESPACE_PRODUCTION</span>
+    <span class="pi">-</span> <span class="s">kubectl rollout status deployment/myapp-deployment -n $KUBE_NAMESPACE_PRODUCTION</span>
+  <span class="na">environment</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">production</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">https://myapp.com</span>
+  <span class="na">when</span><span class="pi">:</span> <span class="s">manual</span>
+  <span class="na">only</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">main</span>
+</code></pre></div></div>
+
+<h3 id="2-helm-charts">2. Helm Charts</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Chart.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v2</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">My Application Helm Chart</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">0.1.0</span>
+<span class="na">appVersion</span><span class="pi">:</span> <span class="s">1.0.0</span>
+
+<span class="c1"># values.yaml</span>
+<span class="na">replicaCount</span><span class="pi">:</span> <span class="m">3</span>
+
+<span class="na">image</span><span class="pi">:</span>
+  <span class="na">repository</span><span class="pi">:</span> <span class="s">myapp</span>
+  <span class="na">tag</span><span class="pi">:</span> <span class="s">latest</span>
+  <span class="na">pullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+
+<span class="na">service</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">ClusterIP</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+  <span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span>
+
+<span class="na">ingress</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">annotations</span><span class="pi">:</span>
+    <span class="na">kubernetes.io/ingress.class</span><span class="pi">:</span> <span class="s">nginx</span>
+  <span class="na">hosts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">myapp.local</span>
+      <span class="na">paths</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">/</span>
+          <span class="na">pathType</span><span class="pi">:</span> <span class="s">Prefix</span>
+  <span class="na">tls</span><span class="pi">:</span> <span class="pi">[]</span>
+
+<span class="na">resources</span><span class="pi">:</span>
+  <span class="na">limits</span><span class="pi">:</span>
+    <span class="na">cpu</span><span class="pi">:</span> <span class="s">500m</span>
+    <span class="na">memory</span><span class="pi">:</span> <span class="s">512Mi</span>
+  <span class="na">requests</span><span class="pi">:</span>
+    <span class="na">cpu</span><span class="pi">:</span> <span class="s">250m</span>
+    <span class="na">memory</span><span class="pi">:</span> <span class="s">256Mi</span>
+
+<span class="na">autoscaling</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">minReplicas</span><span class="pi">:</span> <span class="m">2</span>
+  <span class="na">maxReplicas</span><span class="pi">:</span> <span class="m">10</span>
+  <span class="na">targetCPU</span><span class="pi">:</span> <span class="m">70</span>
+  <span class="na">targetMemory</span><span class="pi">:</span> <span class="m">80</span>
+
+<span class="na">monitoring</span><span class="pi">:</span>
+  <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">serviceMonitor</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="c1"># templates/deployment.yaml</span>
+
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">include "myapp.fullname" .</span> <span class="pi">}}</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="pi">{{</span><span class="nv">- include "myapp.labels" . | nindent 4</span> <span class="pi">}}</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="pi">{{</span><span class="nv">- if not .Values.autoscaling.enabled</span> <span class="pi">}}</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">.Values.replicaCount</span> <span class="pi">}}</span>
+  <span class="pi">{{</span><span class="nv">- end</span> <span class="pi">}}</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="pi">{{</span><span class="nv">- include "myapp.selectorLabels" . | nindent 6</span> <span class="pi">}}</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="pi">{{</span><span class="nv">- include "myapp.selectorLabels" . | nindent 8</span> <span class="pi">}}</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">.Chart.Name</span> <span class="pi">}}</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">{{</span><span class="nv"> </span><span class="s">.Values.image.repository</span><span class="nv"> </span><span class="s">}}:{{</span><span class="nv"> </span><span class="s">.Values.image.tag</span><span class="nv"> </span><span class="s">|</span><span class="nv"> </span><span class="s">default</span><span class="nv"> </span><span class="s">.Chart.AppVersion</span><span class="nv"> </span><span class="s">}}"</span>
+          <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">.Values.image.pullPolicy</span> <span class="pi">}}</span>
+          <span class="na">ports</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">http</span>
+              <span class="na">containerPort</span><span class="pi">:</span> <span class="pi">{{</span> <span class="nv">.Values.service.targetPort</span> <span class="pi">}}</span>
+              <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+          <span class="na">livenessProbe</span><span class="pi">:</span>
+            <span class="na">httpGet</span><span class="pi">:</span>
+              <span class="na">path</span><span class="pi">:</span> <span class="s">/health</span>
+              <span class="na">port</span><span class="pi">:</span> <span class="s">http</span>
+            <span class="na">initialDelaySeconds</span><span class="pi">:</span> <span class="m">30</span>
+            <span class="na">periodSeconds</span><span class="pi">:</span> <span class="m">10</span>
+          <span class="na">readinessProbe</span><span class="pi">:</span>
+            <span class="na">httpGet</span><span class="pi">:</span>
+              <span class="na">path</span><span class="pi">:</span> <span class="s">/ready</span>
+              <span class="na">port</span><span class="pi">:</span> <span class="s">http</span>
+            <span class="na">initialDelaySeconds</span><span class="pi">:</span> <span class="m">5</span>
+            <span class="na">periodSeconds</span><span class="pi">:</span> <span class="m">5</span>
+          <span class="na">resources</span><span class="pi">:</span>
+            <span class="pi">{{</span><span class="nv">- toYaml .Values.resources | nindent 12</span> <span class="pi">}}</span>
+
+
+<span class="c1"># 部署命令</span>
+<span class="c1"># helm install myapp ./myapp-chart</span>
+<span class="c1"># helm upgrade myapp ./myapp-chart --set image.tag=v2.0.0</span>
+</code></pre></div></div>
+
+<h2 id="监控和日志">监控和日志</h2>
+
+<h3 id="1-prometheus监控">1. Prometheus监控</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># monitoring/prometheus-config.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">prometheus-config</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">prometheus.yml</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">global:</span>
+      <span class="s">scrape_interval: 15s</span>
+      <span class="s">evaluation_interval: 15s</span>
+    
+    <span class="s">rule_files:</span>
+      <span class="s">- "alert_rules.yml"</span>
+    
+    <span class="s">alerting:</span>
+      <span class="s">alertmanagers:</span>
+        <span class="s">- static_configs:</span>
+            <span class="s">- targets:</span>
+              <span class="s">- alertmanager:9093</span>
+    
+    <span class="s">scrape_configs:</span>
+      <span class="s">- job_name: 'kubernetes-pods'</span>
+        <span class="s">kubernetes_sd_configs:</span>
+          <span class="s">- role: pod</span>
+        <span class="s">relabel_configs:</span>
+          <span class="s">- source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]</span>
+            <span class="s">action: keep</span>
+            <span class="s">regex: true</span>
+          <span class="s">- source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]</span>
+            <span class="s">action: replace</span>
+            <span class="s">target_label: __metrics_path__</span>
+            <span class="s">regex: (.+)</span>
+    <span class="no">  </span>
+      <span class="s">- job_name: 'kubernetes-services'</span>
+        <span class="s">kubernetes_sd_configs:</span>
+          <span class="s">- role: service</span>
+        <span class="s">relabel_configs:</span>
+          <span class="s">- source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]</span>
+            <span class="s">action: keep</span>
+            <span class="s">regex: true</span>
+
+<span class="s">---</span>
+<span class="c1"># monitoring/grafana-dashboard.json</span>
+<span class="pi">{</span>
+  <span class="s2">"</span><span class="s">dashboard"</span><span class="pi">:</span> <span class="pi">{</span>
+    <span class="s2">"</span><span class="s">id"</span><span class="pi">:</span> <span class="nv">null</span><span class="pi">,</span>
+    <span class="s2">"</span><span class="s">title"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Kubernetes</span><span class="nv"> </span><span class="s">Application</span><span class="nv"> </span><span class="s">Monitoring"</span><span class="pi">,</span>
+    <span class="s2">"</span><span class="s">panels"</span><span class="pi">:</span> <span class="pi">[</span>
+      <span class="pi">{</span>
+        <span class="s2">"</span><span class="s">title"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CPU</span><span class="nv"> </span><span class="s">Usage"</span><span class="pi">,</span>
+        <span class="s2">"</span><span class="s">type"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">graph"</span><span class="pi">,</span>
+        <span class="s2">"</span><span class="s">targets"</span><span class="pi">:</span> <span class="pi">[</span>
+          <span class="pi">{</span>
+            <span class="s2">"</span><span class="s">expr"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rate(container_cpu_usage_seconds_total{namespace=</span><span class="se">\"</span><span class="s">default</span><span class="se">\"</span><span class="s">}[5m])"</span><span class="pi">,</span>
+            <span class="s2">"</span><span class="s">legendFormat"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+          <span class="pi">}</span>
+        <span class="pi">]</span>
+      <span class="pi">},</span>
+      <span class="pi">{</span>
+        <span class="s2">"</span><span class="s">title"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Memory</span><span class="nv"> </span><span class="s">Usage"</span><span class="pi">,</span>
+        <span class="s2">"</span><span class="s">type"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">graph"</span><span class="pi">,</span>
+        <span class="s2">"</span><span class="s">targets"</span><span class="pi">:</span> <span class="pi">[</span>
+          <span class="pi">{</span>
+            <span class="s2">"</span><span class="s">expr"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">container_memory_working_set_bytes{namespace=</span><span class="se">\"</span><span class="s">default</span><span class="se">\"</span><span class="s">}"</span><span class="pi">,</span>
+            <span class="s2">"</span><span class="s">legendFormat"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+          <span class="pi">}</span>
+        <span class="pi">]</span>
+      <span class="pi">},</span>
+      <span class="pi">{</span>
+        <span class="s2">"</span><span class="s">title"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Request</span><span class="nv"> </span><span class="s">Rate"</span><span class="pi">,</span>
+        <span class="s2">"</span><span class="s">type"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">graph"</span><span class="pi">,</span>
+        <span class="s2">"</span><span class="s">targets"</span><span class="pi">:</span> <span class="pi">[</span>
+          <span class="pi">{</span>
+            <span class="s2">"</span><span class="s">expr"</span><span class="pi">:</span> <span class="s2">"</span><span class="s">rate(http_requests_total[5m])"</span><span class="pi">,</span>
+            <span class="s2">"</span><span class="s">legendFormat"</span><span class="pi">:</span> <span class="s2">"</span><span class="nv"> </span><span class="s">"</span>
+          <span class="pi">}</span>
+        <span class="pi">]</span>
+      <span class="pi">}</span>
+    <span class="pi">]</span>
+  <span class="pi">}</span>
+<span class="pi">}</span>
+</code></pre></div></div>
+
+<h3 id="2-日志收集">2. 日志收集</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># logging/fluentd-daemonset.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">DaemonSet</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">fluentd</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">kube-system</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">fluentd</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span> <span class="s">fluentd</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">fluentd</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">fluent/fluentd-kubernetes-daemonset:v1-debian-elasticsearch</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">FLUENT_ELASTICSEARCH_HOST</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">elasticsearch.logging.svc.cluster.local"</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">FLUENT_ELASTICSEARCH_PORT</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">9200"</span>
+        <span class="na">volumeMounts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">varlog</span>
+          <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/var/log</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">varlibdockercontainers</span>
+          <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/var/lib/docker/containers</span>
+          <span class="na">readOnly</span><span class="pi">:</span> <span class="no">true</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">config-volume</span>
+          <span class="na">mountPath</span><span class="pi">:</span> <span class="s">/fluentd/etc</span>
+      <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">varlog</span>
+        <span class="na">hostPath</span><span class="pi">:</span>
+          <span class="na">path</span><span class="pi">:</span> <span class="s">/var/log</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">varlibdockercontainers</span>
+        <span class="na">hostPath</span><span class="pi">:</span>
+          <span class="na">path</span><span class="pi">:</span> <span class="s">/var/lib/docker/containers</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">config-volume</span>
+        <span class="na">configMap</span><span class="pi">:</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">fluentd-config</span>
+
+<span class="nn">---</span>
+<span class="c1"># logging/fluentd-config.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">fluentd-config</span>
+  <span class="na">namespace</span><span class="pi">:</span> <span class="s">kube-system</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">fluent.conf</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">&lt;source&gt;</span>
+      <span class="s">@type tail</span>
+      <span class="s">path /var/log/containers/*.log</span>
+      <span class="s">pos_file /var/log/fluentd-containers.log.pos</span>
+      <span class="s">tag kubernetes.*</span>
+      <span class="s">read_from_head true</span>
+      <span class="s">&lt;parse&gt;</span>
+        <span class="s">@type json</span>
+        <span class="s">time_format %Y-%m-%dT%H:%M:%S.%NZ</span>
+      <span class="s">&lt;/parse&gt;</span>
+    <span class="s">&lt;/source&gt;</span>
+    
+    <span class="s">&lt;filter kubernetes.**&gt;</span>
+      <span class="s">@type kubernetes_metadata</span>
+    <span class="s">&lt;/filter&gt;</span>
+    
+    <span class="s">&lt;match kubernetes.**&gt;</span>
+      <span class="s">@type elasticsearch</span>
+      <span class="s">host elasticsearch.logging.svc.cluster.local</span>
+      <span class="s">port 9200</span>
+      <span class="s">index_name kubernetes</span>
+      <span class="s">type_name fluentd</span>
+    <span class="s">&lt;/match&gt;</span>
+</code></pre></div></div>
+
+<h2 id="生产环境最佳实践">生产环境最佳实践</h2>
+
+<h3 id="1-集群安全加固">1. 集群安全加固</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># security-hardening.sh</span>
+
+<span class="c"># 1. 启用RBAC</span>
+kubectl apply <span class="nt">-f</span> - <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+</span><span class="no">EOF
+
+</span><span class="c"># 2. 网络策略</span>
+kubectl apply <span class="nt">-f</span> - <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+</span><span class="no">EOF
+
+</span><span class="c"># 3. Pod安全标准</span>
+kubectl label namespace default pod-security.kubernetes.io/enforce<span class="o">=</span>restricted
+kubectl label namespace default pod-security.kubernetes.io/audit<span class="o">=</span>restricted
+kubectl label namespace default pod-security.kubernetes.io/warn<span class="o">=</span>restricted
+
+<span class="c"># 4. 启用审计日志</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh"> &gt; /etc/kubernetes/audit-policy.yaml
+apiVersion: audit.k8s.io/v1
+kind: Policy
+rules:
+- level: Metadata
+  resources:
+  - group: ""
+    resources: ["secrets", "configmaps"]
+- level: RequestResponse
+  resources:
+  - group: ""
+    resources: [""]
+  - group: "apps"
+    resources: ["deployments"]
+</span><span class="no">EOF
+
+</span><span class="c"># 5. 定期更新和补丁</span>
+kubectl get nodes <span class="nt">-o</span> wide
+kubectl get pods <span class="nt">--all-namespaces</span> <span class="nt">-o</span> wide | <span class="nb">grep</span> <span class="nt">-v</span> Running
+</code></pre></div></div>
+
+<h3 id="2-备份和灾难恢复">2. 备份和灾难恢复</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># backup/velero-backup.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">velero.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Backup</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">daily-backup</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">includedNamespaces</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">default</span>
+  <span class="pi">-</span> <span class="s">production</span>
+  <span class="na">excludedResources</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">events</span>
+  <span class="pi">-</span> <span class="s">events.events.k8s.io</span>
+  <span class="na">storageLocation</span><span class="pi">:</span> <span class="s">default</span>
+  <span class="na">ttl</span><span class="pi">:</span> <span class="s">720h0m0s</span>  <span class="c1"># 30 days</span>
+
+<span class="nn">---</span>
+<span class="c1"># backup/schedule-backup.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">velero.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Schedule</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">daily-backup-schedule</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">schedule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">0</span><span class="nv"> </span><span class="s">2</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*"</span>  <span class="c1"># 每天凌晨2点</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">includedNamespaces</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">default</span>
+    <span class="pi">-</span> <span class="s">production</span>
+    <span class="na">storageLocation</span><span class="pi">:</span> <span class="s">default</span>
+    <span class="na">ttl</span><span class="pi">:</span> <span class="s">720h0m0s</span>
+
+<span class="c1"># 恢复命令示例</span>
+<span class="c1"># velero restore create --from-backup daily-backup-20240115</span>
+</code></pre></div></div>
+
+<h3 id="3-性能优化脚本">3. 性能优化脚本</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
+# k8s-optimizer.py
+</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="k">class</span> <span class="nc">K8sOptimizer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span> <span class="o">=</span> <span class="s">"kubectl"</span>
+    
+    <span class="k">def</span> <span class="nf">get_resource_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">"default"</span><span class="p">):</span>
+        <span class="s">"""获取资源使用统计"""</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> top pods -n </span><span class="si">{</span><span class="n">namespace</span><span class="si">}</span><span class="s"> --no-headers"</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        
+        <span class="n">pods_usage</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">()</span>
+                <span class="n">pods_usage</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s">'name'</span><span class="p">:</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s">'cpu'</span><span class="p">:</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="s">'memory'</span><span class="p">:</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">pods_usage</span>
+    
+    <span class="k">def</span> <span class="nf">find_unused_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""查找未使用的资源"""</span>
+        <span class="c1"># 查找未使用的ConfigMaps
+</span>        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> get configmaps -o json"</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">configmaps</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+        
+        <span class="n">unused_configmaps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">configmaps</span><span class="p">[</span><span class="s">'items'</span><span class="p">]:</span>
+            <span class="c1"># 检查是否被Pod使用
+</span>            <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> get pods -o json"</span>
+            <span class="n">pods_result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">pods</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pods_result</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+            
+            <span class="n">is_used</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="n">pods</span><span class="p">[</span><span class="s">'items'</span><span class="p">]:</span>
+                <span class="c1"># 检查环境变量和挂载卷
+</span>                <span class="n">spec</span> <span class="o">=</span> <span class="n">pod</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'spec'</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">containers</span> <span class="o">=</span> <span class="n">spec</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'containers'</span><span class="p">,</span> <span class="p">[])</span>
+                
+                <span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">containers</span><span class="p">:</span>
+                    <span class="c1"># 检查环境变量
+</span>                    <span class="n">env</span> <span class="o">=</span> <span class="n">container</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'env'</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="k">for</span> <span class="n">env_var</span> <span class="ow">in</span> <span class="n">env</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">env_var</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'valueFrom'</span><span class="p">,</span> <span class="p">{}).</span><span class="n">get</span><span class="p">(</span><span class="s">'configMapKeyRef'</span><span class="p">,</span> <span class="p">{}).</span><span class="n">get</span><span class="p">(</span><span class="s">'name'</span><span class="p">)</span> <span class="o">==</span> <span class="n">cm</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'name'</span><span class="p">]:</span>
+                            <span class="n">is_used</span> <span class="o">=</span> <span class="bp">True</span>
+                            <span class="k">break</span>
+                    
+                    <span class="c1"># 检查挂载卷
+</span>                    <span class="n">volume_mounts</span> <span class="o">=</span> <span class="n">container</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'volumeMounts'</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="n">volumes</span> <span class="o">=</span> <span class="n">spec</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'volumes'</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="k">for</span> <span class="n">volume</span> <span class="ow">in</span> <span class="n">volumes</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">volume</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'configMap'</span><span class="p">,</span> <span class="p">{}).</span><span class="n">get</span><span class="p">(</span><span class="s">'name'</span><span class="p">)</span> <span class="o">==</span> <span class="n">cm</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'name'</span><span class="p">]:</span>
+                            <span class="n">is_used</span> <span class="o">=</span> <span class="bp">True</span>
+                            <span class="k">break</span>
+            
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">is_used</span><span class="p">:</span>
+                <span class="n">unused_configmaps</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'name'</span><span class="p">])</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s">'unused_configmaps'</span><span class="p">:</span> <span class="n">unused_configmaps</span>
+        <span class="p">}</span>
+    
+    <span class="k">def</span> <span class="nf">optimize_resources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""资源优化建议"""</span>
+        <span class="n">usage</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_resource_usage</span><span class="p">()</span>
+        <span class="n">recommendations</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="n">usage</span><span class="p">:</span>
+            <span class="n">cpu_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pod</span><span class="p">[</span><span class="s">'cpu'</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">'m'</span><span class="p">,</span> <span class="s">''</span><span class="p">))</span> <span class="k">if</span> <span class="s">'m'</span> <span class="ow">in</span> <span class="n">pod</span><span class="p">[</span><span class="s">'cpu'</span><span class="p">]</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">pod</span><span class="p">[</span><span class="s">'cpu'</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1000</span>
+            <span class="n">memory_val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">pod</span><span class="p">[</span><span class="s">'memory'</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">'Mi'</span><span class="p">,</span> <span class="s">''</span><span class="p">))</span>
+            
+            <span class="c1"># CPU使用率过低
+</span>            <span class="k">if</span> <span class="n">cpu_val</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">:</span>  <span class="c1"># 50m
+</span>                <span class="n">recommendations</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s">'pod'</span><span class="p">:</span> <span class="n">pod</span><span class="p">[</span><span class="s">'name'</span><span class="p">],</span>
+                    <span class="s">'type'</span><span class="p">:</span> <span class="s">'CPU_UNDERUTILIZED'</span><span class="p">,</span>
+                    <span class="s">'current'</span><span class="p">:</span> <span class="n">pod</span><span class="p">[</span><span class="s">'cpu'</span><span class="p">],</span>
+                    <span class="s">'suggestion'</span><span class="p">:</span> <span class="s">'Consider reducing CPU request/limit'</span>
+                <span class="p">})</span>
+            
+            <span class="c1"># 内存使用率检查
+</span>            <span class="k">if</span> <span class="n">memory_val</span> <span class="o">&lt;</span> <span class="mi">64</span><span class="p">:</span>  <span class="c1"># 64Mi
+</span>                <span class="n">recommendations</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s">'pod'</span><span class="p">:</span> <span class="n">pod</span><span class="p">[</span><span class="s">'name'</span><span class="p">],</span>
+                    <span class="s">'type'</span><span class="p">:</span> <span class="s">'MEMORY_UNDERUTILIZED'</span><span class="p">,</span>
+                    <span class="s">'current'</span><span class="p">:</span> <span class="n">pod</span><span class="p">[</span><span class="s">'memory'</span><span class="p">],</span>
+                    <span class="s">'suggestion'</span><span class="p">:</span> <span class="s">'Consider reducing memory request/limit'</span>
+                <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">recommendations</span>
+    
+    <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""生成优化报告"""</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Kubernetes 集群优化报告"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"="</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"生成时间: </span><span class="si">{</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">strftime</span><span class="p">(</span><span class="s">'%Y-%m-%d %H</span><span class="si">:</span><span class="o">%</span><span class="n">M</span><span class="si">:</span><span class="o">%</span><span class="n">S</span><span class="s">')</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+        
+        <span class="c1"># 资源使用情况
+</span>        <span class="n">usage</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_resource_usage</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"资源使用情况:"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="s">'Pod名称'</span><span class="si">:</span><span class="o">&lt;</span><span class="mi">30</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="s">'CPU'</span><span class="si">:</span><span class="o">&lt;</span><span class="mi">10</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="s">'内存'</span><span class="si">:</span><span class="o">&lt;</span><span class="mi">10</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"-"</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="n">usage</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">pod</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span><span class="si">:</span><span class="o">&lt;</span><span class="mi">30</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">pod</span><span class="p">[</span><span class="s">'cpu'</span><span class="p">]</span><span class="si">:</span><span class="o">&lt;</span><span class="mi">10</span><span class="si">}</span><span class="s"> </span><span class="si">{</span><span class="n">pod</span><span class="p">[</span><span class="s">'memory'</span><span class="p">]</span><span class="si">:</span><span class="o">&lt;</span><span class="mi">10</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+        
+        <span class="c1"># 优化建议
+</span>        <span class="n">recommendations</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">optimize_resources</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">recommendations</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"优化建议:"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="n">recommendations</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"- </span><span class="si">{</span><span class="n">rec</span><span class="p">[</span><span class="s">'pod'</span><span class="p">]</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">rec</span><span class="p">[</span><span class="s">'suggestion'</span><span class="p">]</span><span class="si">}</span><span class="s"> (当前: </span><span class="si">{</span><span class="n">rec</span><span class="p">[</span><span class="s">'current'</span><span class="p">]</span><span class="si">}</span><span class="s">)"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"暂无优化建议"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+        
+        <span class="c1"># 未使用资源
+</span>        <span class="n">unused</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">find_unused_resources</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">unused</span><span class="p">[</span><span class="s">'unused_configmaps'</span><span class="p">]:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"未使用的ConfigMaps:"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">cm</span> <span class="ow">in</span> <span class="n">unused</span><span class="p">[</span><span class="s">'unused_configmaps'</span><span class="p">]:</span>
+                <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"- </span><span class="si">{</span><span class="n">cm</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"未发现未使用的ConfigMaps"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">K8sOptimizer</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="p">.</span><span class="n">generate_report</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="故障排查指南">故障排查指南</h2>
+
+<h3 id="1-常用调试命令">1. 常用调试命令</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># k8s-debug.sh</span>
+
+<span class="c"># 集群状态检查</span>
+<span class="nb">echo</span> <span class="s2">"=== 集群状态 ==="</span>
+kubectl cluster-info
+kubectl get nodes <span class="nt">-o</span> wide
+kubectl get pods <span class="nt">--all-namespaces</span> | <span class="nb">grep</span> <span class="nt">-v</span> Running
+
+<span class="c"># 资源使用情况</span>
+<span class="nb">echo</span> <span class="s2">"=== 资源使用 ==="</span>
+kubectl top nodes
+kubectl top pods <span class="nt">--all-namespaces</span> <span class="nt">--sort-by</span><span class="o">=</span>cpu
+kubectl top pods <span class="nt">--all-namespaces</span> <span class="nt">--sort-by</span><span class="o">=</span>memory
+
+<span class="c"># 事件查看</span>
+<span class="nb">echo</span> <span class="s2">"=== 最近事件 ==="</span>
+kubectl get events <span class="nt">--sort-by</span><span class="o">=</span>.metadata.creationTimestamp
+
+<span class="c"># 网络连接测试</span>
+<span class="nb">echo</span> <span class="s2">"=== 网络测试 ==="</span>
+kubectl run tmp-shell <span class="nt">--rm</span> <span class="nt">-i</span> <span class="nt">--tty</span> <span class="nt">--image</span> nicolaka/netshoot <span class="nt">--</span> /bin/bash
+
+<span class="c"># 日志查看</span>
+<span class="nb">echo</span> <span class="s2">"=== Pod日志 ==="</span>
+kubectl logs <span class="nt">-f</span> deployment/my-app <span class="nt">--tail</span><span class="o">=</span>100
+
+<span class="c"># 进入Pod调试</span>
+<span class="nb">echo</span> <span class="s2">"=== Pod调试 ==="</span>
+kubectl <span class="nb">exec</span> <span class="nt">-it</span> pod-name <span class="nt">--</span> /bin/bash
+
+<span class="c"># 端口转发</span>
+<span class="nb">echo</span> <span class="s2">"=== 端口转发 ==="</span>
+kubectl port-forward service/my-service 8080:80
+</code></pre></div></div>
+
+<h3 id="2-问题诊断脚本">2. 问题诊断脚本</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python3
+# k8s-troubleshoot.py
+</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span> <span class="nc">K8sTroubleshooter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span> <span class="o">=</span> <span class="s">"kubectl"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">issues</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">def</span> <span class="nf">check_pod_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""检查Pod状态"""</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> get pods --all-namespaces -o json"</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">pods</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">pod</span> <span class="ow">in</span> <span class="n">pods</span><span class="p">[</span><span class="s">'items'</span><span class="p">]:</span>
+            <span class="n">pod_name</span> <span class="o">=</span> <span class="n">pod</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'name'</span><span class="p">]</span>
+            <span class="n">namespace</span> <span class="o">=</span> <span class="n">pod</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'namespace'</span><span class="p">]</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">pod</span><span class="p">[</span><span class="s">'status'</span><span class="p">][</span><span class="s">'phase'</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s">'Running'</span><span class="p">:</span>
+                <span class="c1"># 获取详细状态
+</span>                <span class="n">conditions</span> <span class="o">=</span> <span class="n">pod</span><span class="p">[</span><span class="s">'status'</span><span class="p">].</span><span class="n">get</span><span class="p">(</span><span class="s">'conditions'</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">container_statuses</span> <span class="o">=</span> <span class="n">pod</span><span class="p">[</span><span class="s">'status'</span><span class="p">].</span><span class="n">get</span><span class="p">(</span><span class="s">'containerStatuses'</span><span class="p">,</span> <span class="p">[])</span>
+                
+                <span class="n">issue</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s">'type'</span><span class="p">:</span> <span class="s">'POD_NOT_RUNNING'</span><span class="p">,</span>
+                    <span class="s">'pod'</span><span class="p">:</span> <span class="n">pod_name</span><span class="p">,</span>
+                    <span class="s">'namespace'</span><span class="p">:</span> <span class="n">namespace</span><span class="p">,</span>
+                    <span class="s">'status'</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+                    <span class="s">'conditions'</span><span class="p">:</span> <span class="n">conditions</span><span class="p">,</span>
+                    <span class="s">'containers'</span><span class="p">:</span> <span class="n">container_statuses</span>
+                <span class="p">}</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">issue</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">check_resource_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""检查资源限制"""</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> describe nodes"</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        
+        <span class="c1"># 解析节点资源使用情况
+</span>        <span class="n">lines</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s">'Allocated resources:'</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="c1"># 查找CPU和内存使用率
+</span>                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">))):</span>
+                    <span class="k">if</span> <span class="s">'cpu'</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                        <span class="n">cpu_match</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s">'(\d+)%'</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="n">cpu_match</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_match</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                                <span class="s">'type'</span><span class="p">:</span> <span class="s">'HIGH_CPU_USAGE'</span><span class="p">,</span>
+                                <span class="s">'usage'</span><span class="p">:</span> <span class="n">cpu_match</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">'%'</span>
+                            <span class="p">})</span>
+                    <span class="k">elif</span> <span class="s">'memory'</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+                        <span class="n">memory_match</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s">'(\d+)%'</span><span class="p">,</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                        <span class="k">if</span> <span class="n">memory_match</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">memory_match</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                                <span class="s">'type'</span><span class="p">:</span> <span class="s">'HIGH_MEMORY_USAGE'</span><span class="p">,</span>
+                                <span class="s">'usage'</span><span class="p">:</span> <span class="n">memory_match</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">'%'</span>
+                            <span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">check_storage_issues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""检查存储问题"""</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> get pvc --all-namespaces -o json"</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">pvcs</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">pvc</span> <span class="ow">in</span> <span class="n">pvcs</span><span class="p">[</span><span class="s">'items'</span><span class="p">]:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">pvc</span><span class="p">[</span><span class="s">'status'</span><span class="p">].</span><span class="n">get</span><span class="p">(</span><span class="s">'phase'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s">'Bound'</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s">'type'</span><span class="p">:</span> <span class="s">'PVC_NOT_BOUND'</span><span class="p">,</span>
+                    <span class="s">'pvc'</span><span class="p">:</span> <span class="n">pvc</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'name'</span><span class="p">],</span>
+                    <span class="s">'namespace'</span><span class="p">:</span> <span class="n">pvc</span><span class="p">[</span><span class="s">'metadata'</span><span class="p">][</span><span class="s">'namespace'</span><span class="p">],</span>
+                    <span class="s">'status'</span><span class="p">:</span> <span class="n">status</span>
+                <span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">check_network_policies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""检查网络策略"""</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">kubectl</span><span class="si">}</span><span class="s"> get networkpolicies --all-namespaces -o json"</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">capture_output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">result</span><span class="p">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">policies</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">policies</span><span class="p">[</span><span class="s">'items'</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s">'type'</span><span class="p">:</span> <span class="s">'NO_NETWORK_POLICIES'</span><span class="p">,</span>
+                    <span class="s">'message'</span><span class="p">:</span> <span class="s">'未发现网络策略，可能存在安全风险'</span>
+                <span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""生成故障排查报告"""</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"="</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Kubernetes 故障排查报告"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"="</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"检查时间: </span><span class="si">{</span><span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">().</span><span class="n">strftime</span><span class="p">(</span><span class="s">'%Y-%m-%d %H</span><span class="si">:</span><span class="o">%</span><span class="n">M</span><span class="si">:</span><span class="o">%</span><span class="n">S</span><span class="s">')</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"✅ 未发现明显问题"</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"🔍 发现 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">)</span><span class="si">}</span><span class="s"> 个问题:"</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">issue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">issues</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">. </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">format_issue</span><span class="p">(</span><span class="n">issue</span><span class="p">)</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">format_issue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">issue</span><span class="p">):</span>
+        <span class="s">"""格式化问题描述"""</span>
+        <span class="n">issue_type</span> <span class="o">=</span> <span class="n">issue</span><span class="p">[</span><span class="s">'type'</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">issue_type</span> <span class="o">==</span> <span class="s">'POD_NOT_RUNNING'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">"Pod </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'pod'</span><span class="p">]</span><span class="si">}</span><span class="s"> (namespace: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'namespace'</span><span class="p">]</span><span class="si">}</span><span class="s">) 状态异常: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+        
+        <span class="k">elif</span> <span class="n">issue_type</span> <span class="o">==</span> <span class="s">'HIGH_CPU_USAGE'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">"节点CPU使用率过高: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'usage'</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+        
+        <span class="k">elif</span> <span class="n">issue_type</span> <span class="o">==</span> <span class="s">'HIGH_MEMORY_USAGE'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">"节点内存使用率过高: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'usage'</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+        
+        <span class="k">elif</span> <span class="n">issue_type</span> <span class="o">==</span> <span class="s">'PVC_NOT_BOUND'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">"PVC </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'pvc'</span><span class="p">]</span><span class="si">}</span><span class="s"> (namespace: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'namespace'</span><span class="p">]</span><span class="si">}</span><span class="s">) 未绑定: </span><span class="si">{</span><span class="n">issue</span><span class="p">[</span><span class="s">'status'</span><span class="p">]</span><span class="si">}</span><span class="s">"</span>
+        
+        <span class="k">elif</span> <span class="n">issue_type</span> <span class="o">==</span> <span class="s">'NO_NETWORK_POLICIES'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">issue</span><span class="p">[</span><span class="s">'message'</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="sa">f</span><span class="s">"未知问题: </span><span class="si">{</span><span class="n">issue</span><span class="si">}</span><span class="s">"</span>
+    
+    <span class="k">def</span> <span class="nf">run_diagnostics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""运行所有诊断检查"""</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"正在进行Kubernetes集群诊断..."</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">check_pod_status</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">check_resource_limits</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">check_storage_issues</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">check_network_policies</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">generate_report</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">troubleshooter</span> <span class="o">=</span> <span class="n">K8sTroubleshooter</span><span class="p">()</span>
+    <span class="n">troubleshooter</span><span class="p">.</span><span class="n">run_diagnostics</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="总结">总结</h2>
+
+<p>Kubernetes是现代云原生应用的核心平台，掌握其核心概念和最佳实践至关重要：</p>
+
+<h3 id="关键要点">关键要点：</h3>
+<ol>
+  <li><strong>容器编排</strong>：理解Pod、Service、Deployment等基础概念</li>
+  <li><strong>配置管理</strong>：合理使用ConfigMap和Secret管理配置</li>
+  <li><strong>存储方案</strong>：正确配置持久化存储</li>
+  <li><strong>安全策略</strong>：实施RBAC、网络策略等安全措施</li>
+  <li><strong>监控运维</strong>：建立完整的监控和日志系统</li>
+  <li><strong>CI/CD集成</strong>：自动化部署和发布流程</li>
+</ol>
+
+<h3 id="学习路径">学习路径：</h3>
+<ol>
+  <li><strong>基础阶段</strong>：理解容器和Kubernetes基本概念</li>
+  <li><strong>实践阶段</strong>：搭建测试环境，部署简单应用</li>
+  <li><strong>进阶阶段</strong>：学习高级功能，如HPA、网络策略等</li>
+  <li><strong>生产阶段</strong>：掌握安全、监控、故障排查等技能</li>
+</ol>
+
+<p>Kubernetes生态系统庞大且不断发展，持续学习和实践是掌握这项技术的关键！</p>
+
+<hr />
+
+<p><em>你在Kubernetes实践中遇到过哪些挑战？欢迎分享你的解决方案和最佳实践！</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#devops" class="page__taxonomy-item" rel="tag">DevOps</a><span class="sep">, </span>
+    
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a><span class="sep">, </span>
+    
+      <a href="/tags/#kubernetes" class="page__taxonomy-item" rel="tag">Kubernetes</a><span class="sep">, </span>
+    
+      <a href="/tags/#%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92" class="page__taxonomy-item" rel="tag">容器编排</a><span class="sep">, </span>
+    
+      <a href="/tags/#%E5%BE%AE%E6%9C%8D%E5%8A%A1" class="page__taxonomy-item" rel="tag">微服务</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#devops" class="page__taxonomy-item" rel="tag">DevOps</a><span class="sep">, </span>
+    
+      <a href="/categories/#%E4%BA%91%E5%8E%9F%E7%94%9F" class="page__taxonomy-item" rel="tag">云原生</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%E4%BA%91%E5%8E%9F%E7%94%9FKubernetes%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97%EF%BC%9A%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%20http%3A%2F%2F0.0.0.0%3A4000%2F%25E4%25BA%2591%25E5%258E%259F%25E7%2594%259F%2Fdevops%2Fcloud-native-kubernetes-guide%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F0.0.0.0%3A4000%2F%25E4%25BA%2591%25E5%258E%259F%25E7%2594%259F%2Fdevops%2Fcloud-native-kubernetes-guide%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F0.0.0.0%3A4000%2F%25E4%25BA%2591%25E5%258E%259F%25E7%2594%259F%2Fdevops%2Fcloud-native-kubernetes-guide%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" class="pagination--pager" title="WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/webrtc-teaser.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="mailto:chicogong@tencent.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 Chico Gong. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1401 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Node.js微服务架构实战：从单体到分布式的演进之路 - Chico Gong’s Tech Blog</title>
+<meta name="description" content="随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。">
+
+
+  <meta name="author" content="Chico Gong">
+  
+  <meta property="article:author" content="Chico Gong">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_Hans">
+<meta property="og:site_name" content="Chico Gong's Tech Blog">
+<meta property="og:title" content="Node.js微服务架构实战：从单体到分布式的演进之路">
+<meta property="og:url" content="http://0.0.0.0:4000/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/">
+
+
+  <meta property="og:description" content="随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。">
+
+
+
+  <meta property="og:image" content="https://github.com/chicogong.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2024-01-08T14:30:00+08:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://0.0.0.0:4000/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Chico Gong",
+      "url": "http://0.0.0.0:4000/",
+      "sameAs": ["https://github.com/chicogong","https://twitter.com/your-twitter"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Chico Gong's Tech Blog Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Chico Gong's Tech Blog
+          <span class="site-subtitle">Conversational AI & Real-time Communication</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/" title="返回主页">首页</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/" title="了解更多关于我的信息">关于我</a>
+            </li><li class="masthead__menu-item">
+              <a href="/posts/" title="浏览所有文章">文章</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/" title="按分类浏览文章">分类</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/" title="按标签浏览文章">标签</a>
+            </li><li class="masthead__menu-item">
+              <a href="/year-archive/" title="按年份浏览文章">归档</a>
+            </li><li class="masthead__menu-item">
+              <a href="/projects/" title="查看我的开源项目">项目</a>
+            </li><li class="masthead__menu-item">
+              <a href="/contact/" title="联系方式和社交媒体">联系</a>
+            </li></ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://0.0.0.0:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91" itemprop="item"><span itemprop="name">%e5%90%8e%e7%ab%af%e5%bc%80%e5%8f%91</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/categories/#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1" itemprop="item"><span itemprop="name">%e6%9e%b6%e6%9e%84%e8%ae%be%e8%ae%a1</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Node.js微服务架构实战：从单体到分布式的演进之路</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="https://github.com/chicogong.png" alt="Chico Gong" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Chico Gong</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <table>
+  <tbody>
+    <tr>
+      <td>🤖 Conversational AI Enthusiast</td>
+      <td>📞 Real-time Communication Developer</td>
+      <td>⚡ Building next-gen voice interaction systems</td>
+    </tr>
+  </tbody>
+</table>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Shanghai, China</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://github.com/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="mailto:chicogong@tencent.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://linkedin.com/in/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:chicogong@tencent.com">
+            <meta itemprop="email" content="chicogong@tencent.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <a href="/"><span class="nav__sub-title">首页</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/about/"><span class="nav__sub-title">关于我</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/posts/"><span class="nav__sub-title">文章</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/categories/"><span class="nav__sub-title">分类</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/tags/"><span class="nav__sub-title">标签</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/year-archive/"><span class="nav__sub-title">归档</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/projects/"><span class="nav__sub-title">项目</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <a href="/contact/"><span class="nav__sub-title">联系</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Node.js微服务架构实战：从单体到分布式的演进之路">
+    <meta itemprop="description" content="随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。">
+    <meta itemprop="datePublished" content="2024-01-08T14:30:00+08:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Node.js微服务架构实战：从单体到分布式的演进之路
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-fas fa-list"></i> 目录</h4></header>
+              <ul class="toc__menu"><li><a href="#什么是微服务架构">什么是微服务架构？</a></li><li><a href="#架构设计图">架构设计图</a></li><li><a href="#核心组件实现">核心组件实现</a><ul><li><a href="#1-api-gateway-实现">1. API Gateway 实现</a></li><li><a href="#2-用户服务实现">2. 用户服务实现</a></li><li><a href="#3-订单服务实现">3. 订单服务实现</a></li></ul></li><li><a href="#docker容器化部署">Docker容器化部署</a><ul><li><a href="#dockerfile示例">Dockerfile示例</a></li><li><a href="#docker-compose配置">Docker Compose配置</a></li></ul></li><li><a href="#服务间通信">服务间通信</a><ul><li><a href="#1-同步通信http-api">1. 同步通信（HTTP API）</a></li><li><a href="#2-异步通信消息队列">2. 异步通信（消息队列）</a></li></ul></li><li><a href="#监控和日志">监控和日志</a><ul><li><a href="#健康检查端点">健康检查端点</a></li><li><a href="#结构化日志">结构化日志</a></li></ul></li><li><a href="#部署和扩展">部署和扩展</a><ul><li><a href="#kubernetes配置示例">Kubernetes配置示例</a></li></ul></li><li><a href="#最佳实践总结">最佳实践总结</a><ul><li><a href="#1-设计原则">1. 设计原则</a></li><li><a href="#2-开发实践">2. 开发实践</a></li><li><a href="#3-运维实践">3. 运维实践</a></li></ul></li><li><a href="#总结">总结</a></li></ul>
+
+            </nav>
+          </aside>
+        
+        <p>随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。</p>
+
+<h2 id="什么是微服务架构">什么是微服务架构？</h2>
+
+<p>微服务架构是一种将单个应用程序拆分为一组小型、独立服务的架构模式。每个服务：</p>
+
+<ul>
+  <li><strong>独立部署</strong>：可以独立发布和更新</li>
+  <li><strong>单一职责</strong>：专注于特定的业务功能</li>
+  <li><strong>轻量级通信</strong>：通过HTTP API或消息队列通信</li>
+  <li><strong>技术多样性</strong>：可以使用不同的技术栈</li>
+</ul>
+
+<h2 id="架构设计图">架构设计图</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────┐    ┌─────────────────┐
+│   Web Client    │    │  Mobile Client  │
+└─────────┬───────┘    └─────────┬───────┘
+          │                      │
+          └──────┬─────────────────┘
+                 │
+         ┌───────▼────────┐
+         │  API Gateway   │
+         └───────┬────────┘
+                 │
+    ┌────────────┼────────────┐
+    │            │            │
+┌───▼────┐  ┌───▼────┐  ┌───▼────┐
+│ User   │  │ Order  │  │Payment │
+│Service │  │Service │  │Service │
+└────────┘  └────────┘  └────────┘
+    │            │            │
+┌───▼────┐  ┌───▼────┐  ┌───▼────┐
+│  User  │  │ Order  │  │Payment│
+│   DB   │  │   DB   │  │   DB  │
+└────────┘  └────────┘  └────────┘
+</code></pre></div></div>
+
+<h2 id="核心组件实现">核心组件实现</h2>
+
+<h3 id="1-api-gateway-实现">1. API Gateway 实现</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// api-gateway/server.js</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">httpProxy</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">http-proxy-middleware</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">rateLimit</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express-rate-limit</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">jsonwebtoken</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// 限流中间件</span>
+<span class="kd">const</span> <span class="nx">limiter</span> <span class="o">=</span> <span class="nx">rateLimit</span><span class="p">({</span>
+  <span class="na">windowMs</span><span class="p">:</span> <span class="mi">15</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="c1">// 15分钟</span>
+  <span class="na">max</span><span class="p">:</span> <span class="mi">100</span> <span class="c1">// 限制每个IP 15分钟内最多100个请求</span>
+<span class="p">});</span>
+
+<span class="c1">// JWT认证中间件</span>
+<span class="kd">const</span> <span class="nx">authenticateToken</span> <span class="o">=</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">authHeader</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="dl">'</span><span class="s1">authorization</span><span class="dl">'</span><span class="p">];</span>
+  <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">authHeader</span> <span class="o">&amp;&amp;</span> <span class="nx">authHeader</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">token</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">401</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">jwt</span><span class="p">.</span><span class="nx">verify</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">JWT_SECRET</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">sendStatus</span><span class="p">(</span><span class="mi">403</span><span class="p">);</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="nx">user</span><span class="p">;</span>
+    <span class="nx">next</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="c1">// 服务路由配置</span>
+<span class="kd">const</span> <span class="nx">services</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">user</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://user-service:3001</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">order</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://order-service:3002</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">payment</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://payment-service:3003</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="c1">// 路由代理</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">services</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">path</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">`/api/</span><span class="p">${</span><span class="nx">path</span><span class="p">}</span><span class="s2">`</span><span class="p">,</span> 
+    <span class="nx">limiter</span><span class="p">,</span>
+    <span class="nx">authenticateToken</span><span class="p">,</span>
+    <span class="nx">httpProxy</span><span class="p">({</span>
+      <span class="na">target</span><span class="p">:</span> <span class="nx">services</span><span class="p">[</span><span class="nx">path</span><span class="p">],</span>
+      <span class="na">changeOrigin</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="na">pathRewrite</span><span class="p">:</span> <span class="p">{</span>
+        <span class="p">[</span><span class="s2">`^/api/</span><span class="p">${</span><span class="nx">path</span><span class="p">}</span><span class="s2">`</span><span class="p">]:</span> <span class="dl">''</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">API Gateway running on port 3000</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="2-用户服务实现">2. 用户服务实现</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// user-service/server.js</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">bcrypt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">bcrypt</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">jsonwebtoken</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+
+<span class="c1">// 用户模型</span>
+<span class="kd">const</span> <span class="nx">userSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+  <span class="na">username</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">unique</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="na">email</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="na">required</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">unique</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="na">password</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="na">required</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="na">createdAt</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">Date</span><span class="p">,</span> <span class="na">default</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span> <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">User</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">User</span><span class="dl">'</span><span class="p">,</span> <span class="nx">userSchema</span><span class="p">);</span>
+
+<span class="c1">// 注册用户</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/register</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">username</span><span class="p">,</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">password</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+    
+    <span class="c1">// 检查用户是否已存在</span>
+    <span class="kd">const</span> <span class="nx">existingUser</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span> 
+      <span class="na">$or</span><span class="p">:</span> <span class="p">[{</span> <span class="nx">email</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">username</span> <span class="p">}]</span> 
+    <span class="p">});</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">existingUser</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">'</span><span class="s1">用户已存在</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 加密密码</span>
+    <span class="kd">const</span> <span class="nx">hashedPassword</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">hash</span><span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    
+    <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">({</span>
+      <span class="nx">username</span><span class="p">,</span>
+      <span class="nx">email</span><span class="p">,</span>
+      <span class="na">password</span><span class="p">:</span> <span class="nx">hashedPassword</span>
+    <span class="p">});</span>
+    
+    <span class="k">await</span> <span class="nx">user</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+    
+    <span class="c1">// 生成JWT token</span>
+    <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span>
+      <span class="p">{</span> <span class="na">userId</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="na">username</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">username</span> <span class="p">},</span>
+      <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">JWT_SECRET</span><span class="p">,</span>
+      <span class="p">{</span> <span class="na">expiresIn</span><span class="p">:</span> <span class="dl">'</span><span class="s1">24h</span><span class="dl">'</span> <span class="p">}</span>
+    <span class="p">);</span>
+    
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">201</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span>
+      <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">用户注册成功</span><span class="dl">'</span><span class="p">,</span>
+      <span class="nx">token</span><span class="p">,</span>
+      <span class="na">user</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span>
+        <span class="na">username</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+        <span class="na">email</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 用户登录</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/login</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">email</span><span class="p">,</span> <span class="nx">password</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+    
+    <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span> <span class="nx">email</span> <span class="p">});</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">'</span><span class="s1">邮箱或密码错误</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="p">}</span>
+    
+    <span class="kd">const</span> <span class="nx">isValid</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">bcrypt</span><span class="p">.</span><span class="nx">compare</span><span class="p">(</span><span class="nx">password</span><span class="p">,</span> <span class="nx">user</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isValid</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">401</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">'</span><span class="s1">邮箱或密码错误</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="p">}</span>
+    
+    <span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">jwt</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span>
+      <span class="p">{</span> <span class="na">userId</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> <span class="na">username</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">username</span> <span class="p">},</span>
+      <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">JWT_SECRET</span><span class="p">,</span>
+      <span class="p">{</span> <span class="na">expiresIn</span><span class="p">:</span> <span class="dl">'</span><span class="s1">24h</span><span class="dl">'</span> <span class="p">}</span>
+    <span class="p">);</span>
+    
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+      <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">登录成功</span><span class="dl">'</span><span class="p">,</span>
+      <span class="nx">token</span><span class="p">,</span>
+      <span class="na">user</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span>
+        <span class="na">username</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+        <span class="na">email</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">email</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 获取用户信息</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/profile/:userId</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">user</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">User</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userId</span><span class="p">).</span><span class="nx">select</span><span class="p">(</span><span class="dl">'</span><span class="s1">-password</span><span class="dl">'</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">404</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">'</span><span class="s1">用户不存在</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">MONGODB_URI</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">useNewUrlParser</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">useUnifiedTopology</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3001</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">User service running on port 3001</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="3-订单服务实现">3. 订单服务实现</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// order-service/server.js</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">mongoose</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">axios</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">axios</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+
+<span class="c1">// 订单模型</span>
+<span class="kd">const</span> <span class="nx">orderSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">({</span>
+  <span class="na">userId</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="na">required</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="na">products</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="na">productId</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="na">quantity</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span>
+    <span class="na">price</span><span class="p">:</span> <span class="nb">Number</span>
+  <span class="p">}],</span>
+  <span class="na">totalAmount</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span> <span class="na">required</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+  <span class="na">status</span><span class="p">:</span> <span class="p">{</span> 
+    <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> 
+    <span class="na">enum</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">pending</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">confirmed</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">shipped</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">delivered</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">cancelled</span><span class="dl">'</span><span class="p">],</span>
+    <span class="na">default</span><span class="p">:</span> <span class="dl">'</span><span class="s1">pending</span><span class="dl">'</span>
+  <span class="p">},</span>
+  <span class="na">createdAt</span><span class="p">:</span> <span class="p">{</span> <span class="na">type</span><span class="p">:</span> <span class="nb">Date</span><span class="p">,</span> <span class="na">default</span><span class="p">:</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span> <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">const</span> <span class="nx">Order</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">'</span><span class="s1">Order</span><span class="dl">'</span><span class="p">,</span> <span class="nx">orderSchema</span><span class="p">);</span>
+
+<span class="c1">// 创建订单</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/create</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">userId</span><span class="p">,</span> <span class="nx">products</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+    
+    <span class="c1">// 验证用户是否存在</span>
+    <span class="kd">const</span> <span class="nx">userResponse</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s2">`http://user-service:3001/profile/</span><span class="p">${</span><span class="nx">userId</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">userResponse</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">400</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">'</span><span class="s1">用户不存在</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// 计算总金额</span>
+    <span class="kd">const</span> <span class="nx">totalAmount</span> <span class="o">=</span> <span class="nx">products</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">product</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">sum</span> <span class="o">+</span> <span class="p">(</span><span class="nx">product</span><span class="p">.</span><span class="nx">price</span> <span class="o">*</span> <span class="nx">product</span><span class="p">.</span><span class="nx">quantity</span><span class="p">);</span>
+    <span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+    
+    <span class="kd">const</span> <span class="nx">order</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Order</span><span class="p">({</span>
+      <span class="nx">userId</span><span class="p">,</span>
+      <span class="nx">products</span><span class="p">,</span>
+      <span class="nx">totalAmount</span>
+    <span class="p">});</span>
+    
+    <span class="k">await</span> <span class="nx">order</span><span class="p">.</span><span class="nx">save</span><span class="p">();</span>
+    
+    <span class="c1">// 发送订单创建事件（消息队列）</span>
+    <span class="c1">// await publishEvent('order.created', { orderId: order._id, userId, totalAmount });</span>
+    
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">201</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span>
+      <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">订单创建成功</span><span class="dl">'</span><span class="p">,</span>
+      <span class="nx">order</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 获取用户订单</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/user/:userId</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">orders</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Order</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span> <span class="na">userId</span><span class="p">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">userId</span> <span class="p">})</span>
+      <span class="p">.</span><span class="nx">sort</span><span class="p">({</span> <span class="na">createdAt</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="p">});</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">orders</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 更新订单状态</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:orderId/status</span><span class="dl">'</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">status</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">order</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">Order</span><span class="p">.</span><span class="nx">findByIdAndUpdate</span><span class="p">(</span>
+      <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">orderId</span><span class="p">,</span>
+      <span class="p">{</span> <span class="nx">status</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">new</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}</span>
+    <span class="p">);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">order</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">404</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="dl">'</span><span class="s1">订单不存在</span><span class="dl">'</span> <span class="p">});</span>
+    <span class="p">}</span>
+    
+    <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">订单状态更新成功</span><span class="dl">'</span><span class="p">,</span> <span class="nx">order</span> <span class="p">});</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mi">500</span><span class="p">).</span><span class="nx">json</span><span class="p">({</span> <span class="na">error</span><span class="p">:</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">MONGODB_URI</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3002</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Order service running on port 3002</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="docker容器化部署">Docker容器化部署</h2>
+
+<h3 id="dockerfile示例">Dockerfile示例</h3>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># user-service/Dockerfile</span>
+<span class="k">FROM</span><span class="s"> node:18-alpine</span>
+
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+
+<span class="k">COPY</span><span class="s"> package*.json ./</span>
+<span class="k">RUN </span>npm ci <span class="nt">--only</span><span class="o">=</span>production
+
+<span class="k">COPY</span><span class="s"> . .</span>
+
+<span class="k">EXPOSE</span><span class="s"> 3001</span>
+
+<span class="k">CMD</span><span class="s"> ["node", "server.js"]</span>
+</code></pre></div></div>
+
+<h3 id="docker-compose配置">Docker Compose配置</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># docker-compose.yml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.8'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">api-gateway</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./api-gateway</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">3000:3000"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">JWT_SECRET=your-secret-key</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">user-service</span>
+      <span class="pi">-</span> <span class="s">order-service</span>
+      <span class="pi">-</span> <span class="s">payment-service</span>
+
+  <span class="na">user-service</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./user-service</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MONGODB_URI=mongodb://mongo:27017/userdb</span>
+      <span class="pi">-</span> <span class="s">JWT_SECRET=your-secret-key</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mongo</span>
+
+  <span class="na">order-service</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./order-service</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MONGODB_URI=mongodb://mongo:27017/orderdb</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mongo</span>
+
+  <span class="na">payment-service</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./payment-service</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MONGODB_URI=mongodb://mongo:27017/paymentdb</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mongo</span>
+
+  <span class="na">mongo</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mongo:5.0</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">27017:27017"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mongo-data:/data/db</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">mongo-data</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<h2 id="服务间通信">服务间通信</h2>
+
+<h3 id="1-同步通信http-api">1. 同步通信（HTTP API）</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 在订单服务中调用用户服务</span>
+<span class="kd">const</span> <span class="nx">getUserInfo</span> <span class="o">=</span> <span class="k">async</span> <span class="p">(</span><span class="nx">userId</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">axios</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="s2">`http://user-service:3001/profile/</span><span class="p">${</span><span class="nx">userId</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="dl">'</span><span class="s1">获取用户信息失败</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h3 id="2-异步通信消息队列">2. 异步通信（消息队列）</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// utils/eventBus.js</span>
+<span class="kd">const</span> <span class="nx">amqp</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">amqplib</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">class</span> <span class="nx">EventBus</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">channel</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">connect</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">connection</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">amqp</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">RABBITMQ_URL</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">channel</span> <span class="o">=</span> <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">connection</span><span class="p">.</span><span class="nx">createChannel</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">publishEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">queue</span> <span class="o">=</span> <span class="s2">`event.</span><span class="p">${</span><span class="nx">event</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">channel</span><span class="p">.</span><span class="nx">assertQueue</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="p">{</span> <span class="na">durable</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+    
+    <span class="kd">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+      <span class="nx">event</span><span class="p">,</span>
+      <span class="nx">data</span><span class="p">,</span>
+      <span class="na">timestamp</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">()</span>
+    <span class="p">});</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">channel</span><span class="p">.</span><span class="nx">sendToQueue</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">message</span><span class="p">),</span> <span class="p">{</span>
+      <span class="na">persistent</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="k">async</span> <span class="nx">subscribeEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">queue</span> <span class="o">=</span> <span class="s2">`event.</span><span class="p">${</span><span class="nx">event</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="k">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">channel</span><span class="p">.</span><span class="nx">assertQueue</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="p">{</span> <span class="na">durable</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">channel</span><span class="p">.</span><span class="nx">consume</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="k">async</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">content</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">msg</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+        <span class="k">await</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">channel</span><span class="p">.</span><span class="nx">ack</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventBus</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h2 id="监控和日志">监控和日志</h2>
+
+<h3 id="健康检查端点">健康检查端点</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 每个服务都应该有健康检查端点</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/health</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span>
+    <span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">healthy</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">timestamp</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">(),</span>
+    <span class="na">service</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user-service</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">version</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">npm_package_version</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="结构化日志">结构化日志</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">winston</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">winston</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">logger</span> <span class="o">=</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">createLogger</span><span class="p">({</span>
+  <span class="na">level</span><span class="p">:</span> <span class="dl">'</span><span class="s1">info</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">format</span><span class="p">:</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span>
+    <span class="nx">winston</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">(),</span>
+    <span class="nx">winston</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">errors</span><span class="p">({</span> <span class="na">stack</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}),</span>
+    <span class="nx">winston</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">json</span><span class="p">()</span>
+  <span class="p">),</span>
+  <span class="na">transports</span><span class="p">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">transports</span><span class="p">.</span><span class="nx">File</span><span class="p">({</span> <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">error.log</span><span class="dl">'</span><span class="p">,</span> <span class="na">level</span><span class="p">:</span> <span class="dl">'</span><span class="s1">error</span><span class="dl">'</span> <span class="p">}),</span>
+    <span class="k">new</span> <span class="nx">winston</span><span class="p">.</span><span class="nx">transports</span><span class="p">.</span><span class="nx">File</span><span class="p">({</span> <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">combined.log</span><span class="dl">'</span> <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">});</span>
+
+<span class="c1">// 使用示例</span>
+<span class="nx">logger</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="dl">'</span><span class="s1">User registered</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span> 
+  <span class="na">userId</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">_id</span><span class="p">,</span> 
+  <span class="na">username</span><span class="p">:</span> <span class="nx">user</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+  <span class="na">service</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user-service</span><span class="dl">'</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="部署和扩展">部署和扩展</h2>
+
+<h3 id="kubernetes配置示例">Kubernetes配置示例</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># user-service-deployment.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">user-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">user-service</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">user-service</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">user-service</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">your-registry/user-service:latest</span>
+        <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">3001</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">MONGODB_URI</span>
+          <span class="na">valueFrom</span><span class="pi">:</span>
+            <span class="na">secretKeyRef</span><span class="pi">:</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">db-secret</span>
+              <span class="na">key</span><span class="pi">:</span> <span class="s">mongodb-uri</span>
+        <span class="na">resources</span><span class="pi">:</span>
+          <span class="na">requests</span><span class="pi">:</span>
+            <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">128Mi"</span>
+            <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">100m"</span>
+          <span class="na">limits</span><span class="pi">:</span>
+            <span class="na">memory</span><span class="pi">:</span> <span class="s2">"</span><span class="s">256Mi"</span>
+            <span class="na">cpu</span><span class="pi">:</span> <span class="s2">"</span><span class="s">200m"</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">user-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">user-service</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">3001</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">3001</span>
+</code></pre></div></div>
+
+<h2 id="最佳实践总结">最佳实践总结</h2>
+
+<h3 id="1-设计原则">1. 设计原则</h3>
+<ul>
+  <li><strong>单一职责</strong>：每个服务专注于一个业务领域</li>
+  <li><strong>数据独立</strong>：每个服务拥有自己的数据库</li>
+  <li><strong>API优先</strong>：通过明确定义的API进行通信</li>
+  <li><strong>无状态设计</strong>：服务实例应该是无状态的</li>
+</ul>
+
+<h3 id="2-开发实践">2. 开发实践</h3>
+<ul>
+  <li><strong>统一的错误处理</strong>和日志格式</li>
+  <li><strong>版本控制</strong>：API版本管理策略</li>
+  <li><strong>测试策略</strong>：单元测试、集成测试、契约测试</li>
+  <li><strong>CI/CD流水线</strong>：自动化构建和部署</li>
+</ul>
+
+<h3 id="3-运维实践">3. 运维实践</h3>
+<ul>
+  <li><strong>监控告警</strong>：服务健康状态、性能指标</li>
+  <li><strong>链路追踪</strong>：分布式请求追踪</li>
+  <li><strong>服务发现</strong>：动态服务注册和发现</li>
+  <li><strong>配置管理</strong>：集中化配置管理</li>
+</ul>
+
+<h2 id="总结">总结</h2>
+
+<p>微服务架构虽然带来了更好的可扩展性和技术灵活性，但也增加了系统的复杂性。在实施微服务时，需要：</p>
+
+<ol>
+  <li><strong>循序渐进</strong>：从单体开始，逐步拆分</li>
+  <li><strong>团队准备</strong>：确保团队具备相应的技术能力</li>
+  <li><strong>工具链完善</strong>：建立完整的开发、部署、监控工具链</li>
+  <li><strong>文化转变</strong>：建立DevOps文化和实践</li>
+</ol>
+
+<p>选择微服务架构需要权衡利弊，确保它真正解决你的业务问题，而不是为了技术而技术。</p>
+
+<hr />
+
+<p><em>你的团队在微服务实践中遇到了哪些挑战？欢迎分享你的经验和解决方案！</em></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#api-gateway" class="page__taxonomy-item" rel="tag">API Gateway</a><span class="sep">, </span>
+    
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a><span class="sep">, </span>
+    
+      <a href="/tags/#node-js" class="page__taxonomy-item" rel="tag">Node.js</a><span class="sep">, </span>
+    
+      <a href="/tags/#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F" class="page__taxonomy-item" rel="tag">分布式系统</a><span class="sep">, </span>
+    
+      <a href="/tags/#%E5%BE%AE%E6%9C%8D%E5%8A%A1" class="page__taxonomy-item" rel="tag">微服务</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91" class="page__taxonomy-item" rel="tag">后端开发</a><span class="sep">, </span>
+    
+      <a href="/categories/#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1" class="page__taxonomy-item" rel="tag">架构设计</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Node.js%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E5%AE%9E%E6%88%98%EF%BC%9A%E4%BB%8E%E5%8D%95%E4%BD%93%E5%88%B0%E5%88%86%E5%B8%83%E5%BC%8F%E7%9A%84%E6%BC%94%E8%BF%9B%E4%B9%8B%E8%B7%AF%20http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%2590%258E%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%2F%25E6%259E%25B6%25E6%259E%2584%25E8%25AE%25BE%25E8%25AE%25A1%2Fnodejs-microservices-architecture%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%2590%258E%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%2F%25E6%259E%25B6%25E6%259E%2584%25E8%25AE%25BE%25E8%25AE%25A1%2Fnodejs-microservices-architecture%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%2590%258E%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%2F%25E6%259E%25B6%25E6%259E%2584%25E8%25AE%25BE%25E8%25AE%25A1%2Fnodejs-microservices-architecture%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" class="pagination--pager" title="Python网页爬虫进阶教程：从基础到反爬虫对抗
+">Previous</a>
+    
+    
+      <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" class="pagination--pager" title="React Hooks 最佳实践：从入门到精通
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/images/webrtc-teaser.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          8 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://github.com/chicogong" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="mailto:chicogong@tencent.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2025 Chico Gong. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

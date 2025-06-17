@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Node.js微服务架构实战：从单体到分布式的演进之路"
 date: 2024-01-08 14:30:00 +0800
 categories: [后端开发, 架构设计]

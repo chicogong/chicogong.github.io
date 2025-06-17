@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Python网页爬虫进阶教程：从基础到反爬虫对抗"
 date: 2024-01-06 10:15:00 +0800
 categories: [Python, 数据采集]

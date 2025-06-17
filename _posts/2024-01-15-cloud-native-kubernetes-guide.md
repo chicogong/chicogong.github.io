@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "云原生Kubernetes实战指南：从入门到生产环境部署"
 date: 2024-01-15 11:45:00 +0800
 categories: [云原生, DevOps]
@@ -600,6 +600,7 @@ monitoring:
     enabled: true
 
 # templates/deployment.yaml
+{% raw %}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -640,6 +641,7 @@ spec:
             periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+{% endraw %}
 
 # 部署命令
 # helm install myapp ./myapp-chart
