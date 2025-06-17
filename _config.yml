@@ -1,41 +1,56 @@
-# Site Settings
-locale: "zh-CN"
-title: "Chico Gong 的技术博客"
-title_separator: "-"
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your entire site, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# `jekyll serve`. If you change this file, please restart the server process.
+
+# Theme Settings
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin: "contrast" # 使用对比度主题，更清新淡雅
+locale: "zh-Hans"
+title: "Chico Gong's Tech Blog"
 subtitle: "Conversational AI & Real-time Communication"
 name: "Chico Gong"
-description: "专注对话式AI和实时通信技术的开发者。分享Conversational AI、WebRTC、语音交互和大语言模型等前沿技术的实战经验。"
+description: >-
+  Welcome to my tech blog! I'm a Conversational AI Enthusiast and Real-time Communication Developer. 
+  Sharing insights on AI, voice interaction, WebRTC, and cutting-edge technologies.
 url: "https://realtime-ai.chat"
 baseurl: ""
 repository: "chicogong/chicogong.github.io"
-teaser: # 默认文章预览图
-logo: # 网站logo
-masthead_title: # 覆盖网站标题显示 (default: site.title)
-breadcrumbs: true # 面包屑导航
+teaser: "/assets/images/tech-teaser.jpg"
+logo: "/assets/images/logo.png"
+breadcrumbs: true
+words_per_minute: 200
 
-# Minimal Mistakes 主题配置
-minimal_mistakes_skin: "mint" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# Comments
+comments:
+  provider: "giscus"
+  giscus:
+    repo_id: "your-repo-id"
+    category_name: "General"
+    category_id: "your-category-id"
+    theme: "light"
 
 # Site Author
 author:
   name: "Chico Gong"
   avatar: "https://github.com/chicogong.png"
-  bio: "Conversational AI Enthusiast<br/>Real-time Communication Developer<br/>专注于创建自然的人机交互体验"
-  location: "中国"
+  bio: >-
+    🤖 Conversational AI Enthusiast | 📞 Real-time Communication Developer | 
+    ⚡ Building next-gen voice interaction systems
+  location: "Shanghai, China"
   email: "chicogong@tencent.com"
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/chicogong"
-    - label: "邮箱"
+    - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:chicogong@tencent.com"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://linkedin.com/in/your-profile"
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/your-twitter"
+      url: "https://linkedin.com/in/chicogong"
 
 # Site Footer
 footer:
@@ -107,11 +122,11 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 8
+paginate: 10
 paginate_path: /page:num/
 timezone: Asia/Shanghai
 
-# Plugins (previously gems:)
+# Plugins
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
@@ -154,12 +169,12 @@ defaults:
       comments: true
       share: true
       related: true
+      show_date: true
       toc: true
-      toc_sticky: true
       toc_label: "目录"
+      toc_icon: "fas fa-list"
       sidebar:
         nav: "main"
-      classes: wide
   # _pages
   - scope:
       path: "_pages"
@@ -167,10 +182,21 @@ defaults:
     values:
       layout: single
       author_profile: true
-      classes: wide
+      sidebar:
+        nav: "main"
 
-# Theme
-remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+# Site Navigation
+main:
+  - title: "首页"
+    url: /
+  - title: "分类"
+    url: /categories/
+  - title: "标签"
+    url: /tags/
+  - title: "归档"
+    url: /year-archive/
+  - title: "关于"
+    url: /about/
 
 # SEO优化
 og_image: "https://github.com/chicogong.png"

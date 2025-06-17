@@ -1,72 +1,138 @@
 ---
+title: "About Me"
 permalink: /about/
-title: "关于我"
 layout: single
 author_profile: true
-classes: wide
-header:
-  overlay_color: "#2AA889"
-  overlay_filter: "0.3"
-  caption: "Hi there 👋 I'm Chico Gong"
 ---
 
-<div style="text-align: center; margin-bottom: 2em;">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=2AA889&center=true&vCenter=true&width=435&lines=Hi+there+👋+I'm+Chico+Gong;Conversational+AI+Enthusiast;Real-time+Communication+Developer" alt="Typing SVG" />
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=22&duration=4000&pause=1000&color=6C7CE7&width=600&lines=Hi+there!+I'm+Chico+Gong+%F0%9F%91%8B;Conversational+AI+Enthusiast+%F0%9F%A4%96;Real-time+Communication+Developer+%F0%9F%93%9E;Building+the+future+of+human-AI+interaction+%E2%9A%A1" alt="Typing Animation" />
 </div>
 
 ## 🚀 About Me
 
-I'm a passionate developer specializing in **Conversational AI** and **Real-time Communication** technologies. My work focuses on creating intelligent, interactive systems that can understand and respond to human communication naturally.
+Hello! I'm **Chico Gong**, a passionate **Conversational AI Enthusiast** and **Real-time Communication Developer** based in Shanghai, China. I'm dedicated to creating natural and intuitive human-AI interaction experiences.
 
-## 🔍 Interests
+### 🔥 What I Do
 
-- 🤖 **Conversational AI & Natural Language Processing**
-- 🎙️ **Voice Interaction & Speech Technologies**  
-- 📡 **Real-time Communication & WebRTC**
-- 🧠 **Large Language Models & AI Agents**
+🤖 **Conversational AI**: Developing intelligent chatbots, voice assistants, and natural language processing systems  
+📞 **Real-time Communication**: Building WebRTC applications, voice/video calling solutions, and live streaming platforms  
+⚡ **Performance Optimization**: Optimizing latency and quality for real-time applications  
+🧠 **Machine Learning**: Implementing LLMs, speech recognition, and NLP algorithms  
 
-## 🌱 Currently Learning
+### 💼 Professional Interests
 
-- Advanced Conversational AI architectures
-- Real-time voice processing and synthesis
-- Multi-modal AI interactions
-- Cloud-native AI deployment
+- **Voice Interaction Systems**: Creating seamless voice-first experiences
+- **WebRTC Technology**: Building robust peer-to-peer communication solutions
+- **Large Language Models**: Integrating LLMs into conversational applications
+- **Audio Processing**: Real-time audio enhancement and speech technologies
+- **Cloud Native**: Scalable microservices architecture for AI applications
 
-## 💞️ Looking to Collaborate On
+### 🛠️ Tech Stack
 
-- Various conversational AI projects
-- Voice-enabled applications
-- Real-time communication solutions
-- AI-powered customer service systems
+#### Programming Languages
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 
-## 🛠️ Tech Stack
+#### Frameworks & Libraries
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Realtime_AI_Agent-2AA889?style=for-the-badge&logo=tencent&logoColor=white" />
-  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" />
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=webrtc&logoColor=white" />
-  <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" />
-</p>
+#### AI & ML
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Transformers](https://img.shields.io/badge/🤗%20Transformers-FFD21E?style=for-the-badge)
+![LangChain](https://img.shields.io/badge/🦜%20LangChain-1C3C3C?style=for-the-badge)
+![Whisper](https://img.shields.io/badge/Whisper-FF6B6B?style=for-the-badge)
 
-## 📫 How to Reach Me
+#### Communication & Media
+![WebRTC](https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=webrtc&logoColor=white)
+![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white)
+![FFmpeg](https://img.shields.io/badge/FFmpeg-007808?style=for-the-badge&logo=ffmpeg&logoColor=white)
 
-- 📧 **Email**: [chicogong@tencent.com](mailto:chicogong@tencent.com)
-- 🐙 **GitHub**: [@chicogong](https://github.com/chicogong)
-- 💼 **LinkedIn**: [Your LinkedIn Profile]
-- 🐦 **Twitter**: [@your-twitter](https://twitter.com/your-twitter)
+#### Cloud & DevOps
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 
-## ⚡ Fun Fact
+## 📈 GitHub Stats
 
-I believe the future of human-computer interaction lies in natural, conversational interfaces that understand not just what we say, but how we say it and why we say it.
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=chicogong&show_icons=true&theme=radical&hide_border=true&bg_color=0d1117&title_color=6C7CE7&text_color=A8E6CF&icon_color=FFB6C1" alt="GitHub Stats" />
+</div>
+
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=chicogong&layout=compact&theme=radical&hide_border=true&bg_color=0d1117&title_color=6C7CE7&text_color=A8E6CF" alt="Top Languages" />
+</div>
+
+## 🌟 Featured Projects
+
+### 🤖 ConversationAI Suite
+A comprehensive conversational AI platform featuring:
+- Multi-modal conversation handling (text, voice, video)
+- Real-time speech recognition and synthesis
+- Context-aware response generation
+- Emotion detection and sentiment analysis
+
+**Tech Stack**: Python, FastAPI, WebRTC, Transformers, OpenAI API
+
+### 📞 Real-time Communication Platform
+Enterprise-grade communication solution:
+- High-quality video/audio calling
+- Screen sharing and collaboration tools
+- Multi-party conference support
+- Cross-platform compatibility
+
+**Tech Stack**: Node.js, WebRTC, React, Socket.io, Redis
+
+### 🎙️ Voice AI Assistant
+Intelligent voice assistant with:
+- Natural language understanding
+- Voice activity detection
+- Multi-language support
+- Integration with IoT devices
+
+**Tech Stack**: Python, Whisper, TensorFlow, MQTT, gRPC
+
+### 🔊 Audio Processing Toolkit
+Advanced audio processing library:
+- Real-time noise reduction
+- Echo cancellation
+- Audio enhancement algorithms
+- Format conversion utilities
+
+**Tech Stack**: C++, Python, FFmpeg, WebAssembly
+
+## 📝 Recent Blog Posts
+
+I regularly share my insights and experiences in AI and real-time communication technologies. Check out my latest articles covering:
+
+- Building scalable conversational AI systems
+- WebRTC best practices and optimization
+- Speech recognition and synthesis techniques
+- Cloud-native architecture for AI applications
+- Performance tuning for real-time applications
+
+## 🤝 Let's Connect!
+
+I'm always excited to discuss new ideas, collaborate on interesting projects, or simply chat about the latest developments in AI and communication technologies.
+
+📧 **Email**: [chicogong@tencent.com](mailto:chicogong@tencent.com)  
+🐙 **GitHub**: [@chicogong](https://github.com/chicogong)  
+💼 **LinkedIn**: [in/chicogong](https://linkedin.com/in/chicogong)  
 
 ---
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=chicogong&show_icons=true&theme=radical" alt="GitHub Stats" />
+  <i>"The best way to predict the future is to invent it." - Alan Kay</i>
 </div>
 
----
-
-*Welcome to my journey in creating the future of human-AI interaction!* 🚀 
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=chicogong&label=Profile%20views&color=6C7CE7&style=flat" alt="Profile Views" />
+</div> 
