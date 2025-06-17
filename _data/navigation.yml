@@ -2,13 +2,84 @@
 main:
   - title: "首页"
     url: /
+    description: "返回主页"
   - title: "关于我"
     url: /about/
+    description: "了解更多关于我的信息"
+  - title: "文章"
+    url: /posts/
+    description: "浏览所有文章"
   - title: "分类"
     url: /categories/
+    description: "按分类浏览文章"
   - title: "标签"
     url: /tags/
+    description: "按标签浏览文章"
   - title: "归档"
     url: /year-archive/
+    description: "按年份浏览文章"
+  - title: "项目"
+    url: /projects/
+    description: "查看我的开源项目"
+  - title: "联系"
+    url: /contact/
+    description: "联系方式和社交媒体"
+
+# 侧边栏导航
+sidebar:
+  - title: "快速导航"
+    children:
+      - title: "最新文章"
+        url: /posts/
+      - title: "热门分类"
+        url: /categories/
+      - title: "技术标签"
+        url: /tags/
+      - title: "项目展示"
+        url: /projects/
+
+# 技术相关导航
+tech:
+  - title: "AI & ML"
+    children:
+      - title: "对话式AI"
+        url: /categories/#conversational-ai
+      - title: "机器学习"
+        url: /categories/#machine-learning
+      - title: "自然语言处理"
+        url: /categories/#nlp
+      - title: "语音技术"
+        url: /categories/#voice-tech
+  - title: "实时通信"
+    children:
+      - title: "WebRTC"
+        url: /categories/#webrtc
+      - title: "音视频处理"
+        url: /categories/#media-processing
+      - title: "网络编程"
+        url: /categories/#networking
+  - title: "开发技术"
+    children:
+      - title: "前端开发"
+        url: /categories/#frontend
+      - title: "后端开发"
+        url: /categories/#backend
+      - title: "云原生"
+        url: /categories/#cloud-native
+      - title: "DevOps"
+        url: /categories/#devops
+
+# 社交媒体链接
+social:
   - title: "GitHub"
-    url: https://github.com/chicogong 
+    url: "https://github.com/chicogong"
+    icon: "fab fa-github"
+  - title: "LinkedIn"
+    url: "https://linkedin.com/in/chicogong"
+    icon: "fab fa-linkedin"
+  - title: "Email"
+    url: "mailto:chicogong@tencent.com"
+    icon: "fas fa-envelope"
+  - title: "RSS"
+    url: "/feed.xml"
+    icon: "fas fa-rss" 
