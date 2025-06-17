@@ -1,0 +1,14 @@
+# main links
+main:
+  - title: "首页"
+    url: /
+  - title: "关于我"
+    url: /about/
+  - title: "分类"
+    url: /categories/
+  - title: "标签"
+    url: /tags/
+  - title: "归档"
+    url: /year-archive/
+  - title: "GitHub"
+    url: https://github.com/chicogong 

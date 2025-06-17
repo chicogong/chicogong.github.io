@@ -1,0 +1,332 @@
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+/* 自定义样式美化 */
+
+/* 1. 整体配色和字体优化 */
+:root {
+  --primary-color: #007acc;
+  --accent-color: #ff6b6b;
+  --text-color: #2c3e50;
+  --bg-color: #ffffff;
+  --border-color: #e1e8ed;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 2. 代码块美化 */
+.highlight {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  margin: 1.5em 0;
+  overflow: hidden;
+}
+
+.highlight pre {
+  padding: 1.5em;
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+/* 行号样式 */
+.highlight .lineno {
+  color: #999;
+  user-select: none;
+  padding-right: 1em;
+}
+
+/* 3. 文章内容美化 */
+.page__content {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: 2.2em;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 0.3em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.3em;
+  }
+
+  h3 {
+    font-size: 1.4em;
+    color: var(--primary-color);
+  }
+
+  p {
+    line-height: 1.8;
+    margin-bottom: 1.2em;
+    color: var(--text-color);
+  }
+
+  blockquote {
+    border-left: 4px solid var(--accent-color);
+    background: #f8f9fa;
+    padding: 1em 1.5em;
+    margin: 1.5em 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 4px var(--shadow-color);
+  }
+}
+
+/* 4. 代码样式优化 */
+code {
+  background: #f1f3f4;
+  color: #d63384;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+/* 5. 列表样式美化 */
+ul, ol {
+  li {
+    margin-bottom: 0.5em;
+    line-height: 1.6;
+
+    &::marker {
+      color: var(--primary-color);
+    }
+  }
+}
+
+/* 强调文本样式 */
+strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+em {
+  color: var(--accent-color);
+  font-style: italic;
+}
+
+/* 6. 链接样式优化 */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+}
+
+/* 7. 表格样式美化 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  border-radius: 8px;
+  overflow: hidden;
+
+  th, td {
+    padding: 0.8em 1em;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+  }
+
+  tbody tr:hover {
+    background: #f8f9fa;
+  }
+}
+
+/* 8. 按钮样式 */
+.btn {
+  border-radius: 6px;
+  padding: 0.6em 1.2em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px var(--shadow-color);
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+  }
+}
+
+/* 9. 侧边栏作者信息美化 */
+.sidebar .author__avatar img {
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.sidebar .author__bio {
+  font-size: 0.9em;
+  line-height: 1.6;
+  color: #666;
+  margin-top: 0.5em;
+}
+
+/* 10. 文章卡片样式 */
+.list__item {
+  margin-bottom: 2em;
+  padding: 1.5em;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+  }
+}
+
+.archive__item-title {
+  font-size: 1.3em;
+  margin-bottom: 0.5em;
+  
+  a {
+    color: var(--text-color);
+    
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.archive__item-excerpt {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1em;
+}
+
+/* 11. 标签和分类样式 */
+.page__meta {
+  font-size: 0.8em;
+  color: #999;
+  
+  a {
+    color: var(--primary-color);
+    background: #f1f3f4;
+    padding: 0.2em 0.6em;
+    border-radius: 12px;
+    margin-right: 0.5em;
+    display: inline-block;
+    margin-bottom: 0.3em;
+    
+    &:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+  }
+}
+
+/* 12. TOC目录样式 */
+.toc {
+  background: #f8f9fa;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1em;
+  
+  .toc__title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5em;
+  }
+  
+  a {
+    color: #666;
+    font-size: 0.9em;
+    
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+/* 13. 页脚样式 */
+.page__footer {
+  background: #2c3e50;
+  color: white;
+  
+  a {
+    color: #fff;
+    
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+}
+
+/* 14. 响应式优化 */
+@media (max-width: 768px) {
+  .page__content {
+    h1 {
+      font-size: 1.8em;
+    }
+    
+    h2 {
+      font-size: 1.5em;
+    }
+  }
+  
+  .list__item {
+    padding: 1em;
+    margin-bottom: 1.5em;
+  }
+}
+
+/* 15. 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page__content {
+  animation: fadeInUp 0.6s ease;
+}
+
+/* 16. 首页特殊样式 */
+.home .page__content {
+  h2 {
+    color: var(--primary-color);
+    font-size: 1.6em;
+    margin-top: 2em;
+  }
+}
+
+/* 17. 搜索框样式 */
+.search-content input {
+  border-radius: 6px;
+  border: 2px solid var(--border-color);
+  padding: 0.8em;
+  
+  &:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+  }
+} 

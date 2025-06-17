@@ -13,11 +13,14 @@ logo: # 网站logo
 masthead_title: # 覆盖网站标题显示 (default: site.title)
 breadcrumbs: true # 面包屑导航
 
+# Minimal Mistakes 主题配置
+minimal_mistakes_skin: "air" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
 # Site Author
 author:
   name: "Chico Gong"
-  avatar: "/assets/images/bio-photo.jpg"
-  bio: "一个热爱技术和分享的开发者"
+  avatar: "https://github.com/chicogong.png"
+  bio: "一个热爱技术和分享的开发者<br/>专注全栈开发、微服务架构、AI应用"
   location: "中国"
   email: "your-email@example.com"
   links:
@@ -27,6 +30,9 @@ author:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/your-twitter"
+    - label: "邮箱"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:your-email@example.com"
 
 # Site Footer
 footer:
@@ -98,7 +104,7 @@ sass:
 
 # Outputting
 permalink: /:categories/:title/
-paginate: 5
+paginate: 8
 paginate_path: /page:num/
 timezone: Asia/Shanghai
 
@@ -147,6 +153,10 @@ defaults:
       related: true
       toc: true
       toc_sticky: true
+      toc_label: "目录"
+      sidebar:
+        nav: "main"
+      classes: wide
   # _pages
   - scope:
       path: "_pages"
@@ -154,6 +164,27 @@ defaults:
     values:
       layout: single
       author_profile: true
+      classes: wide
 
 # Theme
-remote_theme: "mmistakes/minimal-mistakes@4.24.0" 
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+
+# SEO优化
+og_image: "https://github.com/chicogong.png"
+social:
+  type: Person
+  name: "Chico Gong"
+  links:
+    - "https://github.com/chicogong"
+    - "https://twitter.com/your-twitter"
+
+# Analytics (可选)
+analytics:
+  provider: false # false (default), "google", "google-universal", "google-gtag", "custom"
+  google:
+    tracking_id:
+    anonymize_ip: # true, false (default)
+
+# Comments (可选)
+comments:
+  provider: false # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom" 

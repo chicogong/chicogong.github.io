@@ -1,6 +1,13 @@
 ---
 permalink: /about/
 title: "关于我"
+layout: single
+author_profile: true
+classes: wide
+header:
+  overlay_color: "#007acc"
+  overlay_filter: "0.3"
+  caption: "Hello, 我是 Chico Gong！"
 ---
 
 # 关于我
