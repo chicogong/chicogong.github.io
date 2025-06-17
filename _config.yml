@@ -5,112 +5,42 @@ description: >-
   一个热爱技术和分享的开发者的个人博客。分享前端开发、后端架构和新兴技术的学习心得。
 
 # Replace with the website url, e.g. 'https://username.github.io'
-url: 'https://chicogong.github.io'
+url: 'https://realtime-ai.chat'
 
 # Author information
 author:
   name: Chico Gong
   email: your-email@example.com
-  links:
-    - https://github.com/chicogong
-    - https://twitter.com/your-twitter
 
-# Avatar settings
-avatar: '/assets/img/avatar.jpg'
+# Theme settings (使用GitHub Pages支持的主题)
+theme: minima
 
-# Timezone
-timezone: Asia/Shanghai
-
-# Language and locale
-lang: zh-CN
-
-# Theme settings (for GitHub Pages compatibility)
-remote_theme: cotes2020/jekyll-theme-chirpy
-
-# Social media links
-github:
-  username: chicogong
-
-twitter:
-  username: your-twitter
-
-# SEO settings
-google_site_verification: # Google search console verification
-bing_site_verification: # Bing webmaster verification
-
-# Analytics
-google_analytics:
-  id: # Google Analytics ID
-
-# Comments (选择一个)
-comments:
-  active: # The global switch for posts comments, e.g., 'disqus'.
-  disqus:
-    shortname: # Your Disqus shortname
-
-# Pagination
-paginate: 10
+# GitHub Pages settings
+github_username: chicogong
+twitter_username: your-twitter
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
 
-# Collections
-collections:
-  tabs:
-    output: true
-    sort_by: order
+# Pagination
+paginate: 5
+paginate_path: "/page:num/"
 
-defaults:
-  - scope:
-      path: ''
-      type: posts
-    values:
-      layout: post
-      comments: true
-      toc: true
-      permalink: /posts/:title/
-  - scope:
-      path: _drafts
-    values:
-      comments: false
-  - scope:
-      path: ''
-      type: tabs
-    values:
-      layout: page
-      permalink: /:title/
-
-sass:
-  style: compressed
-
-compress_html:
-  clippings: all
-  comments: all
-  endings: all
-  startings: []
-  blanklines: false
-  profile: false
-
-# Jekyll plugins
+# Jekyll plugins (GitHub Pages 兼容)
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-paginate
-  - jekyll-archives
 
-# Jekyll Compose default front matter
-jekyll_compose:
-  default_front_matter:
-    drafts:
-      description:
-      image:
-      category:
-      tags:
-    posts:
-      description:
-      image:
-      category:
-      tags: 
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/ 
