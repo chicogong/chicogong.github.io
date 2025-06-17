@@ -1,0 +1,229 @@
+/* 博客文章页面样式 */
+.logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.post {
+    padding: 2rem 0;
+    background: #fff;
+}
+
+.post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.post-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.post-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.post-date {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.post-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.post-subtitle {
+    font-size: 1.25rem;
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.post-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #374151;
+}
+
+.post-content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 2.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #2563eb;
+}
+
+.post-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 2rem 0 1rem 0;
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content ul,
+.post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.post-content li {
+    margin-bottom: 0.5rem;
+}
+
+.post-content li strong {
+    color: #1e293b;
+}
+
+.post-content blockquote {
+    border-left: 4px solid #2563eb;
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.post-content code {
+    background: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    color: #e11d48;
+}
+
+.post-content pre {
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.post-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.post-signature {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f8fafc;
+    border-radius: 12px;
+    text-align: center;
+    border-left: 4px solid #2563eb;
+}
+
+.post-signature p {
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    color: #64748b;
+}
+
+.post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .post-title {
+        font-size: 2rem;
+    }
+    
+    .post-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .post-content {
+        font-size: 1rem;
+    }
+    
+    .post-content h2 {
+        font-size: 1.75rem;
+    }
+    
+    .post-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .post-navigation {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nav-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .post-title {
+        font-size: 1.75rem;
+    }
+    
+    .post-content ul,
+    .post-content ol {
+        padding-left: 1.5rem;
+    }
+} 

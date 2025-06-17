@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chico Gong 的个人博客</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <h1 class="logo">Chico Gong</h1>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于</a></li>
+                    <li><a href="#blog">博客</a></li>
+                    <li><a href="#contact">联系</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">欢迎来到我的个人博客</h2>
+                <p class="hero-subtitle">分享技术见解、生活感悟与学习笔记</p>
+                <a href="#blog" class="cta-button">开始阅读</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">关于我</h2>
+                <div class="about-content">
+                    <p>你好！我是 Chico Gong，一个热爱技术和分享的开发者。这里是我记录学习心得、技术探索和生活感悟的地方。</p>
+                    <p>我专注于前端开发、后端架构和新兴技术的研究。希望通过这个博客，能够与更多志同道合的朋友交流学习。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="blog">
+            <div class="container">
+                <h2 class="section-title">最新文章</h2>
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <div class="blog-image-placeholder">📝</div>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">
+                                <a href="posts/welcome.html">欢迎来到我的博客</a>
+                            </h3>
+                            <p class="blog-excerpt">这是我的第一篇博客文章，介绍了建立这个博客的初衷和未来的计划...</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">2024年1月1日</span>
+                                <span class="blog-tags">
+                                    <span class="tag">博客</span>
+                                    <span class="tag">介绍</span>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <div class="blog-image-placeholder">💻</div>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="blog-title">
+                                <a href="posts/github-pages-setup.html">如何使用GitHub Pages搭建个人博客</a>
+                            </h3>
+                            <p class="blog-excerpt">详细介绍如何使用GitHub Pages创建免费的个人博客网站...</p>
+                            <div class="blog-meta">
+                                <span class="blog-date">2024年1月5日</span>
+                                <span class="blog-tags">
+                                    <span class="tag">GitHub</span>
+                                    <span class="tag">教程</span>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">联系我</h2>
+                <div class="contact-content">
+                    <p>如果你有任何问题或想要交流，欢迎联系我：</p>
+                    <ul class="contact-links">
+                        <li><a href="mailto:your-email@example.com">📧 邮箱</a></li>
+                        <li><a href="https://github.com/chicogong" target="_blank">🐙 GitHub</a></li>
+                        <li><a href="https://twitter.com/your-twitter" target="_blank">🐦 Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Chico Gong. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
