@@ -3,12 +3,420 @@ layout: home
 author_profile: true
 classes: wide
 header:
-  overlay_color: "#2AA889"
-  overlay_filter: "0.3"
-  caption: "Hi there 👋 I'm Chico Gong"
-excerpt: "Conversational AI Enthusiast & Real-time Communication Developer 🤖"
+  overlay_color: "#000"
+  overlay_filter: "0.5"
+  overlay_image: /assets/images/hero-bg.jpg
+  actions:
+    - label: "探索文章"
+      url: "/posts/"
+      btn_class: "btn--primary btn--large"
+    - label: "关于我"
+      url: "/about/"
+      btn_class: "btn--inverse btn--large"
+excerpt: "Welcome to my tech blog! Sharing insights on **Conversational AI**, **Real-time Communication**, and cutting-edge technologies."
 intro: 
-  - excerpt: 'Specializing in creating intelligent, interactive systems that understand and respond to human communication naturally. Focused on **Conversational AI**, **WebRTC**, and **Voice Technologies**.'
+  - excerpt: '🤖 专注于对话式AI和实时通信技术的开发者<br/>📞 分享WebRTC、语音交互、LLMs等前沿技术实战经验<br/>⚡ 构建下一代人机交互系统'
+feature_row:
+  - image_path: /assets/images/ai-chat.jpg
+    alt: "Conversational AI"
+    title: "🤖 对话式AI"
+    excerpt: "深入探讨ChatGPT、Claude等大语言模型的应用，分享自然语言处理和智能对话系统的开发经验。"
+    url: "/categories/#conversational-ai"
+    btn_label: "查看文章"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/webrtc.jpg
+    alt: "Real-time Communication"
+    title: "📞 实时通信"
+    excerpt: "WebRTC技术深度解析，音视频通话、屏幕共享、实时协作等应用的架构设计和性能优化。"
+    url: "/categories/#webrtc"
+    btn_label: "查看文章"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/voice-ai.jpg
+    alt: "Voice Technology"
+    title: "🎙️ 语音技术"
+    excerpt: "语音识别、语音合成、语音增强等技术的实现原理和实际应用，构建智能语音交互系统。"
+    url: "/categories/#voice-tech"
+    btn_label: "查看文章"
+    btn_class: "btn--primary"
+feature_row2:
+  - image_path: /assets/images/projects-showcase.jpg
+    alt: "开源项目"
+    title: "🚀 开源项目展示"
+    excerpt: '探索我在GitHub上的开源项目，包括AI对话系统、WebRTC通信平台、语音处理工具等。<br/>**[查看GitHub →](https://github.com/chicogong)**{: .btn .btn--primary}'
+    url: "/projects/"
+    btn_label: "项目详情"
+    btn_class: "btn--inverse"
+feature_row3:
+  - image_path: /assets/images/tech-stack.jpg
+    alt: "技术栈"
+    title: "💻 技术栈与工具"
+    excerpt: "分享我在AI、前端、后端开发中使用的技术栈，包括Python、JavaScript、WebRTC、TensorFlow等技术的实战经验。"
+    url: "/tech-stack/"
+    btn_label: "了解更多"
+    btn_class: "btn--info"
+  - image_path: /assets/images/blog-updates.jpg
+    alt: "最新动态"
+    title: "📝 最新文章"
+    excerpt: "定期更新技术博客，分享最新的AI技术趋势、实战项目经验和行业洞察。"
+    url: "/posts/"
+    btn_label: "阅读博客"
+    btn_class: "btn--success"
+  - image_path: /assets/images/contact.jpg
+    alt: "联系合作"
+    title: "🤝 联系与合作"
+    excerpt: "欢迎技术交流、项目合作或咨询。专注于AI对话系统和实时通信解决方案。"
+    url: "/contact/"
+    btn_label: "联系我"
+    btn_class: "btn--warning"
 ---
 
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">
+      <span class="gradient-text">Chico Gong</span>
+    </h1>
+    <p class="hero-subtitle">Conversational AI Enthusiast & Real-time Communication Developer</p>
+    <div class="hero-description">
+      <p>🤖 专注于构建智能对话系统和实时通信平台</p>
+      <p>📞 分享AI、WebRTC、语音技术的实战经验</p>
+      <p>⚡ 探索人机交互的未来可能性</p>
+    </div>
+    <div class="hero-actions">
+      <a href="/posts/" class="btn btn--primary btn--large">📖 探索文章</a>
+      <a href="/about/" class="btn btn--outline btn--large">👋 关于我</a>
+    </div>
+  </div>
+</div>
+
 {% include feature_row id="intro" type="center" %}
+
+<div class="features-section">
+  <div class="container">
+    <h2 class="section-title">🚀 技术专长</h2>
+    {% include feature_row %}
+  </div>
+</div>
+
+<div class="projects-section">
+  <div class="container">
+    {% include feature_row id="feature_row2" type="left" %}
+  </div>
+</div>
+
+<div class="additional-features">
+  <div class="container">
+    <h2 class="section-title">💡 更多内容</h2>
+    {% include feature_row id="feature_row3" %}
+  </div>
+</div>
+
+<div class="stats-section">
+  <div class="container">
+    <h2 class="section-title">📊 博客统计</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">{{ site.posts.size }}</div>
+        <div class="stat-label">技术文章</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ site.categories.size }}</div>
+        <div class="stat-label">技术分类</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ site.tags.size }}</div>
+        <div class="stat-label">技术标签</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">年经验</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="recent-posts-section">
+  <div class="container">
+    <h2 class="section-title">📝 最新文章</h2>
+    <div class="posts-grid">
+      {% for post in site.posts limit:6 %}
+        <article class="post-card">
+          <div class="post-card-header">
+            {% if post.header.teaser %}
+              <img src="{{ post.header.teaser }}" alt="{{ post.title }}" class="post-image">
+            {% else %}
+              <div class="post-image-placeholder">
+                <i class="fas fa-file-alt"></i>
+              </div>
+            {% endif %}
+          </div>
+          <div class="post-card-content">
+            <div class="post-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+              {% if post.categories %}
+                <span class="post-category">{{ post.categories | first }}</span>
+              {% endif %}
+            </div>
+            <h3 class="post-title">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </h3>
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <div class="post-tags">
+              {% for tag in post.tags limit:3 %}
+                <span class="tag">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="view-all-posts">
+      <a href="/posts/" class="btn btn--primary">查看全部文章 →</a>
+    </div>
+  </div>
+</div>
+
+<div class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-content">
+      <h2>🔔 订阅更新</h2>
+      <p>获取最新的AI技术文章和实战经验分享</p>
+      <div class="newsletter-form">
+        <a href="/feed.xml" class="btn btn--primary">
+          <i class="fas fa-rss"></i> RSS订阅
+        </a>
+        <a href="https://github.com/chicogong" class="btn btn--outline">
+          <i class="fab fa-github"></i> 关注GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 4rem 0;
+  text-align: center;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #f093fb 50%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.features-section, .projects-section, .additional-features {
+  padding: 3rem 0;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stats-section {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 3rem 0;
+  color: white;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 1.5rem;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.recent-posts-section {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.post-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.post-image, .post-image-placeholder {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.post-image-placeholder {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+}
+
+.post-card-content {
+  padding: 1.5rem;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.post-category {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.post-title a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.post-title a:hover {
+  color: #667eea;
+}
+
+.post-excerpt {
+  color: #666;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: #f5f5f5;
+  color: #666;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.view-all-posts {
+  text-align: center;
+}
+
+.newsletter-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 3rem 0;
+  color: white;
+  text-align: center;
+}
+
+.newsletter-content h2 {
+  margin-bottom: 1rem;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn--outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn--outline:hover {
+  background: white;
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>

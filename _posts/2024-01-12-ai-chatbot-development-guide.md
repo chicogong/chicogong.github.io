@@ -1,835 +1,1096 @@
 ---
-layout: post
-title: "AI聊天机器人开发完整指南：从0到1构建智能对话系统"
-date: 2024-01-12 16:20:00 +0800
-categories: [人工智能, 开发指南]
-tags: [AI, 聊天机器人, 自然语言处理, Python, OpenAI]
+title: "WebRTC实时语音通信开发完整指南：构建高质量语音通话应用"
+date: 2024-01-12
+categories: [WebRTC, 实时通信]
+tags: [WebRTC, 语音通话, P2P, 实时通信, JavaScript]
+toc: true
+toc_label: "目录"
+toc_icon: "fas fa-list"
+header:
+  teaser: "/assets/images/webrtc-teaser.jpg"
+  overlay_image: "/assets/images/webrtc-hero.jpg"
+  overlay_filter: 0.5
+  caption: "WebRTC实时语音通信架构"
+excerpt: "深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。"
 ---
 
-随着ChatGPT和Claude等大型语言模型的爆火，AI聊天机器人已经成为各行各业的热门应用。今天我将从零开始，带你构建一个功能完整的AI聊天机器人，涵盖技术选型、架构设计到实际部署的全流程。
+## 前言
 
-## 什么是AI聊天机器人？
+WebRTC（Web Real-Time Communication）是一项革命性的技术，它使得浏览器之间可以直接进行实时音视频通信，无需安装任何插件。本文将带你从零开始构建一个完整的WebRTC语音通话应用。
 
-AI聊天机器人是一种基于人工智能技术的对话系统，能够：
+## WebRTC基础概念
 
-- **理解自然语言**：解析用户的文本输入
-- **生成回复**：基于上下文产生合适的响应
-- **记忆对话**：维护对话历史和上下文
-- **多模态交互**：支持文本、语音、图像等多种输入方式
+### 什么是WebRTC
+
+WebRTC是一个开源项目，提供了浏览器和移动应用程序间实时通信的能力。它包含三个主要的API：
+
+- **MediaStream API**：访问摄像头和麦克风
+- **RTCPeerConnection API**：建立P2P连接
+- **RTCDataChannel API**：传输任意数据
+
+### WebRTC通信流程
+
+```mermaid
+sequenceDiagram
+    participant A as 用户A
+    participant S as 信令服务器
+    participant B as 用户B
+    
+    A->>S: 创建房间
+    B->>S: 加入房间
+    A->>S: 发送Offer
+    S->>B: 转发Offer
+    B->>S: 发送Answer
+    S->>A: 转发Answer
+    A->>B: ICE候选交换
+    B->>A: ICE候选交换
+    A->>B: 直接P2P通信
+```
 
 ## 技术架构设计
 
-```
-┌─────────────────┐    ┌─────────────────┐
-│   Web Frontend  │    │  Mobile Client  │
-└─────────┬───────┘    └─────────┬───────┘
-          │                      │
-          └──────┬─────────────────┘
-                 │
-         ┌───────▼────────┐
-         │  API Gateway   │
-         └───────┬────────┘
-                 │
-      ┌──────────▼──────────┐
-      │   Chat Bot Server   │
-      │  ┌─────────────────┐│
-      │  │ Session Manager ││
-      │  └─────────────────┘│
-      │  ┌─────────────────┐│
-      │  │ Context Engine  ││
-      │  └─────────────────┘│
-      └──────────┬──────────┘
-                 │
-    ┌────────────┼────────────┐
-    │            │            │
-┌───▼────┐  ┌───▼────┐  ┌───▼────┐
-│ LLM    │  │Vector  │  │ Redis  │
-│ API    │  │Database│  │ Cache  │
-└────────┘  └────────┘  └────────┘
-```
+### 整体架构
 
-## 核心功能实现
-
-### 1. 聊天机器人核心类
-
-```python
-# chatbot/core.py
-import asyncio
-import json
-import uuid
-from datetime import datetime
-from typing import Dict, List, Optional, Any
-import openai
-from redis import Redis
-from sqlalchemy.orm import Session
-from .models import ChatSession, Message
-from .utils import sanitize_input, format_response
-
-class ChatBot:
-    def __init__(self, 
-                 openai_api_key: str,
-                 redis_client: Redis,
-                 db_session: Session,
-                 model: str = "gpt-3.5-turbo"):
-        self.openai_client = openai.OpenAI(api_key=openai_api_key)
-        self.redis = redis_client
-        self.db = db_session
-        self.model = model
-        self.max_context_length = 4000
-        self.system_prompt = """你是一个友善、专业的AI助手。请用中文回答问题，
-        保持回复简洁明了，同时提供有价值的信息。如果不确定答案，请诚实说明。"""
-
-    async def create_session(self, user_id: str) -> str:
-        """创建新的聊天会话"""
-        session_id = str(uuid.uuid4())
-        
-        # 在数据库中创建会话记录
-        chat_session = ChatSession(
-            session_id=session_id,
-            user_id=user_id,
-            created_at=datetime.utcnow(),
-            status='active'
-        )
-        self.db.add(chat_session)
-        self.db.commit()
-        
-        # 在Redis中初始化会话缓存
-        session_data = {
-            'user_id': user_id,
-            'created_at': datetime.utcnow().isoformat(),
-            'message_count': 0,
-            'context': []
-        }
-        self.redis.setex(f"session:{session_id}", 3600 * 24, json.dumps(session_data))
-        
-        return session_id
-
-    async def get_session_context(self, session_id: str) -> List[Dict]:
-        """获取会话上下文"""
-        cached_data = self.redis.get(f"session:{session_id}")
-        if cached_data:
-            session_data = json.loads(cached_data)
-            return session_data.get('context', [])
-        
-        # 从数据库中获取历史消息
-        messages = self.db.query(Message).filter(
-            Message.session_id == session_id
-        ).order_by(Message.created_at.desc()).limit(10).all()
-        
-        context = []
-        for msg in reversed(messages):
-            context.append({"role": "user", "content": msg.user_message})
-            if msg.bot_response:
-                context.append({"role": "assistant", "content": msg.bot_response})
-        
-        return context
-
-    async def chat(self, session_id: str, user_message: str) -> Dict[str, Any]:
-        """处理用户消息并生成回复"""
-        try:
-            # 输入清理和验证
-            user_message = sanitize_input(user_message)
-            if not user_message.strip():
-                return {"error": "消息不能为空"}
-
-            # 获取会话上下文
-            context = await self.get_session_context(session_id)
-            
-            # 构建消息历史
-            messages = [{"role": "system", "content": self.system_prompt}]
-            messages.extend(context)
-            messages.append({"role": "user", "content": user_message})
-            
-            # 控制上下文长度
-            messages = self._truncate_context(messages)
-            
-            # 调用OpenAI API
-            start_time = datetime.utcnow()
-            response = await self._call_openai_api(messages)
-            response_time = (datetime.utcnow() - start_time).total_seconds()
-            
-            bot_response = response.choices[0].message.content
-            
-            # 保存消息到数据库
-            message = Message(
-                session_id=session_id,
-                user_message=user_message,
-                bot_response=bot_response,
-                response_time=response_time,
-                tokens_used=response.usage.total_tokens,
-                created_at=datetime.utcnow()
-            )
-            self.db.add(message)
-            self.db.commit()
-            
-            # 更新Redis缓存
-            await self._update_session_cache(session_id, user_message, bot_response)
-            
-            return {
-                "response": bot_response,
-                "session_id": session_id,
-                "tokens_used": response.usage.total_tokens,
-                "response_time": response_time
-            }
-            
-        except Exception as e:
-            return {"error": f"处理消息时发生错误: {str(e)}"}
-
-    async def _call_openai_api(self, messages: List[Dict]) -> Any:
-        """调用OpenAI API"""
-        return await asyncio.to_thread(
-            self.openai_client.chat.completions.create,
-            model=self.model,
-            messages=messages,
-            temperature=0.7,
-            max_tokens=1000,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
-
-    def _truncate_context(self, messages: List[Dict]) -> List[Dict]:
-        """截断上下文以控制长度"""
-        total_length = sum(len(msg['content']) for msg in messages)
-        
-        while total_length > self.max_context_length and len(messages) > 2:
-            # 保留系统提示和最新消息，删除中间的旧消息
-            messages.pop(1)
-            total_length = sum(len(msg['content']) for msg in messages)
-        
-        return messages
-
-    async def _update_session_cache(self, session_id: str, user_msg: str, bot_msg: str):
-        """更新会话缓存"""
-        cached_data = self.redis.get(f"session:{session_id}")
-        if cached_data:
-            session_data = json.loads(cached_data)
-            context = session_data.get('context', [])
-            
-            # 添加新消息到上下文
-            context.append({"role": "user", "content": user_msg})
-            context.append({"role": "assistant", "content": bot_msg})
-            
-            # 限制上下文长度
-            if len(context) > 20:
-                context = context[-20:]
-            
-            session_data['context'] = context
-            session_data['message_count'] = session_data.get('message_count', 0) + 1
-            session_data['last_activity'] = datetime.utcnow().isoformat()
-            
-            self.redis.setex(f"session:{session_id}", 3600 * 24, json.dumps(session_data))
-```
-
-### 2. 数据模型定义
-
-```python
-# chatbot/models.py
-from sqlalchemy import Column, Integer, String, Text, DateTime, Float
-from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime
-
-Base = declarative_base()
-
-class ChatSession(Base):
-    __tablename__ = 'chat_sessions'
-    
-    id = Column(Integer, primary_key=True)
-    session_id = Column(String(36), unique=True, nullable=False)
-    user_id = Column(String(50), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    status = Column(String(20), default='active')
-
-class Message(Base):
-    __tablename__ = 'messages'
-    
-    id = Column(Integer, primary_key=True)
-    session_id = Column(String(36), nullable=False)
-    user_message = Column(Text, nullable=False)
-    bot_response = Column(Text)
-    response_time = Column(Float)  # 响应时间（秒）
-    tokens_used = Column(Integer)  # 使用的token数量
-    created_at = Column(DateTime, default=datetime.utcnow)
-
-class UserFeedback(Base):
-    __tablename__ = 'user_feedback'
-    
-    id = Column(Integer, primary_key=True)
-    message_id = Column(Integer, nullable=False)
-    rating = Column(Integer)  # 1-5星评分
-    feedback_text = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
-```
-
-### 3. FastAPI Web服务
-
-```python
-# chatbot/api.py
-from fastapi import FastAPI, HTTPException, Depends, Request
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel
-from typing import Optional
-import jwt
-import os
-from .core import ChatBot
-from .database import get_db, get_redis
-from .auth import verify_token
-
-app = FastAPI(title="AI ChatBot API", version="1.0.0")
-
-# 跨域配置
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-security = HTTPBearer()
-
-class ChatRequest(BaseModel):
-    message: str
-    session_id: Optional[str] = None
-
-class ChatResponse(BaseModel):
-    response: str
-    session_id: str
-    tokens_used: int
-    response_time: float
-
-class SessionCreateRequest(BaseModel):
-    user_id: str
-
-# 依赖注入
-def get_chatbot(db=Depends(get_db), redis=Depends(get_redis)):
-    return ChatBot(
-        openai_api_key=os.getenv("OPENAI_API_KEY"),
-        redis_client=redis,
-        db_session=db,
-        model=os.getenv("OPENAI_MODEL", "gpt-3.5-turbo")
-    )
-
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    try:
-        payload = jwt.decode(
-            credentials.credentials, 
-            os.getenv("JWT_SECRET"), 
-            algorithms=["HS256"]
-        )
-        return payload.get("user_id")
-    except jwt.PyJWTError:
-        raise HTTPException(status_code=401, detail="无效的认证令牌")
-
-@app.post("/api/sessions", response_model=dict)
-async def create_session(
-    request: SessionCreateRequest,
-    user_id: str = Depends(get_current_user),
-    chatbot: ChatBot = Depends(get_chatbot)
-):
-    """创建新的聊天会话"""
-    session_id = await chatbot.create_session(user_id)
-    return {"session_id": session_id}
-
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat(
-    request: ChatRequest,
-    user_id: str = Depends(get_current_user),
-    chatbot: ChatBot = Depends(get_chatbot)
-):
-    """发送消息并获取AI回复"""
-    session_id = request.session_id
-    
-    # 如果没有session_id，创建新会话
-    if not session_id:
-        session_id = await chatbot.create_session(user_id)
-    
-    result = await chatbot.chat(session_id, request.message)
-    
-    if "error" in result:
-        raise HTTPException(status_code=400, detail=result["error"])
-    
-    return ChatResponse(**result)
-
-@app.get("/api/sessions/{session_id}/history")
-async def get_chat_history(
-    session_id: str,
-    user_id: str = Depends(get_current_user),
-    chatbot: ChatBot = Depends(get_chatbot)
-):
-    """获取聊天历史"""
-    try:
-        context = await chatbot.get_session_context(session_id)
-        return {"history": context}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.post("/api/feedback")
-async def submit_feedback(
-    message_id: int,
-    rating: int,
-    feedback_text: Optional[str] = None,
-    user_id: str = Depends(get_current_user),
-    db=Depends(get_db)
-):
-    """提交用户反馈"""
-    from .models import UserFeedback
-    
-    feedback = UserFeedback(
-        message_id=message_id,
-        rating=rating,
-        feedback_text=feedback_text
-    )
-    db.add(feedback)
-    db.commit()
-    
-    return {"message": "反馈已提交"}
-
-@app.get("/api/health")
-async def health_check():
-    """健康检查端点"""
-    return {"status": "healthy", "timestamp": datetime.utcnow()}
-```
-
-### 4. 前端React组件
-
-```jsx
-// components/ChatBot.jsx
-import React, { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, ThumbsUp, ThumbsDown } from 'lucide-react';
-import './ChatBot.css';
-
-const ChatBot = () => {
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [sessionId, setSessionId] = useState(null);
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    // 创建新会话
-    createSession();
-  }, []);
-
-  const createSession = async () => {
-    try {
-      const response = await fetch('/api/sessions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({ user_id: 'current_user' })
-      });
-      
-      const data = await response.json();
-      setSessionId(data.session_id);
-    } catch (error) {
-      console.error('创建会话失败:', error);
-    }
-  };
-
-  const sendMessage = async () => {
-    if (!inputMessage.trim() || loading) return;
-
-    const userMessage = {
-      id: Date.now(),
-      text: inputMessage,
-      sender: 'user',
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
-    setLoading(true);
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          message: inputMessage,
-          session_id: sessionId
-        })
-      });
-
-      const data = await response.json();
-
-      const botMessage = {
-        id: Date.now() + 1,
-        text: data.response,
-        sender: 'bot',
-        timestamp: new Date(),
-        tokens_used: data.tokens_used,
-        response_time: data.response_time
-      };
-
-      setMessages(prev => [...prev, botMessage]);
-    } catch (error) {
-      console.error('发送消息失败:', error);
-      const errorMessage = {
-        id: Date.now() + 1,
-        text: '抱歉，发生了错误，请稍后重试。',
-        sender: 'bot',
-        timestamp: new Date(),
-        isError: true
-      };
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
-
-  const submitFeedback = async (messageId, rating) => {
-    try {
-      await fetch('/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          message_id: messageId,
-          rating: rating
-        })
-      });
-    } catch (error) {
-      console.error('提交反馈失败:', error);
-    }
-  };
-
-  return (
-    <div className="chatbot-container">
-      <div className="chatbot-header">
-        <Bot className="bot-icon" />
-        <h2>AI 助手</h2>
-      </div>
-      
-      <div className="messages-container">
-        {messages.map((message) => (
-          <div key={message.id} className={`message ${message.sender}`}>
-            <div className="message-avatar">
-              {message.sender === 'user' ? <User size={20} /> : <Bot size={20} />}
-            </div>
-            <div className="message-content">
-              <div className="message-text">{message.text}</div>
-              <div className="message-meta">
-                {message.timestamp.toLocaleTimeString()}
-                {message.tokens_used && (
-                  <span className="tokens">Tokens: {message.tokens_used}</span>
-                )}
-                {message.response_time && (
-                  <span className="response-time">
-                    {(message.response_time * 1000).toFixed(0)}ms
-                  </span>
-                )}
-              </div>
-              {message.sender === 'bot' && !message.isError && (
-                <div className="feedback-buttons">
-                  <button 
-                    onClick={() => submitFeedback(message.id, 5)}
-                    className="feedback-btn positive"
-                  >
-                    <ThumbsUp size={14} />
-                  </button>
-                  <button 
-                    onClick={() => submitFeedback(message.id, 1)}
-                    className="feedback-btn negative"
-                  >
-                    <ThumbsDown size={14} />
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-        {loading && (
-          <div className="message bot">
-            <div className="message-avatar">
-              <Bot size={20} />
-            </div>
-            <div className="message-content">
-              <div className="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-      
-      <div className="input-container">
-        <textarea
-          value={inputMessage}
-          onChange={(e) => setInputMessage(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="输入您的问题..."
-          disabled={loading}
-          rows={1}
-        />
-        <button onClick={sendMessage} disabled={loading || !inputMessage.trim()}>
-          <Send size={20} />
-        </button>
-      </div>
-    </div>
-  );
+```javascript
+// 系统架构组件
+const architecture = {
+  frontend: {
+    framework: "React/Vue.js",
+    webrtc: "RTCPeerConnection",
+    audio: "Web Audio API",
+    ui: "Material-UI"
+  },
+  backend: {
+    signaling: "Socket.io/WebSocket",
+    server: "Node.js/Express",
+    database: "Redis/MongoDB"
+  },
+  infrastructure: {
+    stun: "Google STUN服务器",
+    turn: "Coturn服务器",
+    deployment: "Docker/AWS"
+  }
 };
-
-export default ChatBot;
 ```
 
-## 高级功能
+### 核心组件
 
-### 1. 流式响应
+1. **信令服务器**：协调连接建立过程
+2. **STUN服务器**：NAT类型检测
+3. **TURN服务器**：NAT穿透中继
+4. **媒体处理**：音频采集、编码、传输
 
-```python
-# 支持流式输出的聊天接口
-@app.post("/api/chat/stream")
-async def chat_stream(
-    request: ChatRequest,
-    user_id: str = Depends(get_current_user),
-    chatbot: ChatBot = Depends(get_chatbot)
-):
-    """流式聊天接口"""
-    async def generate_stream():
-        session_id = request.session_id or await chatbot.create_session(user_id)
-        
-        try:
-            context = await chatbot.get_session_context(session_id)
-            messages = [{"role": "system", "content": chatbot.system_prompt}]
-            messages.extend(context)
-            messages.append({"role": "user", "content": request.message})
-            
-            response = openai.ChatCompletion.create(
-                model=chatbot.model,
-                messages=messages,
-                stream=True,
-                temperature=0.7
-            )
-            
-            full_response = ""
-            for chunk in response:
-                if chunk.choices[0].delta.get('content'):
-                    content = chunk.choices[0].delta.content
-                    full_response += content
-                    yield f"data: {json.dumps({'type': 'content', 'data': content})}\n\n"
-            
-            # 保存完整回复到数据库
-            # ... 保存逻辑
-            
-            yield f"data: {json.dumps({'type': 'done', 'session_id': session_id})}\n\n"
-            
-        except Exception as e:
-            yield f"data: {json.dumps({'type': 'error', 'message': str(e)})}\n\n"
+## 前端WebRTC实现
+
+### 1. 基础WebRTC类
+
+```javascript
+class WebRTCVoiceCall {
+  constructor(signalingServerUrl) {
+    this.localStream = null;
+    this.remoteStream = null;
+    this.peerConnection = null;
+    this.socket = io(signalingServerUrl);
+    this.roomId = null;
     
-    return StreamingResponse(generate_stream(), media_type="text/stream")
+    // WebRTC配置
+    this.configuration = {
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' },
+        {
+          urls: 'turn:your-turn-server.com:3478',
+          username: 'your-username',
+          credential: 'your-password'
+        }
+      ],
+      iceCandidatePoolSize: 10
+    };
+    
+    this.setupSocketEvents();
+  }
+  
+  setupSocketEvents() {
+    this.socket.on('room-joined', (data) => {
+      console.log('房间已加入:', data);
+      this.roomId = data.roomId;
+    });
+    
+    this.socket.on('user-joined', async (data) => {
+      console.log('用户加入:', data);
+      if (data.userId !== this.socket.id) {
+        await this.createOffer();
+      }
+    });
+    
+    this.socket.on('offer', async (data) => {
+      await this.handleOffer(data);
+    });
+    
+    this.socket.on('answer', async (data) => {
+      await this.handleAnswer(data);
+    });
+    
+    this.socket.on('ice-candidate', async (data) => {
+      await this.handleIceCandidate(data);
+    });
+    
+    this.socket.on('user-left', (data) => {
+      this.handleUserLeft(data);
+    });
+  }
+  
+  async initializeMedia() {
+    try {
+      // 获取用户媒体流
+      this.localStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+          sampleRate: 48000,
+          channelCount: 2
+        },
+        video: false
+      });
+      
+      // 播放本地音频（通常静音）
+      const localAudio = document.getElementById('localAudio');
+      if (localAudio) {
+        localAudio.srcObject = this.localStream;
+        localAudio.muted = true; // 避免回音
+      }
+      
+      console.log('媒体流初始化成功');
+      return true;
+      
+    } catch (error) {
+      console.error('获取媒体流失败:', error);
+      throw error;
+    }
+  }
+  
+  async createPeerConnection() {
+    this.peerConnection = new RTCPeerConnection(this.configuration);
+    
+    // 添加本地流
+    if (this.localStream) {
+      this.localStream.getTracks().forEach(track => {
+        this.peerConnection.addTrack(track, this.localStream);
+      });
+    }
+    
+    // 处理远程流
+    this.peerConnection.ontrack = (event) => {
+      console.log('接收到远程流');
+      this.remoteStream = event.streams[0];
+      
+      const remoteAudio = document.getElementById('remoteAudio');
+      if (remoteAudio) {
+        remoteAudio.srcObject = this.remoteStream;
+      }
+    };
+    
+    // 处理ICE候选
+    this.peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        this.socket.emit('ice-candidate', {
+          roomId: this.roomId,
+          candidate: event.candidate
+        });
+      }
+    };
+    
+    // 连接状态监听
+    this.peerConnection.onconnectionstatechange = () => {
+      console.log('连接状态:', this.peerConnection.connectionState);
+    };
+    
+    this.peerConnection.oniceconnectionstatechange = () => {
+      console.log('ICE连接状态:', this.peerConnection.iceConnectionState);
+    };
+  }
+  
+  async joinRoom(roomId) {
+    await this.initializeMedia();
+    await this.createPeerConnection();
+    
+    this.socket.emit('join-room', { roomId });
+  }
+  
+  async createOffer() {
+    try {
+      const offer = await this.peerConnection.createOffer({
+        offerToReceiveAudio: true,
+        offerToReceiveVideo: false
+      });
+      
+      await this.peerConnection.setLocalDescription(offer);
+      
+      this.socket.emit('offer', {
+        roomId: this.roomId,
+        offer: offer
+      });
+      
+      console.log('Offer已创建并发送');
+      
+    } catch (error) {
+      console.error('创建Offer失败:', error);
+    }
+  }
+  
+  async handleOffer(data) {
+    try {
+      await this.peerConnection.setRemoteDescription(data.offer);
+      
+      const answer = await this.peerConnection.createAnswer();
+      await this.peerConnection.setLocalDescription(answer);
+      
+      this.socket.emit('answer', {
+        roomId: this.roomId,
+        answer: answer
+      });
+      
+      console.log('Answer已创建并发送');
+      
+    } catch (error) {
+      console.error('处理Offer失败:', error);
+    }
+  }
+  
+  async handleAnswer(data) {
+    try {
+      await this.peerConnection.setRemoteDescription(data.answer);
+      console.log('Answer已设置');
+      
+    } catch (error) {
+      console.error('处理Answer失败:', error);
+    }
+  }
+  
+  async handleIceCandidate(data) {
+    try {
+      await this.peerConnection.addIceCandidate(data.candidate);
+      console.log('ICE候选已添加');
+      
+    } catch (error) {
+      console.error('添加ICE候选失败:', error);
+    }
+  }
+  
+  handleUserLeft(data) {
+    console.log('用户离开:', data);
+    
+    if (this.peerConnection) {
+      this.peerConnection.close();
+      this.peerConnection = null;
+    }
+    
+    // 清理远程音频
+    const remoteAudio = document.getElementById('remoteAudio');
+    if (remoteAudio) {
+      remoteAudio.srcObject = null;
+    }
+  }
+  
+  // 音频控制方法
+  muteAudio() {
+    if (this.localStream) {
+      this.localStream.getAudioTracks().forEach(track => {
+        track.enabled = false;
+      });
+    }
+  }
+  
+  unmuteAudio() {
+    if (this.localStream) {
+      this.localStream.getAudioTracks().forEach(track => {
+        track.enabled = true;
+      });
+    }
+  }
+  
+  // 获取音频统计信息
+  async getAudioStats() {
+    if (this.peerConnection) {
+      const stats = await this.peerConnection.getStats();
+      const audioStats = {};
+      
+      stats.forEach(report => {
+        if (report.type === 'inbound-rtp' && report.mediaType === 'audio') {
+          audioStats.inbound = report;
+        } else if (report.type === 'outbound-rtp' && report.mediaType === 'audio') {
+          audioStats.outbound = report;
+        }
+      });
+      
+      return audioStats;
+    }
+    return null;
+  }
+  
+  // 断开连接
+  disconnect() {
+    if (this.localStream) {
+      this.localStream.getTracks().forEach(track => track.stop());
+    }
+    
+    if (this.peerConnection) {
+      this.peerConnection.close();
+    }
+    
+    this.socket.emit('leave-room', { roomId: this.roomId });
+    this.socket.disconnect();
+  }
+}
 ```
 
-### 2. 语音识别和合成
+### 2. 音频处理增强
 
-```python
-# 语音处理功能
-import speech_recognition as sr
-from gtts import gTTS
-import io
-
-class VoiceHandler:
-    def __init__(self):
-        self.recognizer = sr.Recognizer()
+```javascript
+class AudioProcessor {
+  constructor() {
+    this.audioContext = null;
+    this.gainNode = null;
+    this.analyserNode = null;
+    this.noiseGate = null;
+  }
+  
+  async initializeAudioProcessing(stream) {
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     
-    def speech_to_text(self, audio_file) -> str:
-        """语音转文字"""
-        try:
-            with sr.AudioFile(audio_file) as source:
-                audio = self.recognizer.record(source)
-            text = self.recognizer.recognize_google(audio, language='zh-CN')
-            return text
-        except sr.UnknownValueError:
-            raise ValueError("无法识别语音内容")
-        except sr.RequestError as e:
-            raise ValueError(f"语音识别服务错误: {e}")
+    // 创建音频源
+    const source = this.audioContext.createMediaStreamSource(stream);
     
-    def text_to_speech(self, text: str) -> io.BytesIO:
-        """文字转语音"""
-        tts = gTTS(text=text, lang='zh')
-        audio_buffer = io.BytesIO()
-        tts.write_to_fp(audio_buffer)
-        audio_buffer.seek(0)
-        return audio_buffer
-
-@app.post("/api/voice/chat")
-async def voice_chat(
-    audio_file: UploadFile = File(...),
-    user_id: str = Depends(get_current_user),
-    chatbot: ChatBot = Depends(get_chatbot)
-):
-    """语音聊天接口"""
-    voice_handler = VoiceHandler()
+    // 创建增益节点（音量控制）
+    this.gainNode = this.audioContext.createGain();
     
-    try:
-        # 语音转文字
-        text = voice_handler.speech_to_text(audio_file.file)
+    // 创建分析器节点（音频可视化）
+    this.analyserNode = this.audioContext.createAnalyser();
+    this.analyserNode.fftSize = 256;
+    
+    // 创建噪声门
+    this.noiseGate = await this.createNoiseGate();
+    
+    // 连接音频节点
+    source.connect(this.gainNode);
+    this.gainNode.connect(this.noiseGate);
+    this.noiseGate.connect(this.analyserNode);
+    
+    // 创建输出流
+    const destination = this.audioContext.createMediaStreamDestination();
+    this.analyserNode.connect(destination);
+    
+    return destination.stream;
+  }
+  
+  async createNoiseGate() {
+    // 使用Web Audio API创建简单的噪声门
+    const processor = this.audioContext.createScriptProcessor(4096, 1, 1);
+    const threshold = -50; // dB
+    
+    processor.onaudioprocess = (event) => {
+      const inputBuffer = event.inputBuffer;
+      const outputBuffer = event.outputBuffer;
+      
+      for (let channel = 0; channel < inputBuffer.numberOfChannels; channel++) {
+        const inputData = inputBuffer.getChannelData(channel);
+        const outputData = outputBuffer.getChannelData(channel);
         
-        # 获取AI回复
-        result = await chatbot.chat(None, text)
+        // 计算音频级别
+        let sum = 0;
+        for (let i = 0; i < inputData.length; i++) {
+          sum += inputData[i] * inputData[i];
+        }
+        const rms = Math.sqrt(sum / inputData.length);
+        const dbLevel = 20 * Math.log10(rms);
         
-        if "error" in result:
-            raise HTTPException(status_code=400, detail=result["error"])
-        
-        # 文字转语音
-        audio_response = voice_handler.text_to_speech(result["response"])
-        
-        return StreamingResponse(
-            io.BytesIO(audio_response.read()),
-            media_type="audio/mpeg",
-            headers={"Content-Disposition": "attachment; filename=response.mp3"}
-        )
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        // 应用噪声门
+        if (dbLevel > threshold) {
+          for (let i = 0; i < inputData.length; i++) {
+            outputData[i] = inputData[i];
+          }
+        } else {
+          for (let i = 0; i < inputData.length; i++) {
+            outputData[i] = 0;
+          }
+        }
+      }
+    };
+    
+    return processor;
+  }
+  
+  setVolume(volume) {
+    if (this.gainNode) {
+      this.gainNode.gain.value = volume;
+    }
+  }
+  
+  getAudioLevel() {
+    if (this.analyserNode) {
+      const bufferLength = this.analyserNode.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      this.analyserNode.getByteFrequencyData(dataArray);
+      
+      let sum = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        sum += dataArray[i];
+      }
+      
+      return sum / bufferLength / 255; // 归一化到0-1
+    }
+    return 0;
+  }
+}
 ```
 
-## 部署和监控
+## 后端信令服务器
 
-### Docker部署
+### Node.js + Socket.io实现
+
+```javascript
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const cors = require('cors');
+const Redis = require('redis');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+
+// Redis客户端（可选，用于集群部署）
+const redis = Redis.createClient();
+
+// 中间件
+app.use(cors());
+app.use(express.json());
+
+// 房间管理
+class RoomManager {
+  constructor() {
+    this.rooms = new Map();
+  }
+  
+  createRoom(roomId) {
+    if (!this.rooms.has(roomId)) {
+      this.rooms.set(roomId, {
+        id: roomId,
+        users: new Set(),
+        createdAt: new Date()
+      });
+    }
+    return this.rooms.get(roomId);
+  }
+  
+  joinRoom(roomId, userId) {
+    const room = this.createRoom(roomId);
+    room.users.add(userId);
+    return room;
+  }
+  
+  leaveRoom(roomId, userId) {
+    const room = this.rooms.get(roomId);
+    if (room) {
+      room.users.delete(userId);
+      if (room.users.size === 0) {
+        this.rooms.delete(roomId);
+      }
+    }
+  }
+  
+  getRoomUsers(roomId) {
+    const room = this.rooms.get(roomId);
+    return room ? Array.from(room.users) : [];
+  }
+  
+  getUserRooms(userId) {
+    const userRooms = [];
+    for (const [roomId, room] of this.rooms) {
+      if (room.users.has(userId)) {
+        userRooms.push(roomId);
+      }
+    }
+    return userRooms;
+  }
+}
+
+const roomManager = new RoomManager();
+
+// Socket.io连接处理
+io.on('connection', (socket) => {
+  console.log(`用户连接: ${socket.id}`);
+  
+  // 加入房间
+  socket.on('join-room', (data) => {
+    const { roomId } = data;
+    
+    try {
+      // 离开之前的房间
+      const userRooms = roomManager.getUserRooms(socket.id);
+      userRooms.forEach(oldRoomId => {
+        socket.leave(oldRoomId);
+        roomManager.leaveRoom(oldRoomId, socket.id);
+        socket.to(oldRoomId).emit('user-left', { userId: socket.id });
+      });
+      
+      // 加入新房间
+      socket.join(roomId);
+      const room = roomManager.joinRoom(roomId, socket.id);
+      
+      // 通知用户房间加入成功
+      socket.emit('room-joined', {
+        roomId,
+        userId: socket.id,
+        users: roomManager.getRoomUsers(roomId)
+      });
+      
+      // 通知房间内其他用户
+      socket.to(roomId).emit('user-joined', {
+        userId: socket.id,
+        users: roomManager.getRoomUsers(roomId)
+      });
+      
+      console.log(`用户 ${socket.id} 加入房间 ${roomId}`);
+      
+    } catch (error) {
+      console.error('加入房间失败:', error);
+      socket.emit('error', { message: '加入房间失败' });
+    }
+  });
+  
+  // 处理Offer
+  socket.on('offer', (data) => {
+    const { roomId, offer } = data;
+    
+    console.log(`转发Offer到房间 ${roomId}`);
+    socket.to(roomId).emit('offer', {
+      userId: socket.id,
+      offer
+    });
+  });
+  
+  // 处理Answer
+  socket.on('answer', (data) => {
+    const { roomId, answer } = data;
+    
+    console.log(`转发Answer到房间 ${roomId}`);
+    socket.to(roomId).emit('answer', {
+      userId: socket.id,
+      answer
+    });
+  });
+  
+  // 处理ICE候选
+  socket.on('ice-candidate', (data) => {
+    const { roomId, candidate } = data;
+    
+    socket.to(roomId).emit('ice-candidate', {
+      userId: socket.id,
+      candidate
+    });
+  });
+  
+  // 离开房间
+  socket.on('leave-room', (data) => {
+    const { roomId } = data;
+    
+    socket.leave(roomId);
+    roomManager.leaveRoom(roomId, socket.id);
+    
+    socket.to(roomId).emit('user-left', { userId: socket.id });
+    
+    console.log(`用户 ${socket.id} 离开房间 ${roomId}`);
+  });
+  
+  // 断开连接
+  socket.on('disconnect', () => {
+    console.log(`用户断开连接: ${socket.id}`);
+    
+    // 清理用户的所有房间
+    const userRooms = roomManager.getUserRooms(socket.id);
+    userRooms.forEach(roomId => {
+      roomManager.leaveRoom(roomId, socket.id);
+      socket.to(roomId).emit('user-left', { userId: socket.id });
+    });
+  });
+});
+
+// REST API路由
+app.get('/api/rooms', (req, res) => {
+  const rooms = Array.from(roomManager.rooms.entries()).map(([id, room]) => ({
+    id,
+    userCount: room.users.size,
+    createdAt: room.createdAt
+  }));
+  
+  res.json(rooms);
+});
+
+app.get('/api/rooms/:roomId', (req, res) => {
+  const { roomId } = req.params;
+  const users = roomManager.getRoomUsers(roomId);
+  
+  res.json({
+    roomId,
+    users,
+    userCount: users.length
+  });
+});
+
+// 健康检查
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`信令服务器运行在端口 ${PORT}`);
+});
+
+module.exports = { app, server, io };
+```
+
+## TURN服务器配置
+
+### Coturn服务器安装
+
+```bash
+# Ubuntu/Debian安装
+sudo apt-get update
+sudo apt-get install coturn
+
+# 配置文件 /etc/turnserver.conf
+listening-port=3478
+tls-listening-port=5349
+listening-ip=0.0.0.0
+external-ip=YOUR_PUBLIC_IP
+relay-ip=YOUR_PRIVATE_IP
+
+# 认证
+lt-cred-mech
+user=username:password
+
+# 数据库（可选）
+userdb=/var/lib/turn/turndb
+
+# 安全设置
+no-cli
+no-loopback-peers
+no-multicast-peers
+
+# 日志
+log-file=/var/log/turnserver.log
+verbose
+
+# 启动服务
+sudo systemctl enable coturn
+sudo systemctl start coturn
+```
+
+### Docker部署TURN服务器
+
+```dockerfile
+# Dockerfile for TURN server
+FROM ubuntu:20.04
+
+RUN apt-get update && apt-get install -y coturn
+
+COPY turnserver.conf /etc/turnserver.conf
+
+EXPOSE 3478 3478/udp 5349 5349/tcp
+
+CMD ["turnserver", "-c", "/etc/turnserver.conf"]
+```
 
 ```yaml
 # docker-compose.yml
 version: '3.8'
-
 services:
-  chatbot-api:
+  turn-server:
     build: .
     ports:
-      - "8000:8000"
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+      - "5349:5349/tcp"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - JWT_SECRET=${JWT_SECRET}
-      - DATABASE_URL=postgresql://user:pass@postgres:5432/chatbot
-      - REDIS_URL=redis://redis:6379
-    depends_on:
-      - postgres
-      - redis
-
-  postgres:
-    image: postgres:13
-    environment:
-      - POSTGRES_DB=chatbot
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=pass
+      - TURN_USERNAME=your-username
+      - TURN_PASSWORD=your-password
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:6-alpine
-    volumes:
-      - redis_data:/data
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./ssl:/etc/ssl
-    depends_on:
-      - chatbot-api
-
-volumes:
-  postgres_data:
-  redis_data:
+      - ./logs:/var/log
 ```
 
-### 监控和分析
+## 性能优化与监控
 
-```python
-# 添加监控中间件
-from prometheus_client import Counter, Histogram, generate_latest
-import time
+### 1. 连接质量监控
 
-# 创建指标
-REQUEST_COUNT = Counter('chatbot_requests_total', 'Total requests', ['method', 'endpoint'])
-RESPONSE_TIME = Histogram('chatbot_response_time_seconds', 'Response time')
-TOKEN_USAGE = Counter('chatbot_tokens_used_total', 'Total tokens used')
-
-@app.middleware("http")
-async def monitor_requests(request: Request, call_next):
-    start_time = time.time()
+```javascript
+class ConnectionMonitor {
+  constructor(peerConnection) {
+    this.peerConnection = peerConnection;
+    this.stats = {
+      audio: {
+        packetsLost: 0,
+        packetsReceived: 0,
+        bytesReceived: 0,
+        jitter: 0,
+        rtt: 0
+      }
+    };
     
-    response = await call_next(request)
+    this.startMonitoring();
+  }
+  
+  startMonitoring() {
+    setInterval(async () => {
+      await this.updateStats();
+    }, 1000);
+  }
+  
+  async updateStats() {
+    if (!this.peerConnection) return;
     
-    # 记录请求指标
-    REQUEST_COUNT.labels(
-        method=request.method, 
-        endpoint=request.url.path
-    ).inc()
+    const stats = await this.peerConnection.getStats();
     
-    # 记录响应时间
-    RESPONSE_TIME.observe(time.time() - start_time)
+    stats.forEach(report => {
+      if (report.type === 'inbound-rtp' && report.mediaType === 'audio') {
+        this.stats.audio.packetsLost = report.packetsLost || 0;
+        this.stats.audio.packetsReceived = report.packetsReceived || 0;
+        this.stats.audio.bytesReceived = report.bytesReceived || 0;
+        this.stats.audio.jitter = report.jitter || 0;
+      }
+      
+      if (report.type === 'candidate-pair' && report.state === 'succeeded') {
+        this.stats.audio.rtt = report.currentRoundTripTime || 0;
+      }
+    });
     
-    return response
-
-@app.get("/metrics")
-async def get_metrics():
-    """Prometheus指标端点"""
-    return Response(generate_latest(), media_type="text/plain")
+    // 触发统计更新事件
+    this.onStatsUpdate(this.stats);
+  }
+  
+  onStatsUpdate(stats) {
+    // 可以在这里更新UI或发送监控数据
+    console.log('连接统计:', stats);
+    
+    // 检查连接质量
+    this.checkConnectionQuality(stats);
+  }
+  
+  checkConnectionQuality(stats) {
+    const { packetsLost, packetsReceived, rtt, jitter } = stats.audio;
+    
+    // 计算丢包率
+    const lossRate = packetsLost / (packetsLost + packetsReceived);
+    
+    let quality = 'excellent';
+    
+    if (lossRate > 0.05 || rtt > 200 || jitter > 50) {
+      quality = 'poor';
+    } else if (lossRate > 0.02 || rtt > 100 || jitter > 30) {
+      quality = 'fair';
+    } else if (lossRate > 0.01 || rtt > 50 || jitter > 20) {
+      quality = 'good';
+    }
+    
+    // 触发质量变化事件
+    this.onQualityChange(quality, stats);
+  }
+  
+  onQualityChange(quality, stats) {
+    console.log(`连接质量: ${quality}`, stats);
+    
+    // 根据质量调整音频参数
+    if (quality === 'poor') {
+      this.adjustAudioQuality('low');
+    } else if (quality === 'excellent') {
+      this.adjustAudioQuality('high');
+    }
+  }
+  
+  adjustAudioQuality(level) {
+    // 动态调整音频编码参数
+    const sender = this.peerConnection.getSenders().find(s => 
+      s.track && s.track.kind === 'audio'
+    );
+    
+    if (sender) {
+      const params = sender.getParameters();
+      
+      if (level === 'low') {
+        // 降低比特率
+        params.encodings.forEach(encoding => {
+          encoding.maxBitrate = 32000; // 32kbps
+        });
+      } else if (level === 'high') {
+        // 提高比特率
+        params.encodings.forEach(encoding => {
+          encoding.maxBitrate = 128000; // 128kbps
+        });
+      }
+      
+      sender.setParameters(params);
+    }
+  }
+}
 ```
 
-## 最佳实践
+### 2. 自适应音频处理
 
-### 1. 安全考虑
-- **输入验证**：严格验证和清理用户输入
-- **速率限制**：防止API滥用
-- **认证授权**：确保只有授权用户可以访问
-- **数据加密**：敏感数据传输和存储加密
+```javascript
+class AdaptiveAudioProcessor {
+  constructor() {
+    this.currentProfile = 'balanced';
+    this.profiles = {
+      'low-latency': {
+        bufferSize: 256,
+        sampleRate: 16000,
+        echoCancellation: true,
+        noiseSuppression: false,
+        autoGainControl: false
+      },
+      'balanced': {
+        bufferSize: 1024,
+        sampleRate: 48000,
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true
+      },
+      'high-quality': {
+        bufferSize: 4096,
+        sampleRate: 48000,
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true
+      }
+    };
+  }
+  
+  async switchProfile(profileName) {
+    if (!this.profiles[profileName]) {
+      throw new Error(`未知的音频配置: ${profileName}`);
+    }
+    
+    this.currentProfile = profileName;
+    const profile = this.profiles[profileName];
+    
+    // 重新获取媒体流
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: {
+        sampleRate: profile.sampleRate,
+        echoCancellation: profile.echoCancellation,
+        noiseSuppression: profile.noiseSuppression,
+        autoGainControl: profile.autoGainControl
+      }
+    });
+    
+    return stream;
+  }
+  
+  getRecommendedProfile(networkCondition, deviceCapability) {
+    if (networkCondition === 'poor') {
+      return 'low-latency';
+    } else if (deviceCapability === 'high' && networkCondition === 'excellent') {
+      return 'high-quality';
+    } else {
+      return 'balanced';
+    }
+  }
+}
+```
 
-### 2. 性能优化
-- **缓存策略**：利用Redis缓存频繁查询
-- **连接池**：数据库连接池管理
-- **异步处理**：使用异步IO提高并发性能
-- **负载均衡**：多实例部署和负载均衡
+## 部署与DevOps
 
-### 3. 成本控制
-- **Token监控**：跟踪和限制API使用量
-- **智能缓存**：缓存常见问题的回答
-- **模型选择**：根据需求选择合适的模型
-- **批量处理**：合理批量处理请求
+### Docker化部署
+
+```dockerfile
+# 前端Dockerfile
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=0 /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+```dockerfile
+# 后端Dockerfile
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+### Kubernetes部署
+
+```yaml
+# k8s-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webrtc-signaling
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webrtc-signaling
+  template:
+    metadata:
+      labels:
+        app: webrtc-signaling
+    spec:
+      containers:
+      - name: signaling-server
+        image: your-registry/webrtc-signaling:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REDIS_URL
+          value: "redis://redis-service:6379"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webrtc-signaling-service
+spec:
+  selector:
+    app: webrtc-signaling
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
+```
+
+## 故障排除指南
+
+### 常见问题与解决方案
+
+#### Q: 无法建立P2P连接？
+
+A: 检查以下项目：
+
+1. **STUN/TURN服务器配置**
+```javascript
+// 确保TURN服务器配置正确
+const configuration = {
+  iceServers: [
+    { urls: 'stun:stun.l.google.com:19302' },
+    {
+      urls: 'turn:your-turn-server.com:3478',
+      username: 'your-username',
+      credential: 'your-password'
+    }
+  ]
+};
+```
+
+2. **防火墙设置**
+```bash
+# 开放必要端口
+sudo ufw allow 3478/udp
+sudo ufw allow 5349/tcp
+sudo ufw allow 49152:65535/udp  # RTP端口范围
+```
+
+#### Q: 音频质量差或有回音？
+
+A: 音频优化策略：
+
+```javascript
+// 启用音频处理
+const audioConstraints = {
+  echoCancellation: true,
+  noiseSuppression: true,
+  autoGainControl: true,
+  sampleRate: 48000
+};
+
+// 避免回音
+localAudio.muted = true;
+```
+
+#### Q: 连接经常断开？
+
+A: 实现重连机制：
+
+```javascript
+class ReconnectionManager {
+  constructor(webrtcCall) {
+    this.webrtcCall = webrtcCall;
+    this.maxRetries = 5;
+    this.retryDelay = 1000;
+  }
+  
+  async handleDisconnection() {
+    let retries = 0;
+    
+    while (retries < this.maxRetries) {
+      try {
+        await this.delay(this.retryDelay * Math.pow(2, retries));
+        await this.webrtcCall.reconnect();
+        console.log('重连成功');
+        break;
+      } catch (error) {
+        retries++;
+        console.log(`重连失败，重试次数: ${retries}`);
+      }
+    }
+  }
+  
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+}
+```
 
 ## 总结
 
-构建一个AI聊天机器人需要考虑多个方面：
+本文全面介绍了WebRTC实时语音通信的开发过程，包括：
 
-1. **架构设计**：合理的系统架构是成功的基础
-2. **数据管理**：高效的会话和消息管理
-3. **API集成**：稳定可靠的LLM API调用
-4. **用户体验**：流畅的前端交互体验
-5. **监控运维**：完善的监控和日志系统
+* **WebRTC基础**：核心概念和通信流程
+* **前端实现**：完整的WebRTC客户端代码
+* **后端服务**：信令服务器和房间管理
+* **音频处理**：高级音频处理和优化
+* **部署运维**：Docker化和Kubernetes部署
+* **监控调优**：性能监控和自适应优化
 
-随着AI技术的不断发展，聊天机器人的能力还会持续提升。掌握这些核心技术和最佳实践，将帮助你构建出更智能、更可靠的对话系统！
+通过这套完整的解决方案，你可以构建出高质量、稳定可靠的WebRTC语音通话应用。随着5G和边缘计算的发展，WebRTC技术将在更多场景中发挥重要作用。
 
 ---
 
-*你在开发AI聊天机器人时遇到了哪些挑战？欢迎分享你的经验和创新想法！* 
+*如果你觉得这篇文章对你有帮助，欢迎分享给更多对WebRTC技术感兴趣的朋友！* 
