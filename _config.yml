@@ -24,8 +24,8 @@ timezone: Asia/Shanghai
 # Language and locale
 lang: zh-CN
 
-# Theme settings
-theme: jekyll-theme-chirpy
+# Theme settings (for GitHub Pages compatibility)
+remote_theme: cotes2020/jekyll-theme-chirpy
 
 # Social media links
 github:
@@ -95,13 +95,11 @@ compress_html:
 
 # Jekyll plugins
 plugins:
-  - jekyll-default-layout
-  - jekyll-readme-index
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
   - jekyll-paginate
-  - jekyll-spaceship
-  - jekyll-compose
+  - jekyll-archives
 
 # Jekyll Compose default front matter
 jekyll_compose:
