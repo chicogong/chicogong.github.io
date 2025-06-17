@@ -1,7 +1,6 @@
 ---
-# the default layout is 'page'
-icon: fas fa-info-circle
-order: 4
+permalink: /about/
+title: "关于我"
 ---
 
 # 关于我
@@ -54,4 +53,4 @@ order: 4
 
 ---
 
-*欢迎交流技术问题，一起学习进步！*
+*欢迎交流技术问题，一起学习进步！* 

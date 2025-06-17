@@ -1,110 +1,159 @@
-# The Site Configuration
+# Site Settings
+locale: "zh-CN"
+title: "Chico Gong 的技术博客"
+title_separator: "-"
+subtitle: "技术分享 | 学习笔记 | 实战经验"
+name: "Chico Gong"
+description: "分享前端开发、后端架构、人工智能和云原生技术的学习心得。涵盖React、Node.js、Python、Kubernetes等技术栈的实战经验。"
+url: "https://realtime-ai.chat"
+baseurl: ""
+repository: "chicogong/chicogong.github.io"
+teaser: # 默认文章预览图
+logo: # 网站logo
+masthead_title: # 覆盖网站标题显示 (default: site.title)
+breadcrumbs: true # 面包屑导航
 
-# Import the theme
-remote_theme: cotes2020/jekyll-theme-chirpy
+# Site Author
+author:
+  name: "Chico Gong"
+  avatar: "/assets/images/bio-photo.jpg"
+  bio: "一个热爱技术和分享的开发者"
+  location: "中国"
+  email: "your-email@example.com"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/chicogong"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/your-twitter"
 
-# The language of the webpage
-lang: zh-CN
+# Site Footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/chicogong"
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/your-twitter"
 
-# Change to your timezone
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - log
+  - node_modules
+  - package.json
+  - package-lock.json
+  - Rakefile
+  - README
+  - tmp
+keep_files:
+  - .git
+  - .svn
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+
+# Conversion
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+
+# Markdown Processing
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+# Sass/SCSS
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Outputting
+permalink: /:categories/:title/
+paginate: 5
+paginate_path: /page:num/
 timezone: Asia/Shanghai
 
-# jekyll-seo-tag settings
-title: Chico Gong 的技术博客
+# Plugins (previously gems:)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
 
-tagline: 一个热爱技术和分享的开发者的个人博客
+# mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
 
-description: >-
-  分享前端开发、后端架构、人工智能和云原生技术的学习心得。
-  涵盖React、Node.js、Python、Kubernetes等技术栈的实战经验。
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
 
-# Fill in the protocol & hostname for your site.
-url: "https://realtime-ai.chat"
+# HTML Compression
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
 
-github:
-  username: chicogong
-
-social:
-  name: Chico Gong
-  email: your-email@example.com
-  links:
-    - https://github.com/chicogong
-    - https://twitter.com/your-twitter
-
-# Web Analytics Settings
-analytics:
-  google:
-    id: # 可以后续添加Google Analytics ID
-
-# Prefer color scheme setting.
-theme_mode: # 留空表示跟随系统设置，用户可以手动切换
-
-# the avatar on sidebar
-avatar: /assets/img/avatar.jpg
-
-# boolean type, the global switch for TOC in posts.
-toc: true
-
-comments:
-  provider: # 可以后续配置评论系统
-
-pwa:
-  enabled: true
-  cache:
-    enabled: true
-
-paginate: 10
-
-# The base URL of your site
-baseurl: ""
-
-# ------------ The following options are not recommended to be modified ------------------
-
-kramdown:
-  footnote_backlink: "&#8617;&#xfe0e;"
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: highlight
-    span:
-      line_numbers: false
-    block:
-      line_numbers: true
-      start_line: 1
-
-collections:
-  tabs:
-    output: true
-    sort_by: order
-
+# Defaults
 defaults:
+  # _posts
   - scope:
       path: ""
       type: posts
     values:
-      layout: post
+      layout: single
+      author_profile: true
+      read_time: true
       comments: true
+      share: true
+      related: true
       toc: true
-      permalink: /posts/:title/
+      toc_sticky: true
+  # _pages
   - scope:
-      path: _drafts
+      path: "_pages"
+      type: pages
     values:
-      comments: false
-  - scope:
-      path: ""
-      type: tabs
-    values:
-      layout: page
-      permalink: /:title/
+      layout: single
+      author_profile: true
 
-sass:
-  style: compressed
-
-compress_html:
-  clippings: all
-
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-archives
-  - jekyll-paginate 
+# Theme
+remote_theme: "mmistakes/minimal-mistakes@4.24.0" 
