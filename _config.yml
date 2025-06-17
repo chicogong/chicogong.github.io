@@ -1,0 +1,118 @@
+# Site configuration
+title: Chico Gong
+tagline: 技术分享 | 学习笔记 | 生活感悟
+description: >-
+  一个热爱技术和分享的开发者的个人博客。分享前端开发、后端架构和新兴技术的学习心得。
+
+# Replace with the website url, e.g. 'https://username.github.io'
+url: 'https://chicogong.github.io'
+
+# Author information
+author:
+  name: Chico Gong
+  email: your-email@example.com
+  links:
+    - https://github.com/chicogong
+    - https://twitter.com/your-twitter
+
+# Avatar settings
+avatar: '/assets/img/avatar.jpg'
+
+# Timezone
+timezone: Asia/Shanghai
+
+# Language and locale
+lang: zh-CN
+
+# Theme settings
+theme: jekyll-theme-chirpy
+
+# Social media links
+github:
+  username: chicogong
+
+twitter:
+  username: your-twitter
+
+# SEO settings
+google_site_verification: # Google search console verification
+bing_site_verification: # Bing webmaster verification
+
+# Analytics
+google_analytics:
+  id: # Google Analytics ID
+
+# Comments (选择一个)
+comments:
+  active: # The global switch for posts comments, e.g., 'disqus'.
+  disqus:
+    shortname: # Your Disqus shortname
+
+# Pagination
+paginate: 10
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Collections
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ''
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ''
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
+
+# Jekyll plugins
+plugins:
+  - jekyll-default-layout
+  - jekyll-readme-index
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-spaceship
+  - jekyll-compose
+
+# Jekyll Compose default front matter
+jekyll_compose:
+  default_front_matter:
+    drafts:
+      description:
+      image:
+      category:
+      tags:
+    posts:
+      description:
+      image:
+      category:
+      tags: 
