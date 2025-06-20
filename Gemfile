@@ -6,9 +6,6 @@ gem "github-pages", group: :jekyll_plugins
 # 添加 Minimal Mistakes 主题需要的插件
 gem "jekyll-include-cache", group: :jekyll_plugins
 
-# 兼容Ruby 3.1的activesupport版本
-gem "activesupport", "~> 7.0"
-
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
