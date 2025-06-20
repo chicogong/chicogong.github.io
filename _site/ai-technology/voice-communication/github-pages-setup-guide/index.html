@@ -727,12 +727,12 @@
 <h3 id="整体架构">整体架构</h3>
 
 <pre><code class="language-mermaid">graph TB
-    A[用户] --&gt; B[WebRTC客户端]
-    B --&gt; C[信令服务器]
-    C --&gt; D[媒体服务器]
-    D --&gt; E[语音识别服务]
-    E --&gt; F[AI对话引擎]
-    F --&gt; G[语音合成服务]
+    A["用户"] --&gt; B["WebRTC客户端"]
+    B --&gt; C["信令服务器"]
+    C --&gt; D["媒体服务器"]
+    D --&gt; E["语音识别服务"]
+    E --&gt; F["AI对话引擎"]
+    F --&gt; G["语音合成服务"]
     G --&gt; D
     D --&gt; B
     B --&gt; A

@@ -723,15 +723,15 @@
 <p><strong>实时Agent系统架构图：</strong></p>
 
 <pre><code class="language-mermaid">graph TD
-    A[用户输入] --&gt; B[语音识别ASR]
-    B --&gt; C[自然语言理解NLU]
-    C --&gt; D[Agent决策引擎]
-    D --&gt; E[任务执行模块]
-    D --&gt; F[知识库查询]
-    E --&gt; G[自然语言生成NLG]
+    A["用户输入"] --&gt; B["语音识别ASR"]
+    B --&gt; C["自然语言理解NLU"]
+    C --&gt; D["Agent决策引擎"]
+    D --&gt; E["任务执行模块"]
+    D --&gt; F["知识库查询"]
+    E --&gt; G["自然语言生成NLG"]
     F --&gt; G
-    G --&gt; H[语音合成TTS]
-    H --&gt; I[实时输出]
+    G --&gt; H["语音合成TTS"]
+    H --&gt; I["实时输出"]
     
     subgraph "核心处理层"
         D

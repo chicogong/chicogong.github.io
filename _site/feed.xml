@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2025-06-20T18:34:26+08:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Chico Gong’s Tech Blog</title><subtitle>Welcome to my tech blog! I&apos;m a Conversational AI Enthusiast and Real-time Communication Developer.  Sharing insights on AI, voice interaction, WebRTC, and cutting-edge technologies.</subtitle><author><name>Chico Gong</name><email>chicogong@tencent.com</email></author><entry><title type="html">LangChain 与 LLM 的结合使用详解</title><link href="http://0.0.0.0:4000/ai-technology/langchain-llm-integration-guide/" rel="alternate" type="text/html" title="LangChain 与 LLM 的结合使用详解" /><published>2024-12-28T00:00:00+08:00</published><updated>2024-12-28T00:00:00+08:00</updated><id>http://0.0.0.0:4000/ai-technology/langchain-llm-integration-guide</id><content type="html" xml:base="http://0.0.0.0:4000/ai-technology/langchain-llm-integration-guide/"><![CDATA[<p>LangChain 是一个强大的框架，专为开发基于大语言模型(LLM)的应用而设计。本文将详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景。</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2025-06-20T18:50:55+08:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Chico Gong’s Tech Blog</title><subtitle>Welcome to my tech blog! I&apos;m a Conversational AI Enthusiast and Real-time Communication Developer.  Sharing insights on AI, voice interaction, WebRTC, and cutting-edge technologies.</subtitle><author><name>Chico Gong</name><email>chicogong@tencent.com</email></author><entry><title type="html">LangChain 与 LLM 的结合使用详解</title><link href="http://0.0.0.0:4000/ai-technology/langchain-llm-integration-guide/" rel="alternate" type="text/html" title="LangChain 与 LLM 的结合使用详解" /><published>2024-12-28T00:00:00+08:00</published><updated>2024-12-28T00:00:00+08:00</updated><id>http://0.0.0.0:4000/ai-technology/langchain-llm-integration-guide</id><content type="html" xml:base="http://0.0.0.0:4000/ai-technology/langchain-llm-integration-guide/"><![CDATA[<p>LangChain 是一个强大的框架，专为开发基于大语言模型(LLM)的应用而设计。本文将详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景。</p>
 
 <h2 id="langchain-核心理念">LangChain 核心理念</h2>
 
@@ -15,36 +15,45 @@
 
 <pre><code class="language-mermaid">flowchart TB
     subgraph "应用层"
-        A1[智能问答系统]
-        A2[对话机器人]
-        A3[文档分析工具]
-        A4[代码助手]
+        A1["智能问答系统"]
+        A2["对话机器人"]
+        A3["文档分析工具"]
+        A4["代码助手"]
     end
     
-    subgraph "LangChain 核心层"
-        B1[链 Chains]
-        B2[代理 Agents]
-        B3[记忆 Memory]
-        B4[工具 Tools]
+    subgraph "LangChain核心层"
+        B1["链 Chains"]
+        B2["代理 Agents"]
+        B3["记忆 Memory"]
+        B4["工具 Tools"]
     end
     
     subgraph "模型层"
-        C1[OpenAI GPT]
-        C2[Anthropic Claude]
-        C3[Google PaLM]
-        C4[本地模型]
+        C1["OpenAI GPT"]
+        C2["Anthropic Claude"]
+        C3["Google PaLM"]
+        C4["本地模型"]
     end
     
     subgraph "数据层"
-        D1[向量数据库]
-        D2[文档存储]
-        D3[API接口]
-        D4[知识库]
+        D1["向量数据库"]
+        D2["文档存储"]
+        D3["API接口"]
+        D4["知识库"]
     end
     
-    A1 &amp; A2 &amp; A3 &amp; A4 --&gt; B1 &amp; B2 &amp; B3 &amp; B4
-    B1 &amp; B2 &amp; B3 &amp; B4 --&gt; C1 &amp; C2 &amp; C3 &amp; C4
-    B1 &amp; B2 &amp; B3 &amp; B4 --&gt; D1 &amp; D2 &amp; D3 &amp; D4
+    A1 --&gt; B1
+    A2 --&gt; B2
+    A3 --&gt; B3
+    A4 --&gt; B4
+    B1 --&gt; C1
+    B2 --&gt; C2
+    B3 --&gt; C3
+    B4 --&gt; C4
+    B1 --&gt; D1
+    B2 --&gt; D2
+    B3 --&gt; D3
+    B4 --&gt; D4
 </code></pre>
 
 <h2 id="langchain-核心组件">LangChain 核心组件</h2>
@@ -140,10 +149,10 @@
 <p>链是 LangChain 的核心概念，允许组合多个组件：</p>
 
 <pre><code class="language-mermaid">flowchart LR
-    A[用户输入] --&gt; B[提示模板]
-    B --&gt; C[LLM处理]
-    C --&gt; D[输出解析]
-    D --&gt; E[结果返回]
+    A["用户输入"] --&gt; B["提示模板"]
+    B --&gt; C["LLM处理"]
+    C --&gt; D["输出解析"]
+    D --&gt; E["结果返回"]
     
     subgraph "简单链"
         B
@@ -152,9 +161,9 @@
     end
     
     subgraph "复杂链"
-        F[步骤1] --&gt; G[步骤2]
-        G --&gt; H[步骤3]
-        H --&gt; I[最终输出]
+        F["步骤1"] --&gt; G["步骤2"]
+        G --&gt; H["步骤3"]
+        H --&gt; I["最终输出"]
     end
 </code></pre>
 
@@ -285,16 +294,16 @@
 <p>将 LLM 与外部知识库结合：</p>
 
 <pre><code class="language-mermaid">flowchart TB
-    A[文档集合] --&gt; B[文档分割]
-    B --&gt; C[向量化]
-    C --&gt; D[向量存储]
+    A["文档集合"] --&gt; B["文档分割"]
+    B --&gt; C["向量化"]
+    C --&gt; D["向量存储"]
     
-    E[用户查询] --&gt; F[查询向量化]
-    F --&gt; G[相似度搜索]
+    E["用户查询"] --&gt; F["查询向量化"]
+    F --&gt; G["相似度搜索"]
     D --&gt; G
-    G --&gt; H[检索相关文档]
-    H --&gt; I[构建增强提示]
-    I --&gt; J[LLM生成回答]
+    G --&gt; H["检索相关文档"]
+    H --&gt; I["构建增强提示"]
+    I --&gt; J["LLM生成回答"]
     
     style D fill:#e1f5fe
     style J fill:#e8f5e8
@@ -365,22 +374,22 @@
 <p>赋予 LLM 使用工具和执行任务的能力：</p>
 
 <pre><code class="language-mermaid">flowchart TD
-    A[用户任务] --&gt; B[代理分析]
-    B --&gt; C{选择工具}
+    A["用户任务"] --&gt; B["代理分析"]
+    B --&gt; C{"选择工具"}
     
-    C --&gt;|计算需求| D[计算器工具]
-    C --&gt;|搜索需求| E[搜索工具]
-    C --&gt;|API调用| F[API工具]
-    C --&gt;|文件操作| G[文件工具]
+    C --&gt;|"计算需求"| D["计算器工具"]
+    C --&gt;|"搜索需求"| E["搜索工具"]
+    C --&gt;|"API调用"| F["API工具"]
+    C --&gt;|"文件操作"| G["文件工具"]
     
-    D --&gt; H[执行并获取结果]
+    D --&gt; H["执行并获取结果"]
     E --&gt; H
     F --&gt; H
     G --&gt; H
     
-    H --&gt; I{任务完成?}
-    I --&gt;|否| C
-    I --&gt;|是| J[返回最终结果]
+    H --&gt; I{"任务完成?"}
+    I --&gt;|"否"| C
+    I --&gt;|"是"| J["返回最终结果"]
 </code></pre>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -1059,10 +1068,10 @@
 </ul>
 
 <pre><code class="language-mermaid">graph LR
-    A[艾伦·图灵] --&gt;|发明| B[图灵机]
-    A --&gt;|出生于| C[英国]
-    A --&gt;|被誉为| D[计算机科学之父]
-    B --&gt;|是| E[理论计算模型]
+    A["艾伦·图灵"] --&gt;|"发明"| B["图灵机"]
+    A --&gt;|"出生于"| C["英国"]
+    A --&gt;|"被誉为"| D["计算机科学之父"]
+    B --&gt;|"是"| E["理论计算模型"]
 </code></pre>
 
 <h3 id="langchain-graph的定义与价值">LangChain Graph的定义与价值</h3>
@@ -1082,31 +1091,38 @@
 
 <pre><code class="language-mermaid">flowchart TB
     subgraph "输入层"
-        A[文本文档] --&gt; B[网页内容]
-        C[结构化数据] --&gt; D[用户查询]
+        A["文本文档"] --&gt; B["网页内容"]
+        C["结构化数据"] --&gt; D["用户查询"]
     end
     
     subgraph "处理层"
-        E[实体提取&lt;br&gt;EntityExtractor]
-        F[关系提取&lt;br&gt;RelationExtractor]
-        G[知识图谱构建&lt;br&gt;KnowledgeGraphCreator]
+        E["实体提取&lt;br&gt;EntityExtractor"]
+        F["关系提取&lt;br&gt;RelationExtractor"]
+        G["知识图谱构建&lt;br&gt;KnowledgeGraphCreator"]
     end
     
     subgraph "存储层"
-        H[图数据库&lt;br&gt;Neo4j/NetworkX]
-        I[向量存储&lt;br&gt;VectorStores]
+        H["图数据库&lt;br&gt;Neo4j/NetworkX"]
+        I["向量存储&lt;br&gt;VectorStores"]
     end
     
     subgraph "应用层"
-        J[图查询&lt;br&gt;GraphQuery]
-        K[图推理&lt;br&gt;GraphReasoning]
-        L[QA系统&lt;br&gt;GraphQAChain]
+        J["图查询&lt;br&gt;GraphQuery"]
+        K["图推理&lt;br&gt;GraphReasoning"]
+        L["QA系统&lt;br&gt;GraphQAChain"]
     end
     
-    A &amp; B &amp; C &amp; D --&gt; E &amp; F
-    E &amp; F --&gt; G
-    G --&gt; H &amp; I
-    H &amp; I --&gt; J &amp; K &amp; L
+    A --&gt; E
+    B --&gt; E
+    C --&gt; F
+    D --&gt; F
+    E --&gt; G
+    F --&gt; G
+    G --&gt; H
+    G --&gt; I
+    H --&gt; J
+    H --&gt; K
+    I --&gt; L
 </code></pre>
 
 <h2 id="核心组件详解">核心组件详解</h2>
@@ -1132,13 +1148,13 @@
 <h3 id="2-知识图谱构建">2. 知识图谱构建</h3>
 
 <pre><code class="language-mermaid">flowchart LR
-    A[文本] --&gt; B{实体提取}
-    B --&gt; |人物/地点/组织等| C[实体列表]
-    C --&gt; D{关系提取}
-    D --&gt; |分析实体间关联| E[三元组集合]
-    E --&gt; F[知识图谱构建器]
-    F --&gt; G[(图数据库)]
-    F --&gt; H[内存图]
+    A["文本"] --&gt; B{"实体提取"}
+    B --&gt; |"人物/地点/组织等"| C["实体列表"]
+    C --&gt; D{"关系提取"}
+    D --&gt; |"分析实体间关联"| E["三元组集合"]
+    E --&gt; F["知识图谱构建器"]
+    F --&gt; G[("图数据库")]
+    F --&gt; H["内存图"]
 </code></pre>
 
 <h3 id="3-图存储和查询">3. 图存储和查询</h3>
@@ -1146,15 +1162,17 @@
 <p>LangChain Graph支持多种图存储方式：</p>
 
 <pre><code class="language-mermaid">graph TD
-    A[知识图谱数据] --&gt; B{存储方式}
-    B --&gt;|内存存储| C[NetworkX]
-    B --&gt;|图数据库| D[Neo4j]
-    B --&gt;|向量数据库| E[Chroma/FAISS等]
+    A["知识图谱数据"] --&gt; B{"存储方式"}
+    B --&gt;|"内存存储"| C["NetworkX"]
+    B --&gt;|"图数据库"| D["Neo4j"]
+    B --&gt;|"向量数据库"| E["Chroma/FAISS等"]
     
-    C &amp; D &amp; E --&gt; F{查询方式}
-    F --&gt;|Cypher查询| G[Neo4j查询]
-    F --&gt;|图算法| H[NetworkX算法]
-    F --&gt;|自然语言| I[LLM辅助查询]
+    C --&gt; F{"查询方式"}
+    D --&gt; F
+    E --&gt; F
+    F --&gt;|"Cypher查询"| G["Neo4j查询"]
+    F --&gt;|"图算法"| H["NetworkX算法"]
+    F --&gt;|"自然语言"| I["LLM辅助查询"]
 </code></pre>
 
 <h2 id="构建知识图谱的工作流程">构建知识图谱的工作流程</h2>
@@ -1162,12 +1180,12 @@
 <p>以下是使用LangChain Graph构建知识图谱的完整流程：</p>
 
 <pre><code class="language-mermaid">flowchart TD
-    A[准备文本数据] --&gt; B[文本处理和分块]
-    B --&gt; C[实体提取]
-    C --&gt; D[关系识别]
-    D --&gt; E[三元组生成]
-    E --&gt; F[图构建和存储]
-    F --&gt; G[图查询和利用]
+    A["准备文本数据"] --&gt; B["文本处理和分块"]
+    B --&gt; C["实体提取"]
+    C --&gt; D["关系识别"]
+    D --&gt; E["三元组生成"]
+    E --&gt; F["图构建和存储"]
+    F --&gt; G["图查询和利用"]
     
     subgraph "文本处理阶段"
         A
@@ -1352,30 +1370,32 @@ RETURN p, r, o
 <h3 id="2-知识发现与推理">2. 知识发现与推理</h3>
 
 <pre><code class="language-mermaid">graph TD
-    A[文档集合] --&gt; B[知识图谱]
-    B --&gt; C{路径分析}
-    B --&gt; D{社区发现}
-    B --&gt; E{关系推断}
+    A["文档集合"] --&gt; B["知识图谱"]
+    B --&gt; C{"路径分析"}
+    B --&gt; D{"社区发现"}
+    B --&gt; E{"关系推断"}
     
-    C --&gt; F[隐藏关联发现]
-    D --&gt; G[领域聚类]
-    E --&gt; H[新知识产生]
+    C --&gt; F["隐藏关联发现"]
+    D --&gt; G["领域聚类"]
+    E --&gt; H["新知识产生"]
     
-    F &amp; G &amp; H --&gt; I[知识增强的应用]
+    F --&gt; I["知识增强的应用"]
+    G --&gt; I
+    H --&gt; I
 </code></pre>
 
 <h3 id="3-内容推荐系统">3. 内容推荐系统</h3>
 
 <pre><code class="language-mermaid">flowchart LR
-    A[用户] --&gt; B{兴趣提取}
-    B --&gt; C[用户实体图]
+    A["用户"] --&gt; B{"兴趣提取"}
+    B --&gt; C["用户实体图"]
     
-    D[内容库] --&gt; E{内容分析}
-    E --&gt; F[内容知识图]
+    D["内容库"] --&gt; E{"内容分析"}
+    E --&gt; F["内容知识图"]
     
-    C --&gt; G{图匹配算法}
+    C --&gt; G{"图匹配算法"}
     F --&gt; G
-    G --&gt; H[个性化推荐]
+    G --&gt; H["个性化推荐"]
     H --&gt; A
 </code></pre>
 
@@ -1384,38 +1404,42 @@ RETURN p, r, o
 <h3 id="1-多源数据集成">1. 多源数据集成</h3>
 
 <pre><code class="language-mermaid">flowchart TB
-    A1[文本文档] --&gt; B[数据预处理]
-    A2[结构化数据] --&gt; B
-    A3[网页内容] --&gt; B
-    A4[APIs] --&gt; B
+    A1["文本文档"] --&gt; B["数据预处理"]
+    A2["结构化数据"] --&gt; B
+    A3["网页内容"] --&gt; B
+    A4["APIs"] --&gt; B
     
-    B --&gt; C{实体统一}
-    C --&gt; D{关系提取}
-    D --&gt; E[图构建]
+    B --&gt; C{"实体统一"}
+    C --&gt; D{"关系提取"}
+    D --&gt; E["图构建"]
     
-    E --&gt; F{图增强}
-    F --&gt; G[实体链接]
-    F --&gt; H[异构合并]
-    F --&gt; I[冲突消解]
+    E --&gt; F{"图增强"}
+    F --&gt; G["实体链接"]
+    F --&gt; H["异构合并"]
+    F --&gt; I["冲突消解"]
     
-    G &amp; H &amp; I --&gt; J[完整知识图谱]
+    G --&gt; J["完整知识图谱"]
+    H --&gt; J
+    I --&gt; J
 </code></pre>
 
 <h3 id="2-图引导的推理增强">2. 图引导的推理增强</h3>
 
 <pre><code class="language-mermaid">flowchart LR
-    A[用户查询] --&gt; B{分析意图}
-    B --&gt; C[知识图谱查询]
-    C --&gt; D[子图检索]
+    A["用户查询"] --&gt; B{"分析意图"}
+    B --&gt; C["知识图谱查询"]
+    C --&gt; D["子图检索"]
     
-    D --&gt; E{构建提示}
-    E --&gt; F[边界约束]
-    E --&gt; G[路径引导]
-    E --&gt; H[属性填充]
+    D --&gt; E{"构建提示"}
+    E --&gt; F["边界约束"]
+    E --&gt; G["路径引导"]
+    E --&gt; H["属性填充"]
     
-    F &amp; G &amp; H --&gt; I[增强提示]
-    I --&gt; J[LLM推理]
-    J --&gt; K[精确回答]
+    F --&gt; I["增强提示"]
+    G --&gt; I
+    H --&gt; I
+    I --&gt; J["LLM推理"]
+    J --&gt; K["精确回答"]
 </code></pre>
 
 <h2 id="代码实现复杂查询示例">代码实现：复杂查询示例</h2>
@@ -1523,18 +1547,19 @@ RETURN p, r, o
 <h3 id="1-实体和关系定义策略">1. 实体和关系定义策略</h3>
 
 <pre><code class="language-mermaid">graph TD
-    A[定义实体类型] --&gt; B{选择粒度}
-    B --&gt; |粗粒度| C[主要类别&lt;br&gt;如人/地点/组织]
-    B --&gt; |细粒度| D[详细类别&lt;br&gt;如政治家/城市/科技公司]
+    A["定义实体类型"] --&gt; B{"选择粒度"}
+    B --&gt; |"粗粒度"| C["主要类别&lt;br&gt;如人/地点/组织"]
+    B --&gt; |"细粒度"| D["详细类别&lt;br&gt;如政治家/城市/科技公司"]
     
-    C --&gt; E{关系定义}
+    C --&gt; E{"关系定义"}
     D --&gt; E
-    E --&gt; |语义明确| F[精确关系&lt;br&gt;如"创立"而非"关联"]
-    E --&gt; |一致性| G[标准化关系名称]
+    E --&gt; |"语义明确"| F["精确关系&lt;br&gt;如'创立'而非'关联'"]
+    E --&gt; |"一致性"| G["标准化关系名称"]
     
-    F &amp; G --&gt; H[图模式设计]
-    H --&gt; I[属性与关系区分]
-    H --&gt; J[多重关系处理]
+    F --&gt; H["图模式设计"]
+    G --&gt; H
+    H --&gt; I["属性与关系区分"]
+    H --&gt; J["多重关系处理"]
 </code></pre>
 
 <h3 id="2-性能优化技巧">2. 性能优化技巧</h3>
@@ -1542,21 +1567,21 @@ RETURN p, r, o
 <p>对于大规模知识图谱，以下优化技巧至关重要：</p>
 
 <pre><code class="language-mermaid">flowchart TD
-    A[性能优化] --&gt; B{处理大型文档}
-    A --&gt; C{查询优化}
-    A --&gt; D{存储策略}
+    A["性能优化"] --&gt; B{"处理大型文档"}
+    A --&gt; C{"查询优化"}
+    A --&gt; D{"存储策略"}
     
-    B --&gt; B1[分块处理]
-    B --&gt; B2[并行提取]
-    B --&gt; B3[批量处理]
+    B --&gt; B1["分块处理"]
+    B --&gt; B2["并行提取"]
+    B --&gt; B3["批量处理"]
     
-    C --&gt; C1[查询缓存]
-    C --&gt; C2[索引优化]
-    C --&gt; C3[查询重写]
+    C --&gt; C1["查询缓存"]
+    C --&gt; C2["索引优化"]
+    C --&gt; C3["查询重写"]
     
-    D --&gt; D1[图数据分区]
-    D --&gt; D2[冷热数据分离]
-    D --&gt; D3[增量更新]
+    D --&gt; D1["图数据分区"]
+    D --&gt; D2["冷热数据分离"]
+    D --&gt; D3["增量更新"]
 </code></pre>
 
 <h2 id="完整工作流从文档到智能应用">完整工作流：从文档到智能应用</h2>
@@ -1565,33 +1590,33 @@ RETURN p, r, o
 
 <pre><code class="language-mermaid">flowchart TD
     subgraph "数据准备"
-        A1[文档收集] --&gt; A2[文档清洗]
-        A2 --&gt; A3[文档分块]
+        A1["文档收集"] --&gt; A2["文档清洗"]
+        A2 --&gt; A3["文档分块"]
     end
     
     subgraph "知识提取"
-        A3 --&gt; B1[实体识别]
-        B1 --&gt; B2[关系提取]
-        B2 --&gt; B3[属性提取]
+        A3 --&gt; B1["实体识别"]
+        B1 --&gt; B2["关系提取"]
+        B2 --&gt; B3["属性提取"]
     end
     
     subgraph "图构建与存储"
-        B3 --&gt; C1[三元组生成]
-        C1 --&gt; C2[图构建]
-        C2 --&gt; C3[图存储]
+        B3 --&gt; C1["三元组生成"]
+        C1 --&gt; C2["图构建"]
+        C2 --&gt; C3["图存储"]
     end
     
     subgraph "图增强"
-        C3 --&gt; D1[实体链接]
-        D1 --&gt; D2[推理扩展]
-        D2 --&gt; D3[图验证]
+        C3 --&gt; D1["实体链接"]
+        D1 --&gt; D2["推理扩展"]
+        D2 --&gt; D3["图验证"]
     end
     
     subgraph "应用集成"
-        D3 --&gt; E1[问答系统]
-        D3 --&gt; E2[搜索增强]
-        D3 --&gt; E3[内容推荐]
-        D3 --&gt; E4[决策支持]
+        D3 --&gt; E1["问答系统"]
+        D3 --&gt; E2["搜索增强"]
+        D3 --&gt; E3["内容推荐"]
+        D3 --&gt; E4["决策支持"]
     end
 </code></pre>
 
@@ -1807,15 +1832,15 @@ RETURN p, r, o
 <p><strong>实时Agent系统架构图：</strong></p>
 
 <pre><code class="language-mermaid">graph TD
-    A[用户输入] --&gt; B[语音识别ASR]
-    B --&gt; C[自然语言理解NLU]
-    C --&gt; D[Agent决策引擎]
-    D --&gt; E[任务执行模块]
-    D --&gt; F[知识库查询]
-    E --&gt; G[自然语言生成NLG]
+    A["用户输入"] --&gt; B["语音识别ASR"]
+    B --&gt; C["自然语言理解NLU"]
+    C --&gt; D["Agent决策引擎"]
+    D --&gt; E["任务执行模块"]
+    D --&gt; F["知识库查询"]
+    E --&gt; G["自然语言生成NLG"]
     F --&gt; G
-    G --&gt; H[语音合成TTS]
-    H --&gt; I[实时输出]
+    G --&gt; H["语音合成TTS"]
+    H --&gt; I["实时输出"]
     
     subgraph "核心处理层"
         D
@@ -2163,12 +2188,12 @@ RETURN p, r, o
 <h3 id="整体架构">整体架构</h3>
 
 <pre><code class="language-mermaid">graph TB
-    A[用户] --&gt; B[WebRTC客户端]
-    B --&gt; C[信令服务器]
-    C --&gt; D[媒体服务器]
-    D --&gt; E[语音识别服务]
-    E --&gt; F[AI对话引擎]
-    F --&gt; G[语音合成服务]
+    A["用户"] --&gt; B["WebRTC客户端"]
+    B --&gt; C["信令服务器"]
+    C --&gt; D["媒体服务器"]
+    D --&gt; E["语音识别服务"]
+    E --&gt; F["AI对话引擎"]
+    F --&gt; G["语音合成服务"]
     G --&gt; D
     D --&gt; B
     B --&gt; A
