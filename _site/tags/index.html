@@ -83,12 +83,154 @@
 
 
 
-    <!-- start custom head snippets -->
+    <!-- 自定义头部内容 -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<!-- Mermaid 图表支持 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ 
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#3b82f6',
+      primaryTextColor: '#1f2937',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#6b7280',
+      sectionBkgColor: '#f9fafb',
+      altSectionBkgColor: '#ffffff',
+      gridColor: '#e5e7eb',
+      secondaryColor: '#8b5cf6',
+      tertiaryColor: '#06b6d4'
+    }
+  });
+</script>
 
-<!-- end custom head snippets -->
+<!-- 字体预加载优化 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<!-- 性能优化 -->
+<meta name="theme-color" content="#3b82f6">
+<meta name="msapplication-TileColor" content="#3b82f6">
+
+<!-- 自定义样式增强 */
+<style>
+  /* 页面加载动画 */
+  .page-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  
+  .page-loading.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Mermaid 图表优化 */
+  .mermaid .node rect,
+  .mermaid .node circle,
+  .mermaid .node ellipse,
+  .mermaid .node polygon {
+    fill: #f9fafb;
+    stroke: #3b82f6;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .edgePath .path {
+    stroke: #6b7280;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .cluster rect {
+    fill: rgba(59, 130, 246, 0.1);
+    stroke: #3b82f6;
+    stroke-width: 1px;
+  }
+  
+  /* 代码高亮主题优化 */
+  .highlight {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+  
+  .highlight pre {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  /* 平滑滚动优化 */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* 选择文本样式 */
+  ::selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1f2937;
+  }
+  
+  ::-moz-selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1f2937;
+  }
+</style>
+
+<!-- 页面加载优化脚本 -->
+<script>
+  // 页面加载完成后隐藏加载动画
+  window.addEventListener('load', function() {
+    const loader = document.querySelector('.page-loading');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(() => {
+        loader.remove();
+      }, 500);
+    }
+  });
+  
+  // 平滑滚动到锚点
+  document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script> 
   </head>
 
   <body class="layout--tags">
@@ -110,8 +252,6 @@
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
-        
-          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Chico Gong's Tech Blog"></a>
         
         <a class="site-title" href="/">
           Chico Gong's Tech Blog
@@ -413,23 +553,9 @@
       
     
       
-        <li>
-          <a href="#webrtc">
-            <strong>WebRTC</strong> <span class="taxonomy__count">2</span>
-          </a>
-        </li>
-      
     
       
     
-      
-    
-      
-        <li>
-          <a href="#实时通信">
-            <strong>实时通信</strong> <span class="taxonomy__count">2</span>
-          </a>
-        </li>
       
     
       
@@ -446,22 +572,10 @@
     
       
         <li>
-          <a href="#微服务">
-            <strong>微服务</strong> <span class="taxonomy__count">2</span>
+          <a href="#langchain">
+            <strong>LangChain</strong> <span class="taxonomy__count">2</span>
           </a>
         </li>
-      
-    
-      
-        <li>
-          <a href="#docker">
-            <strong>Docker</strong> <span class="taxonomy__count">2</span>
-          </a>
-        </li>
-      
-    
-      
-    
       
     
       
@@ -470,18 +584,18 @@
     
       
         <li>
-          <a href="#javascript">
-            <strong>JavaScript</strong> <span class="taxonomy__count">2</span>
+          <a href="#大语言模型">
+            <strong>大语言模型</strong> <span class="taxonomy__count">2</span>
           </a>
         </li>
       
     
       
-    
-      
-    
-      
-    
+        <li>
+          <a href="#llm">
+            <strong>LLM</strong> <span class="taxonomy__count">2</span>
+          </a>
+        </li>
       
     
       
@@ -515,6 +629,12 @@
       
     
       
+        <li>
+          <a href="#webrtc">
+            <strong>WebRTC</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
+      
     
       
         <li>
@@ -533,87 +653,49 @@
       
     
       
-    
-      
         <li>
-          <a href="#python">
-            <strong>Python</strong> <span class="taxonomy__count">1</span>
+          <a href="#实时通信">
+            <strong>实时通信</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#爬虫">
-            <strong>爬虫</strong> <span class="taxonomy__count">1</span>
+          <a href="#人工智能">
+            <strong>人工智能</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#scrapy">
-            <strong>Scrapy</strong> <span class="taxonomy__count">1</span>
+          <a href="#多模态技术">
+            <strong>多模态技术</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#反爬虫">
-            <strong>反爬虫</strong> <span class="taxonomy__count">1</span>
+          <a href="#实时系统">
+            <strong>实时系统</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#数据挖掘">
-            <strong>数据挖掘</strong> <span class="taxonomy__count">1</span>
+          <a href="#商业应用">
+            <strong>商业应用</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#node-js">
-            <strong>Node.js</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-    
-      
-    
-      
-        <li>
-          <a href="#api-gateway">
-            <strong>API Gateway</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-        <li>
-          <a href="#分布式系统">
-            <strong>分布式系统</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-        <li>
-          <a href="#react">
-            <strong>React</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-        <li>
-          <a href="#hooks">
-            <strong>Hooks</strong> <span class="taxonomy__count">1</span>
+          <a href="#技术架构">
+            <strong>技术架构</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
@@ -622,48 +704,36 @@
     
       
         <li>
-          <a href="#最佳实践">
-            <strong>最佳实践</strong> <span class="taxonomy__count">1</span>
+          <a href="#知识图谱">
+            <strong>知识图谱</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#语音通话">
-            <strong>语音通话</strong> <span class="taxonomy__count">1</span>
+          <a href="#graph">
+            <strong>Graph</strong> <span class="taxonomy__count">1</span>
+          </a>
+        </li>
+      
+    
+      
+    
+      
+    
+      
+        <li>
+          <a href="#ai应用开发">
+            <strong>AI应用开发</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#p2p">
-            <strong>P2P</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-        <li>
-          <a href="#kubernetes">
-            <strong>Kubernetes</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-        <li>
-          <a href="#容器编排">
-            <strong>容器编排</strong> <span class="taxonomy__count">1</span>
-          </a>
-        </li>
-      
-    
-      
-        <li>
-          <a href="#devops">
-            <strong>DevOps</strong> <span class="taxonomy__count">1</span>
+          <a href="#提示工程">
+            <strong>提示工程</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
@@ -681,8 +751,26 @@
     
   
     
-      <section id="webrtc" class="taxonomy__section">
-        <h2 class="archive__subtitle">WebRTC</h2>
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <section id="langchain" class="taxonomy__section">
+        <h2 class="archive__subtitle">LangChain</h2>
         <div class="entries-list">
           
             
@@ -694,7 +782,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -706,7 +794,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+        <time datetime="2024-12-28T00:00:00+08:00">December 28, 2024</time>
       </span>
     
 
@@ -719,14 +807,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          9 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景，帮助开发者构建强大的AI应用。
 </p>
   </article>
 </div>
@@ -741,7 +829,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -753,7 +841,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-05T00:00:00+08:00">January 5, 2024</time>
+        <time datetime="2024-12-27T00:00:00+08:00">December 27, 2024</time>
       </span>
     
 
@@ -766,14 +854,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          6 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入探讨如何构建一个完整的AI语音通话系统，涵盖WebRTC实时通信、语音识别、自然语言处理和语音合成等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大的知识图谱构建工具。
 </p>
   </article>
 </div>
@@ -789,8 +877,8 @@
     
   
     
-      <section id="实时通信" class="taxonomy__section">
-        <h2 class="archive__subtitle">实时通信</h2>
+      <section id="大语言模型" class="taxonomy__section">
+        <h2 class="archive__subtitle">大语言模型</h2>
         <div class="entries-list">
           
             
@@ -802,7 +890,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -814,7 +902,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+        <time datetime="2024-12-28T00:00:00+08:00">December 28, 2024</time>
       </span>
     
 
@@ -827,14 +915,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          9 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景，帮助开发者构建强大的AI应用。
 </p>
   </article>
 </div>
@@ -849,7 +937,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -861,7 +949,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-05T00:00:00+08:00">January 5, 2024</time>
+        <time datetime="2024-12-27T00:00:00+08:00">December 27, 2024</time>
       </span>
     
 
@@ -874,14 +962,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          6 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入探讨如何构建一个完整的AI语音通话系统，涵盖WebRTC实时通信、语音识别、自然语言处理和语音合成等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大的知识图谱构建工具。
 </p>
   </article>
 </div>
@@ -893,20 +981,8 @@
     
   
     
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <section id="微服务" class="taxonomy__section">
-        <h2 class="archive__subtitle">微服务</h2>
+      <section id="llm" class="taxonomy__section">
+        <h2 class="archive__subtitle">LLM</h2>
         <div class="entries-list">
           
             
@@ -918,7 +994,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -930,7 +1006,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
+        <time datetime="2024-12-28T00:00:00+08:00">December 28, 2024</time>
       </span>
     
 
@@ -943,15 +1019,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          11 minute read
+          9 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
-
+    <p class="archive__item-excerpt" itemprop="description">详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景，帮助开发者构建强大的AI应用。
 </p>
   </article>
 </div>
@@ -966,7 +1041,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -978,7 +1053,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
+        <time datetime="2024-12-27T00:00:00+08:00">December 27, 2024</time>
       </span>
     
 
@@ -991,15 +1066,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          5 minute read
+          6 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
-
+    <p class="archive__item-excerpt" itemprop="description">深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大的知识图谱构建工具。
 </p>
   </article>
 </div>
@@ -1008,233 +1082,6 @@
         </div>
         <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
       </section>
-    
-  
-    
-      <section id="docker" class="taxonomy__section">
-        <h2 class="archive__subtitle">Docker</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          11 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
-
-</p>
-  </article>
-</div>
-
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          5 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <section id="javascript" class="taxonomy__section">
-        <h2 class="archive__subtitle">JavaScript</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          10 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
-</p>
-  </article>
-</div>
-
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-  
-    
-  
-    
-  
     
   
     
@@ -1418,6 +1265,61 @@
     
   
     
+      <section id="webrtc" class="taxonomy__section">
+        <h2 class="archive__subtitle">WebRTC</h2>
+        <div class="entries-list">
+          
+            
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        
+        <time datetime="2024-01-05T00:00:00+08:00">January 5, 2024</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">深入探讨如何构建一个完整的AI语音通话系统，涵盖WebRTC实时通信、语音识别、自然语言处理和语音合成等核心技术。
+</p>
+  </article>
+</div>
+
+          
+        </div>
+        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+      </section>
+    
   
     
       <section id="语音识别" class="taxonomy__section">
@@ -1458,7 +1360,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          3 minute read
         
       </span>
     
@@ -1515,7 +1417,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          3 minute read
         
       </span>
     
@@ -1534,10 +1436,8 @@
     
   
     
-  
-    
-      <section id="python" class="taxonomy__section">
-        <h2 class="archive__subtitle">Python</h2>
+      <section id="实时通信" class="taxonomy__section">
+        <h2 class="archive__subtitle">实时通信</h2>
         <div class="entries-list">
           
             
@@ -1549,7 +1449,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
 </a>
       
     </h2>
@@ -1561,7 +1461,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+        <time datetime="2024-01-05T00:00:00+08:00">January 5, 2024</time>
       </span>
     
 
@@ -1574,15 +1474,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          3 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
-
+    <p class="archive__item-excerpt" itemprop="description">深入探讨如何构建一个完整的AI语音通话系统，涵盖WebRTC实时通信、语音识别、自然语言处理和语音合成等核心技术。
 </p>
   </article>
 </div>
@@ -1594,8 +1493,8 @@
     
   
     
-      <section id="爬虫" class="taxonomy__section">
-        <h2 class="archive__subtitle">爬虫</h2>
+      <section id="人工智能" class="taxonomy__section">
+        <h2 class="archive__subtitle">人工智能</h2>
         <div class="entries-list">
           
             
@@ -1607,7 +1506,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -1619,7 +1518,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+        <time datetime="2024-12-26T10:00:00+08:00">December 26, 2024</time>
       </span>
     
 
@@ -1632,15 +1531,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
-
+    <p class="archive__item-excerpt" itemprop="description">深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式
 </p>
   </article>
 </div>
@@ -1652,8 +1550,8 @@
     
   
     
-      <section id="scrapy" class="taxonomy__section">
-        <h2 class="archive__subtitle">Scrapy</h2>
+      <section id="多模态技术" class="taxonomy__section">
+        <h2 class="archive__subtitle">多模态技术</h2>
         <div class="entries-list">
           
             
@@ -1665,7 +1563,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -1677,7 +1575,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+        <time datetime="2024-12-26T10:00:00+08:00">December 26, 2024</time>
       </span>
     
 
@@ -1690,15 +1588,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
-
+    <p class="archive__item-excerpt" itemprop="description">深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式
 </p>
   </article>
 </div>
@@ -1710,8 +1607,8 @@
     
   
     
-      <section id="反爬虫" class="taxonomy__section">
-        <h2 class="archive__subtitle">反爬虫</h2>
+      <section id="实时系统" class="taxonomy__section">
+        <h2 class="archive__subtitle">实时系统</h2>
         <div class="entries-list">
           
             
@@ -1723,7 +1620,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -1735,7 +1632,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+        <time datetime="2024-12-26T10:00:00+08:00">December 26, 2024</time>
       </span>
     
 
@@ -1748,15 +1645,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
-
+    <p class="archive__item-excerpt" itemprop="description">深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式
 </p>
   </article>
 </div>
@@ -1768,8 +1664,8 @@
     
   
     
-      <section id="数据挖掘" class="taxonomy__section">
-        <h2 class="archive__subtitle">数据挖掘</h2>
+      <section id="商业应用" class="taxonomy__section">
+        <h2 class="archive__subtitle">商业应用</h2>
         <div class="entries-list">
           
             
@@ -1781,7 +1677,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
+        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -1793,7 +1689,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
+        <time datetime="2024-12-26T10:00:00+08:00">December 26, 2024</time>
       </span>
     
 
@@ -1806,15 +1702,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
-
+    <p class="archive__item-excerpt" itemprop="description">深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式
 </p>
   </article>
 </div>
@@ -1826,8 +1721,8 @@
     
   
     
-      <section id="node-js" class="taxonomy__section">
-        <h2 class="archive__subtitle">Node.js</h2>
+      <section id="技术架构" class="taxonomy__section">
+        <h2 class="archive__subtitle">技术架构</h2>
         <div class="entries-list">
           
             
@@ -1839,7 +1734,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
+        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -1851,7 +1746,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
+        <time datetime="2024-12-26T10:00:00+08:00">December 26, 2024</time>
       </span>
     
 
@@ -1864,251 +1759,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          5 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-  
-    
-  
-    
-      <section id="api-gateway" class="taxonomy__section">
-        <h2 class="archive__subtitle">API Gateway</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          5 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-      <section id="分布式系统" class="taxonomy__section">
-        <h2 class="archive__subtitle">分布式系统</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          5 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-      <section id="react" class="taxonomy__section">
-        <h2 class="archive__subtitle">React</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-      <section id="hooks" class="taxonomy__section">
-        <h2 class="archive__subtitle">Hooks</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          2 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
-
+    <p class="archive__item-excerpt" itemprop="description">深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式
 </p>
   </article>
 </div>
@@ -2122,8 +1780,8 @@
     
   
     
-      <section id="最佳实践" class="taxonomy__section">
-        <h2 class="archive__subtitle">最佳实践</h2>
+      <section id="知识图谱" class="taxonomy__section">
+        <h2 class="archive__subtitle">知识图谱</h2>
         <div class="entries-list">
           
             
@@ -2135,7 +1793,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -2147,7 +1805,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
+        <time datetime="2024-12-27T00:00:00+08:00">December 27, 2024</time>
       </span>
     
 
@@ -2160,15 +1818,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          6 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
-
+    <p class="archive__item-excerpt" itemprop="description">深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大的知识图谱构建工具。
 </p>
   </article>
 </div>
@@ -2180,8 +1837,8 @@
     
   
     
-      <section id="语音通话" class="taxonomy__section">
-        <h2 class="archive__subtitle">语音通话</h2>
+      <section id="graph" class="taxonomy__section">
+        <h2 class="archive__subtitle">Graph</h2>
         <div class="entries-list">
           
             
@@ -2193,7 +1850,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -2205,7 +1862,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+        <time datetime="2024-12-27T00:00:00+08:00">December 27, 2024</time>
       </span>
     
 
@@ -2218,14 +1875,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          6 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大的知识图谱构建工具。
 </p>
   </article>
 </div>
@@ -2237,8 +1894,12 @@
     
   
     
-      <section id="p2p" class="taxonomy__section">
-        <h2 class="archive__subtitle">P2P</h2>
+  
+    
+  
+    
+      <section id="ai应用开发" class="taxonomy__section">
+        <h2 class="archive__subtitle">AI应用开发</h2>
         <div class="entries-list">
           
             
@@ -2250,7 +1911,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -2262,7 +1923,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+        <time datetime="2024-12-28T00:00:00+08:00">December 28, 2024</time>
       </span>
     
 
@@ -2275,14 +1936,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          9 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景，帮助开发者构建强大的AI应用。
 </p>
   </article>
 </div>
@@ -2294,8 +1955,8 @@
     
   
     
-      <section id="kubernetes" class="taxonomy__section">
-        <h2 class="archive__subtitle">Kubernetes</h2>
+      <section id="提示工程" class="taxonomy__section">
+        <h2 class="archive__subtitle">提示工程</h2>
         <div class="entries-list">
           
             
@@ -2307,7 +1968,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -2319,7 +1980,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
+        <time datetime="2024-12-28T00:00:00+08:00">December 28, 2024</time>
       </span>
     
 
@@ -2332,131 +1993,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          11 minute read
+          9 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-      <section id="容器编排" class="taxonomy__section">
-        <h2 class="archive__subtitle">容器编排</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          11 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
-
-</p>
-  </article>
-</div>
-
-          
-        </div>
-        <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
-      </section>
-    
-  
-    
-      <section id="devops" class="taxonomy__section">
-        <h2 class="archive__subtitle">DevOps</h2>
-        <div class="entries-list">
-          
-            
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          11 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
-
+    <p class="archive__item-excerpt" itemprop="description">详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景，帮助开发者构建强大的AI应用。
 </p>
   </article>
 </div>

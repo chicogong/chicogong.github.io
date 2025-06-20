@@ -83,12 +83,154 @@
 
 
 
-    <!-- start custom head snippets -->
+    <!-- 自定义头部内容 -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<!-- Mermaid 图表支持 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ 
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#3b82f6',
+      primaryTextColor: '#1f2937',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#6b7280',
+      sectionBkgColor: '#f9fafb',
+      altSectionBkgColor: '#ffffff',
+      gridColor: '#e5e7eb',
+      secondaryColor: '#8b5cf6',
+      tertiaryColor: '#06b6d4'
+    }
+  });
+</script>
 
-<!-- end custom head snippets -->
+<!-- 字体预加载优化 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<!-- 性能优化 -->
+<meta name="theme-color" content="#3b82f6">
+<meta name="msapplication-TileColor" content="#3b82f6">
+
+<!-- 自定义样式增强 */
+<style>
+  /* 页面加载动画 */
+  .page-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  
+  .page-loading.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Mermaid 图表优化 */
+  .mermaid .node rect,
+  .mermaid .node circle,
+  .mermaid .node ellipse,
+  .mermaid .node polygon {
+    fill: #f9fafb;
+    stroke: #3b82f6;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .edgePath .path {
+    stroke: #6b7280;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .cluster rect {
+    fill: rgba(59, 130, 246, 0.1);
+    stroke: #3b82f6;
+    stroke-width: 1px;
+  }
+  
+  /* 代码高亮主题优化 */
+  .highlight {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+  
+  .highlight pre {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  /* 平滑滚动优化 */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* 选择文本样式 */
+  ::selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1f2937;
+  }
+  
+  ::-moz-selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1f2937;
+  }
+</style>
+
+<!-- 页面加载优化脚本 -->
+<script>
+  // 页面加载完成后隐藏加载动画
+  window.addEventListener('load', function() {
+    const loader = document.querySelector('.page-loading');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(() => {
+        loader.remove();
+      }, 500);
+    }
+  });
+  
+  // 平滑滚动到锚点
+  document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script> 
   </head>
 
   <body class="layout--single wide">
@@ -110,8 +252,6 @@
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
-        
-          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Chico Gong's Tech Blog"></a>
         
         <a class="site-title" href="/">
           Chico Gong's Tech Blog

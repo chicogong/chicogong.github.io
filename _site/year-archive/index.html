@@ -83,12 +83,154 @@
 
 
 
-    <!-- start custom head snippets -->
+    <!-- 自定义头部内容 -->
 
-<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<!-- Mermaid 图表支持 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({ 
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#3b82f6',
+      primaryTextColor: '#1f2937',
+      primaryBorderColor: '#3b82f6',
+      lineColor: '#6b7280',
+      sectionBkgColor: '#f9fafb',
+      altSectionBkgColor: '#ffffff',
+      gridColor: '#e5e7eb',
+      secondaryColor: '#8b5cf6',
+      tertiaryColor: '#06b6d4'
+    }
+  });
+</script>
 
-<!-- end custom head snippets -->
+<!-- 字体预加载优化 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+<!-- 性能优化 -->
+<meta name="theme-color" content="#3b82f6">
+<meta name="msapplication-TileColor" content="#3b82f6">
+
+<!-- 自定义样式增强 */
+<style>
+  /* 页面加载动画 */
+  .page-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  
+  .page-loading.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Mermaid 图表优化 */
+  .mermaid .node rect,
+  .mermaid .node circle,
+  .mermaid .node ellipse,
+  .mermaid .node polygon {
+    fill: #f9fafb;
+    stroke: #3b82f6;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .edgePath .path {
+    stroke: #6b7280;
+    stroke-width: 2px;
+  }
+  
+  .mermaid .cluster rect {
+    fill: rgba(59, 130, 246, 0.1);
+    stroke: #3b82f6;
+    stroke-width: 1px;
+  }
+  
+  /* 代码高亮主题优化 */
+  .highlight {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+  
+  .highlight pre {
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  /* 平滑滚动优化 */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* 选择文本样式 */
+  ::selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1f2937;
+  }
+  
+  ::-moz-selection {
+    background: rgba(59, 130, 246, 0.2);
+    color: #1f2937;
+  }
+</style>
+
+<!-- 页面加载优化脚本 -->
+<script>
+  // 页面加载完成后隐藏加载动画
+  window.addEventListener('load', function() {
+    const loader = document.querySelector('.page-loading');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(() => {
+        loader.remove();
+      }, 500);
+    }
+  });
+  
+  // 平滑滚动到锚点
+  document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  });
+</script> 
   </head>
 
   <body class="layout--posts">
@@ -110,8 +252,6 @@
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
-        
-          <a class="site-logo" href="/"><img src="/assets/images/logo.png" alt="Chico Gong's Tech Blog"></a>
         
         <a class="site-title" href="/">
           Chico Gong's Tech Blog
@@ -405,7 +545,7 @@
   
     <li>
       <a href="#2024">
-        <strong>2024</strong> <span class="taxonomy__count">7</span>
+        <strong>2024</strong> <span class="taxonomy__count">5</span>
       </a>
     </li>
   
@@ -427,7 +567,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E4%BA%91%E5%8E%9F%E7%94%9F/devops/cloud-native-kubernetes-guide/" rel="permalink">云原生Kubernetes实战指南：从入门到生产环境部署
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -439,7 +579,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-15T11:45:00+08:00">January 15, 2024</time>
+        <time datetime="2024-12-28T00:00:00+08:00">December 28, 2024</time>
       </span>
     
 
@@ -452,15 +592,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          11 minute read
+          9 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Kubernetes已经成为现代云原生应用部署的标准平台。本文将从基础概念开始，逐步深入到生产环境的最佳实践，帮助你全面掌握Kubernetes的核心技能。
-
+    <p class="archive__item-excerpt" itemprop="description">详细介绍 LangChain 与 LLM 的结合方式、核心组件以及常见应用场景，帮助开发者构建强大的AI应用。
 </p>
   </article>
 </div>
@@ -475,7 +614,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/webrtc/%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1/ai-chatbot-development-guide/" rel="permalink">WebRTC实时语音通信开发完整指南：构建高质量语音通话应用
+        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -487,7 +626,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-12T00:00:00+08:00">January 12, 2024</time>
+        <time datetime="2024-12-27T00:00:00+08:00">December 27, 2024</time>
       </span>
     
 
@@ -500,14 +639,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          10 minute read
+          6 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">深入学习WebRTC技术，从基础概念到实际应用，构建高质量的实时语音通话系统。涵盖信令服务器、NAT穿透、音频处理等核心技术。
+    <p class="archive__item-excerpt" itemprop="description">深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大的知识图谱构建工具。
 </p>
   </article>
 </div>
@@ -522,7 +661,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/react/react-hooks-best-practices/" rel="permalink">React Hooks 最佳实践：从入门到精通
+        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -534,7 +673,7 @@
       <span class="page__meta-date">
         <i class="far fa-calendar-alt" aria-hidden="true"></i>
         
-        <time datetime="2024-01-10T09:00:00+08:00">January 10, 2024</time>
+        <time datetime="2024-12-26T10:00:00+08:00">December 26, 2024</time>
       </span>
     
 
@@ -547,111 +686,14 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          1 minute read
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">React Hooks自2018年推出以来，已经彻底改变了我们编写React组件的方式。今天我将分享一些在实际项目中总结的Hooks最佳实践。
-
-</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/nodejs-microservices-architecture/" rel="permalink">Node.js微服务架构实战：从单体到分布式的演进之路
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-08T14:30:00+08:00">January 8, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          5 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">随着业务的快速增长，传统的单体应用架构逐渐暴露出扩展性和维护性的问题。今天我将分享如何使用Node.js构建高效的微服务架构，以及在实际项目中的最佳实践。
-
-</p>
-  </article>
-</div>
-
-      
-        
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/python/%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86/python-web-scraping-advanced/" rel="permalink">Python网页爬虫进阶教程：从基础到反爬虫对抗
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-      
-      <span class="page__meta-date">
-        <i class="far fa-calendar-alt" aria-hidden="true"></i>
-        
-        <time datetime="2024-01-06T10:15:00+08:00">January 6, 2024</time>
-      </span>
-    
-
-    <span class="page__meta-sep"></span>
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          10 minute read
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">网页爬虫是数据科学和自动化领域的重要技能。本文将从基础概念开始，逐步深入到高级技巧和反爬虫对抗策略，帮助你构建稳定高效的爬虫系统。
-
+    <p class="archive__item-excerpt" itemprop="description">深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式
 </p>
   </article>
 </div>
@@ -691,7 +733,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          2 minute read
+          3 minute read
         
       </span>
     
