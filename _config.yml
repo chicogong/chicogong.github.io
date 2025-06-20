@@ -7,7 +7,7 @@
 
 # Theme Settings
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
-minimal_mistakes_skin: "contrast" # 使用对比度主题，更清新淡雅
+minimal_mistakes_skin: "default" # 使用默认主题以便自定义样式生效
 locale: "zh-Hans"
 title: "Chico Gong's Tech Blog"
 subtitle: "Conversational AI & Real-time Communication"
@@ -114,6 +114,9 @@ kramdown:
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    line_numbers: true
 
 # Sass/SCSS
 sass:

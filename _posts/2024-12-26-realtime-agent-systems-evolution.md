@@ -29,6 +29,43 @@ header:
 - **硬件加速优化**：GPU/TPU集群将推理延迟从秒级降至毫秒级
 - **算法优化**：知识蒸馏技术使模型参数量减少70%的同时保持90%的原始性能
 
+**实时Agent系统架构图：**
+
+```mermaid
+graph TD
+    A[用户输入] --> B[语音识别ASR]
+    B --> C[自然语言理解NLU]
+    C --> D[Agent决策引擎]
+    D --> E[任务执行模块]
+    D --> F[知识库查询]
+    E --> G[自然语言生成NLG]
+    F --> G
+    G --> H[语音合成TTS]
+    H --> I[实时输出]
+    
+    subgraph "核心处理层"
+        D
+        E
+        F
+    end
+    
+    subgraph "感知层"
+        A
+        B
+        C
+    end
+    
+    subgraph "表达层"
+        G
+        H
+        I
+    end
+    
+    style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style I fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    style D fill:#fff3e0,stroke:#e65100,stroke-width:2px
+```
+
 ### 1.2 工作流与多智能体协作机制
 
 当前技术流派主要分为两类：
