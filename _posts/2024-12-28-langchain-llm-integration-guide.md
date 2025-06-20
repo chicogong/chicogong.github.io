@@ -3,7 +3,7 @@ layout: single
 title: "LangChain 与 LLM 的结合使用详解"
 date: 2024-12-28
 categories: 
-  - AI技术
+  - AI-Technology
 tags:
   - LangChain
   - LLM

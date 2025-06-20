@@ -1,7 +1,7 @@
 ---
 title: "AI语音通话系统开发实战：从零构建智能语音交互平台"
 date: 2024-01-05
-categories: [AI技术, 语音通话]
+categories: [AI-Technology, Voice-Communication]
 tags: [WebRTC, 语音识别, AI, 实时通信]
 toc: true
 toc_label: "目录"

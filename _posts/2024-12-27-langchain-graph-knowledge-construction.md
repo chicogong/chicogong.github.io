@@ -3,7 +3,7 @@ layout: single
 title: "LangChain Graph 详解：构建智能知识图谱"
 date: 2024-12-27
 categories: 
-  - AI技术
+  - AI-Technology
 tags:
   - LangChain
   - 知识图谱

@@ -88,20 +88,60 @@
 <!-- Mermaid 图表支持 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>
-  mermaid.initialize({ 
-    startOnLoad: true,
-    theme: 'base',
-    themeVariables: {
-      primaryColor: '#3b82f6',
-      primaryTextColor: '#1f2937',
-      primaryBorderColor: '#3b82f6',
-      lineColor: '#6b7280',
-      sectionBkgColor: '#f9fafb',
-      altSectionBkgColor: '#ffffff',
-      gridColor: '#e5e7eb',
-      secondaryColor: '#8b5cf6',
-      tertiaryColor: '#06b6d4'
-    }
+  // 等待DOM加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#3b82f6',
+        primaryTextColor: '#1f2937',
+        primaryBorderColor: '#3b82f6',
+        lineColor: '#6b7280',
+        sectionBkgColor: '#f9fafb',
+        altSectionBkgColor: '#ffffff',
+        gridColor: '#e5e7eb',
+        secondaryColor: '#8b5cf6',
+        tertiaryColor: '#06b6d4',
+        background: '#ffffff',
+        mainBkg: '#f9fafb',
+        secondBkg: '#ffffff',
+        tertiaryBkg: '#f3f4f6'
+      },
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      sequence: {
+        useMaxWidth: true,
+        wrap: true
+      },
+      gantt: {
+        useMaxWidth: true
+      }
+    });
+    
+    // 手动渲染页面中的所有mermaid图表
+    const mermaidElements = document.querySelectorAll('.language-mermaid, .mermaid');
+    mermaidElements.forEach(function(element, index) {
+      const graphDefinition = element.textContent || element.innerText;
+      const graphId = 'mermaid-' + index;
+      
+      // 创建新的div来渲染图表
+      const graphDiv = document.createElement('div');
+      graphDiv.className = 'mermaid';
+      graphDiv.id = graphId;
+      
+      // 渲染图表
+      mermaid.render(graphId + '-svg', graphDefinition).then(function(result) {
+        graphDiv.innerHTML = result.svg;
+        element.parentNode.replaceChild(graphDiv, element);
+      }).catch(function(error) {
+        console.error('Mermaid rendering error:', error);
+        element.innerHTML = '<p style="color: red;">图表渲染失败: ' + error.message + '</p>';
+      });
+    });
   });
 </script>
 
@@ -151,6 +191,17 @@
   }
   
   /* Mermaid 图表优化 */
+  .mermaid {
+    text-align: center;
+    margin: 2rem 0;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    overflow-x: auto;
+  }
+  
   .mermaid .node rect,
   .mermaid .node circle,
   .mermaid .node ellipse,
@@ -169,6 +220,23 @@
     fill: rgba(59, 130, 246, 0.1);
     stroke: #3b82f6;
     stroke-width: 1px;
+  }
+  
+  .mermaid .nodeLabel,
+  .mermaid .edgeLabel {
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    color: #1f2937;
+  }
+  
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 修复代码块中的mermaid */
+  .language-mermaid {
+    display: none;
   }
   
   /* 代码高亮主题优化 */

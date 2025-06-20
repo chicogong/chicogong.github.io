@@ -1,7 +1,7 @@
 ---
 title: "实时Agent系统技术演进与应用前景"
 date: 2024-12-26 10:00:00 +0800
-categories: [AI技术, Agent系统]
+categories: [AI-Technology, Agent-Systems]
 tags: [人工智能, 多模态技术, 实时系统, 商业应用, 技术架构]
 excerpt: "深度解析实时Agent系统的技术架构、核心原理、行业应用场景以及未来发展趋势，探讨人机协同的新范式"
 toc: true

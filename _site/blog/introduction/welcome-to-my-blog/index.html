@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh_Hans">
 <meta property="og:site_name" content="Chico Gong's Tech Blog">
 <meta property="og:title" content="欢迎来到我的博客">
-<meta property="og:url" content="http://0.0.0.0:4000/%E5%8D%9A%E5%AE%A2/%E4%BB%8B%E7%BB%8D/welcome-to-my-blog/">
+<meta property="og:url" content="http://0.0.0.0:4000/blog/introduction/welcome-to-my-blog/">
 
 
   <meta property="og:description" content="欢迎来到我的个人博客">
@@ -38,7 +38,7 @@
 
 
 
-<link rel="canonical" href="http://0.0.0.0:4000/%E5%8D%9A%E5%AE%A2/%E4%BB%8B%E7%BB%8D/welcome-to-my-blog/">
+<link rel="canonical" href="http://0.0.0.0:4000/blog/introduction/welcome-to-my-blog/">
 
 
 
@@ -87,20 +87,60 @@
 <!-- Mermaid 图表支持 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>
-  mermaid.initialize({ 
-    startOnLoad: true,
-    theme: 'base',
-    themeVariables: {
-      primaryColor: '#3b82f6',
-      primaryTextColor: '#1f2937',
-      primaryBorderColor: '#3b82f6',
-      lineColor: '#6b7280',
-      sectionBkgColor: '#f9fafb',
-      altSectionBkgColor: '#ffffff',
-      gridColor: '#e5e7eb',
-      secondaryColor: '#8b5cf6',
-      tertiaryColor: '#06b6d4'
-    }
+  // 等待DOM加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#3b82f6',
+        primaryTextColor: '#1f2937',
+        primaryBorderColor: '#3b82f6',
+        lineColor: '#6b7280',
+        sectionBkgColor: '#f9fafb',
+        altSectionBkgColor: '#ffffff',
+        gridColor: '#e5e7eb',
+        secondaryColor: '#8b5cf6',
+        tertiaryColor: '#06b6d4',
+        background: '#ffffff',
+        mainBkg: '#f9fafb',
+        secondBkg: '#ffffff',
+        tertiaryBkg: '#f3f4f6'
+      },
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      sequence: {
+        useMaxWidth: true,
+        wrap: true
+      },
+      gantt: {
+        useMaxWidth: true
+      }
+    });
+    
+    // 手动渲染页面中的所有mermaid图表
+    const mermaidElements = document.querySelectorAll('.language-mermaid, .mermaid');
+    mermaidElements.forEach(function(element, index) {
+      const graphDefinition = element.textContent || element.innerText;
+      const graphId = 'mermaid-' + index;
+      
+      // 创建新的div来渲染图表
+      const graphDiv = document.createElement('div');
+      graphDiv.className = 'mermaid';
+      graphDiv.id = graphId;
+      
+      // 渲染图表
+      mermaid.render(graphId + '-svg', graphDefinition).then(function(result) {
+        graphDiv.innerHTML = result.svg;
+        element.parentNode.replaceChild(graphDiv, element);
+      }).catch(function(error) {
+        console.error('Mermaid rendering error:', error);
+        element.innerHTML = '<p style="color: red;">图表渲染失败: ' + error.message + '</p>';
+      });
+    });
   });
 </script>
 
@@ -150,6 +190,17 @@
   }
   
   /* Mermaid 图表优化 */
+  .mermaid {
+    text-align: center;
+    margin: 2rem 0;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    overflow-x: auto;
+  }
+  
   .mermaid .node rect,
   .mermaid .node circle,
   .mermaid .node ellipse,
@@ -168,6 +219,23 @@
     fill: rgba(59, 130, 246, 0.1);
     stroke: #3b82f6;
     stroke-width: 1px;
+  }
+  
+  .mermaid .nodeLabel,
+  .mermaid .edgeLabel {
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    color: #1f2937;
+  }
+  
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 修复代码块中的mermaid */
+  .language-mermaid {
+    display: none;
   }
   
   /* 代码高亮主题优化 */
@@ -309,7 +377,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#%E5%8D%9A%E5%AE%A2" itemprop="item"><span itemprop="name">%e5%8d%9a%e5%ae%a2</span></a>
+          <a href="/categories/#blog" itemprop="item"><span itemprop="name">Blog</span></a>
           <meta itemprop="position" content="2" />
         </li>
         <span class="sep">/</span>
@@ -319,7 +387,7 @@
       
         
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/categories/#%E4%BB%8B%E7%BB%8D" itemprop="item"><span itemprop="name">%e4%bb%8b%e7%bb%8d</span></a>
+          <a href="/categories/#introduction" itemprop="item"><span itemprop="name">Introduction</span></a>
           <meta itemprop="position" content="3" />
         </li>
         <span class="sep">/</span>
@@ -655,9 +723,9 @@
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%E4%BB%8B%E7%BB%8D" class="page__taxonomy-item" rel="tag">介绍</a><span class="sep">, </span>
+      <a href="/categories/#blog" class="page__taxonomy-item" rel="tag">Blog</a><span class="sep">, </span>
     
-      <a href="/categories/#%E5%8D%9A%E5%AE%A2" class="page__taxonomy-item" rel="tag">博客</a>
+      <a href="/categories/#introduction" class="page__taxonomy-item" rel="tag">Introduction</a>
     
     </span>
   </p>
@@ -673,11 +741,11 @@
       <section class="page__share">
   
 
-  <a href="https://twitter.com/intent/tweet?text=%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%20http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%258D%259A%25E5%25AE%25A2%2F%25E4%25BB%258B%25E7%25BB%258D%2Fwelcome-to-my-blog%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%20http%3A%2F%2F0.0.0.0%3A4000%2Fblog%2Fintroduction%2Fwelcome-to-my-blog%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%258D%259A%25E5%25AE%25A2%2F%25E4%25BB%258B%25E7%25BB%258D%2Fwelcome-to-my-blog%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F0.0.0.0%3A4000%2Fblog%2Fintroduction%2Fwelcome-to-my-blog%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F0.0.0.0%3A4000%2F%25E5%258D%259A%25E5%25AE%25A2%2F%25E4%25BB%258B%25E7%25BB%258D%2Fwelcome-to-my-blog%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2F0.0.0.0%3A4000%2Fblog%2Fintroduction%2Fwelcome-to-my-blog%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -687,7 +755,7 @@
       <a href="#" class="pagination--pager disabled">Previous</a>
     
     
-      <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" class="pagination--pager" title="AI语音通话系统开发实战：从零构建智能语音交互平台
+      <a href="/ai-technology/voice-communication/github-pages-setup-guide/" class="pagination--pager" title="AI语音通话系统开发实战：从零构建智能语音交互平台
 ">Next</a>
     
   </nav>
@@ -716,7 +784,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
+        <a href="/ai-technology/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -767,7 +835,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
+        <a href="/ai-technology/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -818,7 +886,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
+        <a href="/ai-technology/agent-systems/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -869,7 +937,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
+        <a href="/ai-technology/voice-communication/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
 </a>
       
     </h2>

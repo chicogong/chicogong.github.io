@@ -1,7 +1,7 @@
 ---
 title: 欢迎来到我的博客
 date: 2024-01-01 10:00:00 +0800
-categories: [博客, 介绍]
+categories: [Blog, Introduction]
 tags: [博客, 介绍, 开始]
 author: Chico Gong
 toc: true

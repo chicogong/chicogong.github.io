@@ -88,20 +88,60 @@
 <!-- Mermaid 图表支持 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>
-  mermaid.initialize({ 
-    startOnLoad: true,
-    theme: 'base',
-    themeVariables: {
-      primaryColor: '#3b82f6',
-      primaryTextColor: '#1f2937',
-      primaryBorderColor: '#3b82f6',
-      lineColor: '#6b7280',
-      sectionBkgColor: '#f9fafb',
-      altSectionBkgColor: '#ffffff',
-      gridColor: '#e5e7eb',
-      secondaryColor: '#8b5cf6',
-      tertiaryColor: '#06b6d4'
-    }
+  // 等待DOM加载完成后初始化Mermaid
+  document.addEventListener('DOMContentLoaded', function() {
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#3b82f6',
+        primaryTextColor: '#1f2937',
+        primaryBorderColor: '#3b82f6',
+        lineColor: '#6b7280',
+        sectionBkgColor: '#f9fafb',
+        altSectionBkgColor: '#ffffff',
+        gridColor: '#e5e7eb',
+        secondaryColor: '#8b5cf6',
+        tertiaryColor: '#06b6d4',
+        background: '#ffffff',
+        mainBkg: '#f9fafb',
+        secondBkg: '#ffffff',
+        tertiaryBkg: '#f3f4f6'
+      },
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      sequence: {
+        useMaxWidth: true,
+        wrap: true
+      },
+      gantt: {
+        useMaxWidth: true
+      }
+    });
+    
+    // 手动渲染页面中的所有mermaid图表
+    const mermaidElements = document.querySelectorAll('.language-mermaid, .mermaid');
+    mermaidElements.forEach(function(element, index) {
+      const graphDefinition = element.textContent || element.innerText;
+      const graphId = 'mermaid-' + index;
+      
+      // 创建新的div来渲染图表
+      const graphDiv = document.createElement('div');
+      graphDiv.className = 'mermaid';
+      graphDiv.id = graphId;
+      
+      // 渲染图表
+      mermaid.render(graphId + '-svg', graphDefinition).then(function(result) {
+        graphDiv.innerHTML = result.svg;
+        element.parentNode.replaceChild(graphDiv, element);
+      }).catch(function(error) {
+        console.error('Mermaid rendering error:', error);
+        element.innerHTML = '<p style="color: red;">图表渲染失败: ' + error.message + '</p>';
+      });
+    });
   });
 </script>
 
@@ -151,6 +191,17 @@
   }
   
   /* Mermaid 图表优化 */
+  .mermaid {
+    text-align: center;
+    margin: 2rem 0;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    overflow-x: auto;
+  }
+  
   .mermaid .node rect,
   .mermaid .node circle,
   .mermaid .node ellipse,
@@ -169,6 +220,23 @@
     fill: rgba(59, 130, 246, 0.1);
     stroke: #3b82f6;
     stroke-width: 1px;
+  }
+  
+  .mermaid .nodeLabel,
+  .mermaid .edgeLabel {
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    color: #1f2937;
+  }
+  
+  .mermaid svg {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* 修复代码块中的mermaid */
+  .language-mermaid {
+    display: none;
   }
   
   /* 代码高亮主题优化 */
@@ -552,8 +620,8 @@
     
       
         <li>
-          <a href="#ai技术">
-            <strong>AI技术</strong> <span class="taxonomy__count">4</span>
+          <a href="#ai-technology">
+            <strong>AI-Technology</strong> <span class="taxonomy__count">4</span>
           </a>
         </li>
       
@@ -590,16 +658,16 @@
     
       
         <li>
-          <a href="#博客">
-            <strong>博客</strong> <span class="taxonomy__count">1</span>
+          <a href="#blog">
+            <strong>Blog</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#介绍">
-            <strong>介绍</strong> <span class="taxonomy__count">1</span>
+          <a href="#introduction">
+            <strong>Introduction</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
@@ -608,16 +676,16 @@
     
       
         <li>
-          <a href="#语音通话">
-            <strong>语音通话</strong> <span class="taxonomy__count">1</span>
+          <a href="#voice-communication">
+            <strong>Voice-Communication</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
     
       
         <li>
-          <a href="#agent系统">
-            <strong>Agent系统</strong> <span class="taxonomy__count">1</span>
+          <a href="#agent-systems">
+            <strong>Agent-Systems</strong> <span class="taxonomy__count">1</span>
           </a>
         </li>
       
@@ -633,8 +701,8 @@
     
   
     
-      <section id="ai技术" class="taxonomy__section">
-        <h2 class="archive__subtitle">AI技术</h2>
+      <section id="ai-technology" class="taxonomy__section">
+        <h2 class="archive__subtitle">AI-Technology</h2>
         <div class="entries-list">
           
             
@@ -646,7 +714,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
+        <a href="/ai-technology/langchain-llm-integration-guide/" rel="permalink">LangChain 与 LLM 的结合使用详解
 </a>
       
     </h2>
@@ -693,7 +761,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
+        <a href="/ai-technology/langchain-graph-knowledge-construction/" rel="permalink">LangChain Graph 详解：构建智能知识图谱
 </a>
       
     </h2>
@@ -740,7 +808,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
+        <a href="/ai-technology/agent-systems/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
@@ -787,7 +855,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
+        <a href="/ai-technology/voice-communication/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
 </a>
       
     </h2>
@@ -861,8 +929,8 @@
 
   
     
-      <section id="博客" class="taxonomy__section">
-        <h2 class="archive__subtitle">博客</h2>
+      <section id="blog" class="taxonomy__section">
+        <h2 class="archive__subtitle">Blog</h2>
         <div class="entries-list">
           
             
@@ -874,7 +942,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E5%8D%9A%E5%AE%A2/%E4%BB%8B%E7%BB%8D/welcome-to-my-blog/" rel="permalink">欢迎来到我的博客
+        <a href="/blog/introduction/welcome-to-my-blog/" rel="permalink">欢迎来到我的博客
 </a>
       
     </h2>
@@ -919,8 +987,8 @@
     
   
     
-      <section id="介绍" class="taxonomy__section">
-        <h2 class="archive__subtitle">介绍</h2>
+      <section id="introduction" class="taxonomy__section">
+        <h2 class="archive__subtitle">Introduction</h2>
         <div class="entries-list">
           
             
@@ -932,7 +1000,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%E5%8D%9A%E5%AE%A2/%E4%BB%8B%E7%BB%8D/welcome-to-my-blog/" rel="permalink">欢迎来到我的博客
+        <a href="/blog/introduction/welcome-to-my-blog/" rel="permalink">欢迎来到我的博客
 </a>
       
     </h2>
@@ -979,8 +1047,8 @@
     
   
     
-      <section id="语音通话" class="taxonomy__section">
-        <h2 class="archive__subtitle">语音通话</h2>
+      <section id="voice-communication" class="taxonomy__section">
+        <h2 class="archive__subtitle">Voice-Communication</h2>
         <div class="entries-list">
           
             
@@ -992,7 +1060,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/%E8%AF%AD%E9%9F%B3%E9%80%9A%E8%AF%9D/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
+        <a href="/ai-technology/voice-communication/github-pages-setup-guide/" rel="permalink">AI语音通话系统开发实战：从零构建智能语音交互平台
 </a>
       
     </h2>
@@ -1036,8 +1104,8 @@
     
   
     
-      <section id="agent系统" class="taxonomy__section">
-        <h2 class="archive__subtitle">Agent系统</h2>
+      <section id="agent-systems" class="taxonomy__section">
+        <h2 class="archive__subtitle">Agent-Systems</h2>
         <div class="entries-list">
           
             
@@ -1049,7 +1117,7 @@
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/ai%E6%8A%80%E6%9C%AF/agent%E7%B3%BB%E7%BB%9F/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
+        <a href="/ai-technology/agent-systems/realtime-agent-systems-evolution/" rel="permalink">实时Agent系统技术演进与应用前景
 </a>
       
     </h2>
