@@ -5,8 +5,8 @@ layout: posts
 author_profile: true
 classes: wide
 header:
-  overlay_color: "#000"
-  overlay_filter: "0.5"
+  overlay_color: "#3b82f6"
+  overlay_filter: "0.3"
   overlay_image: /assets/images/posts-bg.jpg
   actions:
     - label: "分类浏览"
@@ -15,7 +15,7 @@ header:
     - label: "标签浏览"
       url: "/tags/"
       btn_class: "btn--inverse"
-excerpt: "探索技术世界，分享实战经验"
+excerpt: "探索AI技术世界，分享实战经验"
 ---
 
 <div class="posts-hero">
@@ -28,10 +28,10 @@ excerpt: "探索技术世界，分享实战经验"
 <div class="posts-filter">
   <div class="filter-tabs">
     <button class="filter-tab active" data-filter="all">全部文章</button>
-    <button class="filter-tab" data-filter="ai">对话式AI</button>
-    <button class="filter-tab" data-filter="webrtc">实时通信</button>
-    <button class="filter-tab" data-filter="voice">语音技术</button>
-    <button class="filter-tab" data-filter="cloud">云原生</button>
+    <button class="filter-tab" data-filter="ai-technology">AI技术</button>
+    <button class="filter-tab" data-filter="agent-systems">Agent系统</button>
+    <button class="filter-tab" data-filter="langchain">LangChain</button>
+    <button class="filter-tab" data-filter="voice-communication">语音通信</button>
   </div>
   
   <div class="search-box">
@@ -43,7 +43,7 @@ excerpt: "探索技术世界，分享实战经验"
 <style>
 /* Posts Page Styles */
 .posts-hero {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   padding: 4rem 0;
   margin: -2rem -2rem 3rem -2rem;
   text-align: center;
@@ -97,9 +97,9 @@ excerpt: "探索技术世界，分享实战经验"
 }
 
 .filter-tab.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
 .search-box {
@@ -119,8 +119,8 @@ excerpt: "探索技术世界，分享实战经验"
 
 .search-box input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .search-box i {
@@ -162,7 +162,7 @@ excerpt: "探索技术世界，分享实战经验"
 }
 
 .archive__item-title a:hover {
-  color: #667eea !important;
+  color: #3b82f6 !important;
 }
 
 .archive__item-excerpt {
@@ -181,7 +181,7 @@ excerpt: "探索技术世界，分享实战经验"
 }
 
 .page__meta i {
-  color: #667eea;
+  color: #3b82f6;
 }
 
 /* Responsive Design */
@@ -205,70 +205,66 @@ excerpt: "探索技术世界，分享实战经验"
 }
 
 @media (max-width: 480px) {
-  .posts-hero {
-    margin: -1rem -1rem 2rem -1rem;
-    padding: 2rem 1rem;
+  .hero-title {
+    font-size: 2rem;
   }
   
-  .filter-tabs {
-    flex-direction: column;
+  .hero-subtitle {
+    font-size: 1.1rem;
   }
   
   .filter-tab {
-    text-align: center;
-  }
-  
-  .list__item .archive__item {
-    padding: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 }
-
-/* JavaScript functionality */
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Filter tabs functionality
   const filterTabs = document.querySelectorAll('.filter-tab');
+  const searchInput = document.getElementById('search-input');
   const posts = document.querySelectorAll('.list__item');
   
+  // Filter functionality
   filterTabs.forEach(tab => {
     tab.addEventListener('click', function() {
-      // Remove active class from all tabs
-      filterTabs.forEach(t => t.classList.remove('active'));
-      // Add active class to clicked tab
-      this.classList.add('active');
-      
       const filter = this.getAttribute('data-filter');
       
+      // Update active tab
+      filterTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Filter posts
       posts.forEach(post => {
-        if (filter === 'all') {
+        const categories = post.querySelector('.archive__item-categories');
+        if (filter === 'all' || !categories) {
           post.style.display = 'block';
         } else {
-          // Check if post has the filter category/tag
-          const categories = post.querySelector('.archive__item-title')?.textContent.toLowerCase() || '';
-          const shouldShow = categories.includes(filter) || 
-                           post.classList.contains(filter) ||
-                           post.getAttribute('data-category') === filter;
-          
-          post.style.display = shouldShow ? 'block' : 'none';
+          const categoryText = categories.textContent.toLowerCase();
+          if (categoryText.includes(filter.replace('-', ' '))) {
+            post.style.display = 'block';
+          } else {
+            post.style.display = 'none';
+          }
         }
       });
     });
   });
   
   // Search functionality
-  const searchInput = document.getElementById('search-input');
-  
   searchInput.addEventListener('input', function() {
     const searchTerm = this.value.toLowerCase();
     
     posts.forEach(post => {
-      const title = post.querySelector('.archive__item-title')?.textContent.toLowerCase() || '';
-      const excerpt = post.querySelector('.archive__item-excerpt')?.textContent.toLowerCase() || '';
+      const title = post.querySelector('.archive__item-title').textContent.toLowerCase();
+      const excerpt = post.querySelector('.archive__item-excerpt').textContent.toLowerCase();
       
-      const shouldShow = title.includes(searchTerm) || excerpt.includes(searchTerm);
-      post.style.display = shouldShow ? 'block' : 'none';
+      if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+        post.style.display = 'block';
+      } else {
+        post.style.display = 'none';
+      }
     });
   });
 });
