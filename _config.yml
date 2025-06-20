@@ -36,9 +36,10 @@ comments:
 author:
   name: "Chico Gong"
   avatar: "https://github.com/chicogong.png"
-  bio: >-
-    🤖 Conversational AI Enthusiast | 📞 Real-time Communication Developer | 
-    ⚡ Building next-gen voice interaction systems
+  bio: |
+    - 🤖 Conversational AI Enthusiast
+    - 📞 Real-time Communication Developer
+    - ⚡ Building next-gen voice systems
   location: "Shanghai, China"
   email: "chicogong@tencent.com"
   links:
