@@ -3,14 +3,29 @@
 <!-- Mermaid 图表支持 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <script>
-  // 等待DOM加载完成后初始化Mermaid
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    // This script finds all `<code>` blocks with the language "mermaid",
+    // extracts their content, and replaces the parent `<pre>` block
+    // with a `<div class="mermaid">` that contains the code.
+    // This prepares the page for Mermaid's `startOnLoad` functionality.
+    const mermaidCodeBlocks = document.querySelectorAll('pre code.language-mermaid');
+    mermaidCodeBlocks.forEach(function (codeBlock) {
+      const mermaidContainer = document.createElement('div');
+      mermaidContainer.classList.add('mermaid');
+      // Use innerText to get the raw, unescaped code
+      mermaidContainer.textContent = codeBlock.innerText; 
+      
+      const preElement = codeBlock.parentElement;
+      preElement.parentElement.replaceChild(mermaidContainer, preElement);
+    });
+
+    // Now, initialize Mermaid. It will find all divs with class="mermaid" and render them.
     mermaid.initialize({ 
       startOnLoad: true,
       theme: 'base',
       themeVariables: {
         primaryColor: '#3b82f6',
-        primaryTextColor: '#1f2937',
+        primaryTextColor: '#fff',
         primaryBorderColor: '#3b82f6',
         lineColor: '#6b7280',
         sectionBkgColor: '#f9fafb',
@@ -20,42 +35,13 @@
         tertiaryColor: '#06b6d4',
         background: '#ffffff',
         mainBkg: '#f9fafb',
-        secondBkg: '#ffffff',
-        tertiaryBkg: '#f3f4f6'
+        nodeTextColor: '#1f2937'
       },
-      flowchart: {
+       flowchart: {
         useMaxWidth: true,
         htmlLabels: true,
         curve: 'basis'
-      },
-      sequence: {
-        useMaxWidth: true,
-        wrap: true
-      },
-      gantt: {
-        useMaxWidth: true
       }
-    });
-    
-    // 手动渲染页面中的所有mermaid图表
-    const mermaidElements = document.querySelectorAll('.language-mermaid, .mermaid');
-    mermaidElements.forEach(function(element, index) {
-      const graphDefinition = element.textContent || element.innerText;
-      const graphId = 'mermaid-' + index;
-      
-      // 创建新的div来渲染图表
-      const graphDiv = document.createElement('div');
-      graphDiv.className = 'mermaid';
-      graphDiv.id = graphId;
-      
-      // 渲染图表
-      mermaid.render(graphId + '-svg', graphDefinition).then(function(result) {
-        graphDiv.innerHTML = result.svg;
-        element.parentNode.replaceChild(graphDiv, element);
-      }).catch(function(error) {
-        console.error('Mermaid rendering error:', error);
-        element.innerHTML = '<p style="color: red;">图表渲染失败: ' + error.message + '</p>';
-      });
     });
   });
 </script>
@@ -68,7 +54,7 @@
 <meta name="theme-color" content="#3b82f6">
 <meta name="msapplication-TileColor" content="#3b82f6">
 
-<!-- 自定义样式增强 */
+<!-- 自定义样式增强 -->
 <style>
   /* 页面加载动画 */
   .page-loading {
@@ -147,11 +133,6 @@
   .mermaid svg {
     max-width: 100%;
     height: auto;
-  }
-  
-  /* 修复代码块中的mermaid */
-  .language-mermaid {
-    display: none;
   }
   
   /* 代码高亮主题优化 */
