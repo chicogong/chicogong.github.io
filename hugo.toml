@@ -26,8 +26,16 @@ contentDir = "docs"
   TocOpen = true
 
   [params.homeInfoParams]
-    Title = "Hi, I'm Chico"
-    Content = "对话式AI专家 & 实时通信开发者"
+    Title = "Hi, I'm Chico 👋"
+    Content = "对话式AI · 实时通信 · 语音技术"
+
+  [params.socialIcons]
+    - name = "github"
+      url = "https://github.com/chicogong"
+    - name = "email"
+      url = "mailto:chicogong@tencent.com"
+    - name = "linkedin"
+      url = "https://linkedin.com/in/chicogong"
 
 [menu]
   [[menu.main]]
