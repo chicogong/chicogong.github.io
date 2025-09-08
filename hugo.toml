@@ -1,4 +1,4 @@
-baseURL = "https://realtime-ai.chat/"
+baseURL = "https://chicogong.github.io/"
 languageCode = "zh-cn"
 title = "Chico Gong's Tech Blog"
 theme = "FixIt"
@@ -32,22 +32,17 @@ contentDir = "docs"
 
   [params.home]
     rss = true
-    socialGraph = true
-    profile = true
-    avatarURL = "https://github.com/chicogong.png"
-    title = "Hi, I'm Chico 👋"
-    subtitle = "对话式AI · 实时通信 · 语音技术"
-    typeit = true
+    [params.home.profile]
+      enable = true
+      avatarURL = "https://github.com/chicogong.png"
+      title = "Hi, I'm Chico 👋"
+      subtitle = "对话式AI · 实时通信 · 语音技术"
+      typeit = true
 
-  [[params.social]]
-    name = "Github"
-    url = "https://github.com/chicogong"
-  [[params.social]]
-    name = "Email"
-    url = "mailto:chicogong@tencent.com"
-  [[params.social]]
-    name = "LinkedIn"
-    url = "https://linkedin.com/in/chicogong"
+  [params.social]
+    GitHub = "https://github.com/chicogong"
+    Email = "mailto:chicogong@tencent.com"
+    LinkedIn = "https://linkedin.com/in/chicogong"
 
 [menu]
   [[menu.main]]
