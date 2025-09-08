@@ -1,7 +1,7 @@
 baseURL = "https://realtime-ai.chat/"
 languageCode = "zh-cn"
 title = "Chico Gong's Tech Blog"
-theme = "PaperMod"
+theme = "FixIt"
 
 [pagination]
   pagerSize = 10
@@ -25,17 +25,24 @@ contentDir = "docs"
   ShowToc = true
   TocOpen = true
 
-  [params.homeInfoParams]
-    Title = "Hi, I'm Chico 👋"
-    Content = "对话式AI · 实时通信 · 语音技术"
+  [params.home]
+    rss = true
+    socialGraph = true
+    profile = true
+    avatarURL = "https://github.com/chicogong.png"
+    title = "Hi, I'm Chico 👋"
+    subtitle = "对话式AI · 实时通信 · 语音技术"
+    typeit = true
 
-  [params.socialIcons]
-    - name = "github"
-      url = "https://github.com/chicogong"
-    - name = "email"
-      url = "mailto:chicogong@tencent.com"
-    - name = "linkedin"
-      url = "https://linkedin.com/in/chicogong"
+  [[params.social]]
+    name = "Github"
+    url = "https://github.com/chicogong"
+  [[params.social]]
+    name = "Email"
+    url = "mailto:chicogong@tencent.com"
+  [[params.social]]
+    name = "LinkedIn"
+    url = "https://linkedin.com/in/chicogong"
 
 [menu]
   [[menu.main]]
