@@ -15,7 +15,12 @@ contentDir = "docs"
   title = "Chico Gong's Tech Blog"
   description = "对话式AI & 实时通信"
   keywords = ["AI", "WebRTC", "Voice", "LLM"]
-  author = "Chico Gong"
+  
+  [params.author]
+    name = "Chico Gong"
+    email = "chicogong@tencent.com"
+    link = "https://github.com/chicogong"
+    avatar = "https://github.com/chicogong.png"
   DateFormat = "2006-01-02"
   defaultTheme = "auto"
   ShowShareButtons = true
