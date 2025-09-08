@@ -8,7 +8,7 @@ theme = "FixIt"
 contentDir = "docs"
 
 [permalinks]
-  posts = "/:year/:month/:day/:slug/"
+  posts = "/posts/:slug/"
 
 [params]
   env = "production"
