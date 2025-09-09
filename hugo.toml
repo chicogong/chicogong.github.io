@@ -137,8 +137,3 @@ theme = "PaperMod"
 [minify]
   minifyOutput = true
 
-[services]
-  [services.googleAnalytics]
-    ID = ""
-  [services.disqus]
-    shortname = ""

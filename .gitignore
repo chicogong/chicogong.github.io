@@ -1,5 +1,30 @@
+# Hugo generated files
 public/
 resources/
 .hugo_build.lock
-themes/PaperMod/
+
+# Hugo themes (cloned separately in CI)
+themes/
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Editor directories and files
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local config
+.claude/
+
+# Temporary files
+*.tmp
+*.log
 
