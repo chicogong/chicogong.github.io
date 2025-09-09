@@ -12,6 +12,37 @@ categories: ["AI Agent", "系统架构"]
 
 ## 1. 多Agent系统架构
 
+```mermaid
+graph TB
+    subgraph "多Agent系统拓扑"
+        subgraph "层次结构"
+            M[管理Agent]
+            M --> A1[执行Agent1]
+            M --> A2[执行Agent2]
+            M --> A3[执行Agent3]
+        end
+        
+        subgraph "对等网络"
+            P1[Agent1] <--> P2[Agent2]
+            P2 <--> P3[Agent3]
+            P3 <--> P1
+        end
+        
+        subgraph "黑板模式"
+            BB[共享黑板]
+            B1[Agent1] --> BB
+            B2[Agent2] --> BB
+            B3[Agent3] --> BB
+            BB --> B1
+            BB --> B2
+            BB --> B3
+        end
+    end
+    
+    style M fill:#ffeb3b,stroke:#f57c00,stroke-width:2px
+    style BB fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+```
+
 ### 1.1 系统拓扑结构
 
 ```python
@@ -242,6 +273,34 @@ class TaskCoordinator:
 ```
 
 ### 3.2 协商机制
+
+```mermaid
+sequenceDiagram
+    participant C as 协调Agent
+    participant A1 as Agent1
+    participant A2 as Agent2
+    participant A3 as Agent3
+    
+    C->>A1: 任务公告
+    C->>A2: 任务公告
+    C->>A3: 任务公告
+    
+    Note over A1,A3: 评估任务能力
+    
+    A1-->>C: 投标(成本:10, 时间:5min)
+    A2-->>C: 投标(成本:8, 时间:7min)
+    A3-->>C: 不投标
+    
+    Note over C: 评估投标
+    
+    C->>A2: 授予合同
+    A2->>C: 接受合同
+    
+    Note over A2: 执行任务
+    
+    A2->>C: 任务完成报告
+    C->>A2: 确认完成
+```
 
 ```python
 class ContractNetProtocol:

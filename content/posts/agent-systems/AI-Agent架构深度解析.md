@@ -30,6 +30,24 @@ class AgentCore:
 
 Agent的核心运行机制基于感知-推理-行动（Perception-Reasoning-Action）循环：
 
+```mermaid
+graph LR
+    A[环境输入] --> B[感知模块]
+    B --> C[推理引擎]
+    C --> D[行动执行]
+    D --> E[环境反馈]
+    E --> B
+    
+    C --> F[记忆系统]
+    F --> C
+    C --> G[知识库]
+    G --> C
+    
+    style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style E fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style C fill:#fff3e0,stroke:#e65100,stroke-width:2px
+```
+
 1. **感知阶段**：接收环境输入，理解用户意图
 2. **推理阶段**：基于记忆和知识进行决策
 3. **行动阶段**：执行具体操作，产生输出
@@ -63,6 +81,38 @@ class ReActAgent:
 ### 2.2 分层架构
 
 分层架构将Agent分为多个层次：
+
+```mermaid
+graph TB
+    subgraph "战略层"
+        A[长期目标规划]
+        B[资源分配]
+        C[风险评估]
+    end
+    
+    subgraph "战术层"
+        D[任务分解]
+        E[优先级排序]
+        F[依赖管理]
+    end
+    
+    subgraph "执行层"
+        G[工具调用]
+        H[动作执行]
+        I[结果验证]
+    end
+    
+    A --> D
+    B --> E
+    C --> F
+    D --> G
+    E --> H
+    F --> I
+    
+    style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style D fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style G fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px
+```
 
 - **战略层**：长期目标规划
 - **战术层**：中期任务分解
@@ -130,6 +180,30 @@ class HierarchicalTaskNetwork:
 ```
 
 ### 5.2 动态规划调整
+
+```mermaid
+stateDiagram-v2
+    [*] --> 计划制定
+    计划制定 --> 任务执行
+    任务执行 --> 结果评估
+    
+    结果评估 --> 成功: 符合预期
+    结果评估 --> 调整计划: 需要优化
+    结果评估 --> 异常处理: 执行失败
+    
+    调整计划 --> 任务执行
+    异常处理 --> 回退策略
+    回退策略 --> 计划制定
+    
+    成功 --> [*]
+    
+    note right of 结果评估
+        评估标准：
+        - 完成度
+        - 资源消耗
+        - 时间效率
+    end note
+```
 
 - **实时反馈整合**：根据执行结果调整计划
 - **异常处理**：失败时的回退策略

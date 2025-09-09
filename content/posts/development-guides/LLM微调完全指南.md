@@ -12,6 +12,46 @@ categories: ["深度学习", "NLP"]
 
 ## 1. 微调基础架构
 
+```mermaid
+graph TB
+    subgraph "LLM微调流程"
+        D[原始数据] --> DP[数据预处理]
+        DP --> DS[数据集分割]
+        
+        subgraph "微调方法"
+            DS --> FT[全量微调]
+            DS --> LORA[LoRA微调]
+            DS --> QLORA[QLoRA微调]
+            DS --> PT[Prefix Tuning]
+        end
+        
+        subgraph "训练过程"
+            LORA --> TR[训练循环]
+            TR --> VAL[验证评估]
+            VAL --> CK[检查点保存]
+            CK --> TR
+        end
+        
+        subgraph "优化技术"
+            GC[梯度累积]
+            MP[混合精度]
+            GCP[梯度检查点]
+            DS2[DeepSpeed]
+        end
+        
+        TR -.-> GC
+        TR -.-> MP
+        TR -.-> GCP
+        TR -.-> DS2
+        
+        CK --> MD[模型部署]
+    end
+    
+    style D fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style MD fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style LORA fill:#e3f2fd,stroke:#2196f3,stroke-width:3px
+```
+
 ### 1.1 微调框架设计
 
 ```python
@@ -256,6 +296,33 @@ class LoRALinear(nn.Module):
 ```
 
 ### 2.2 QLoRA实现
+
+```mermaid
+graph LR
+    subgraph "QLoRA架构"
+        I[输入] --> Q4[4-bit量化模型]
+        Q4 --> D[反量化]
+        D --> B[基础计算]
+        
+        I --> LA[LoRA A矩阵<br/>FP16]
+        LA --> LB[LoRA B矩阵<br/>FP16]
+        
+        B --> ADD[相加]
+        LB --> ADD
+        
+        ADD --> O[输出]
+        
+        subgraph "内存优化"
+            M1[模型: 4-bit]
+            M2[LoRA: FP16]
+            M3[梯度: FP16]
+        end
+    end
+    
+    style I fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style O fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style Q4 fill:#ffebee,stroke:#f44336,stroke-width:2px
+```
 
 ```python
 import bitsandbytes as bnb

@@ -12,6 +12,45 @@ categories: ["AI Agent", "RAG"]
 
 ## 1. RAG架构设计
 
+```mermaid
+flowchart TB
+    subgraph "RAG系统架构"
+        U[用户查询] --> QP[查询处理]
+        
+        subgraph "检索模块"
+            QP --> VR[向量检索]
+            QP --> KR[关键词检索]
+            VR --> HM[混合匹配]
+            KR --> HM
+        end
+        
+        subgraph "知识库"
+            DS[(文档存储)]
+            VS[(向量数据库)]
+            IS[(倒排索引)]
+        end
+        
+        HM --> RR[重排序]
+        RR --> CA[上下文聚合]
+        
+        subgraph "生成模块"
+            CA --> PE[提示工程]
+            PE --> LLM[大语言模型]
+            LLM --> PP[后处理]
+        end
+        
+        PP --> R[响应输出]
+        
+        DS -.-> VR
+        VS -.-> VR
+        IS -.-> KR
+    end
+    
+    style U fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style R fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style LLM fill:#e3f2fd,stroke:#2196f3,stroke-width:3px
+```
+
 ### 1.1 系统架构
 
 ```python
@@ -228,6 +267,32 @@ class VectorStore:
 ```
 
 ## 3. 混合检索策略
+
+```mermaid
+graph LR
+    subgraph "混合检索流程"
+        Q[查询] --> QE[查询扩展]
+        
+        QE --> V[向量检索]
+        QE --> K[关键词检索]
+        QE --> S[语义缓存]
+        
+        V --> VR[向量结果]
+        K --> KR[关键词结果]
+        S --> SR[缓存结果]
+        
+        VR --> F[结果融合<br/>RRF算法]
+        KR --> F
+        SR --> F
+        
+        F --> R[重排序]
+        R --> T[Top-K结果]
+    end
+    
+    style Q fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    style T fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style F fill:#fff3e0,stroke:#e65100,stroke-width:2px
+```
 
 ### 3.1 多路检索
 

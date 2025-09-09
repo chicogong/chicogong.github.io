@@ -12,6 +12,46 @@ Voice Agent代表了人机交互的未来方向，能够实现自然、流畅的
 
 ## 1. Voice Agent系统架构
 
+```mermaid
+flowchart LR
+    subgraph "Voice Agent架构"
+        subgraph "输入处理"
+            M[麦克风] --> AP[音频预处理]
+            AP --> VAD[语音活动检测]
+            VAD --> ASR[语音识别]
+        end
+        
+        subgraph "智能处理"
+            ASR --> NLU[自然语言理解]
+            NLU --> DM[对话管理]
+            DM --> LLM[大语言模型]
+            LLM --> NLG[自然语言生成]
+        end
+        
+        subgraph "输出处理"
+            NLG --> TTS[语音合成]
+            TTS --> AO[音频输出]
+            AO --> S[扬声器]
+        end
+        
+        subgraph "实时控制"
+            IC[中断控制]
+            EC[回声消除]
+            NC[降噪处理]
+        end
+        
+        VAD -.-> IC
+        IC -.-> TTS
+        M -.-> EC
+        EC -.-> AP
+        AP -.-> NC
+    end
+    
+    style M fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style S fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style LLM fill:#e3f2fd,stroke:#2196f3,stroke-width:3px
+```
+
 ### 1.1 核心架构设计
 
 ```python
@@ -306,6 +346,34 @@ class NeuralVAD(nn.Module):
         
         return logits
 
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> 静音状态
+    静音状态 --> 检测语音: 检测到语音
+    检测语音 --> 确认说话: 语音持续>250ms
+    检测语音 --> 静音状态: 语音<250ms
+    确认说话 --> 说话状态: 确认开始说话
+    说话状态 --> 说话状态: 持续说话
+    说话状态 --> 检测静音: 检测到静音
+    检测静音 --> 说话状态: 静音<800ms
+    检测静音 --> 语音结束: 静音>800ms
+    语音结束 --> 处理语音: 触发ASR
+    处理语音 --> 静音状态: 处理完成
+    
+    note right of 说话状态
+        持续收集音频
+        准备中断处理
+    end note
+    
+    note left of 语音结束
+        完整语音段
+        发送到ASR
+    end note
+```
+
+```python
 class VoiceActivityDetector:
     def __init__(self, config: VoiceAgentConfig):
         self.config = config
