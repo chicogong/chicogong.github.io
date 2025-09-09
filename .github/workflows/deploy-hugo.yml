@@ -32,7 +32,7 @@ jobs:
       - name: Fetch PaperMod theme
         run: |
           rm -rf themes && mkdir -p themes
-          git clone --depth=1 https://github.com/hugo-fixit/FixIt themes/FixIt
+          git clone --depth=1 https://github.com/adityatelange/hugo-PaperMod themes/PaperMod
 
       - name: Build
         run: hugo --minify

@@ -1,66 +1,144 @@
 baseURL = "https://realtime-ai.chat/"
 languageCode = "zh-cn"
 title = "Chico Gong's Tech Blog"
-theme = "FixIt"
+theme = "PaperMod"
 
 [pagination]
   pagerSize = 10
 
-[permalinks]
-  posts = "/posts/:slug/"
-
 [params]
   env = "production"
   title = "Chico Gong's Tech Blog"
-  description = "对话式AI & 实时通信"
-  keywords = ["AI", "WebRTC", "Voice", "LLM"]
+  description = "对话式AI & 实时通信 & 深度学习"
+  keywords = ["AI Agent", "LLM", "Voice", "WebRTC", "TTS", "微调"]
+  author = "Chico Gong"
   
-  [params.author]
-    name = "Chico Gong"
-    email = "chicogong@tencent.com"
-    link = "https://github.com/chicogong"
-    avatar = "https://github.com/chicogong.png"
-  DateFormat = "2006-01-02"
-  defaultTheme = "auto"
-  ShowShareButtons = true
+  defaultTheme = "auto" # dark, light, auto
+  disableThemeToggle = false
+  
   ShowReadingTime = true
-  ShowCodeCopyButtons = true
+  ShowShareButtons = true
   ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowFullTextinRSS = true
   ShowToc = true
   TocOpen = true
+  
+  # 代码高亮设置
+  pygmentsUseClasses = true
+  pygmentsCodeFences = true
+  
+  [params.assets]
+    disableHLJS = false # 启用highlight.js
+    
+  [params.profileMode]
+    enabled = true
+    title = "Hi, I'm Chico 👋"
+    subtitle = """
+对话式AI工程师 | 实时语音系统专家
 
-  [params.home]
-    rss = true
-    [params.home.profile]
-      enable = true
-      avatarURL = "https://github.com/chicogong.png"
-      title = "Hi, I'm Chico 👋"
-      subtitle = "对话式AI · 实时通信 · 语音技术"
-      typeit = true
+专注于 **AI Agent**、**语音技术** 和 **LLM 应用**
+    """
+    imageUrl = "https://github.com/chicogong.png"
+    imageWidth = 120
+    imageHeight = 120
+    imageTitle = "Chico Gong"
+    
+    [[params.profileMode.buttons]]
+      name = "文章"
+      url = "/posts"
+    [[params.profileMode.buttons]]
+      name = "标签"
+      url = "/tags"
+      
+  [params.homeInfoParams]
+    Title = "欢迎来到我的技术博客"
+    Content = """
+分享关于 AI Agent、语音技术、LLM 微调等领域的深度技术文章。
 
-  [params.social]
-    GitHub = "https://github.com/chicogong"
-    Email = "mailto:chicogong@tencent.com"
-    LinkedIn = "https://linkedin.com/in/chicogong"
+探索人工智能的前沿技术，构建下一代智能系统。
+    """
+    
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/chicogong"
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:chicogong@tencent.com"
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://linkedin.com/in/chicogong"
+    
+  [params.cover]
+    hidden = false
+    hiddenInList = false
+    hiddenInSingle = false
+    
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ["title", "permalink", "summary", "content"]
 
 [menu]
   [[menu.main]]
-    name = "首页"
-    url = "/"
-    weight = 1
-  [[menu.main]]
-    name = "文章"
+    identifier = "posts"
+    name = "📝 文章"
     url = "/posts/"
-    weight = 2
+    weight = 10
   [[menu.main]]
-    name = "标签"
+    identifier = "tags"
+    name = "🏷️ 标签"
     url = "/tags/"
-    weight = 3
+    weight = 20
   [[menu.main]]
-    name = "关于"
+    identifier = "search"
+    name = "🔍 搜索"
+    url = "/search/"
+    weight = 30
+  [[menu.main]]
+    identifier = "about"
+    name = "👤 关于"
     url = "/about/"
-    weight = 4
+    weight = 40
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+  
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+      
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ""
+    hl_inline = false
+    lineAnchors = ""
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
+    noHl = false
+    style = "monokai"
+    tabWidth = 4
 
+[permalinks]
+  posts = "/posts/:slug/"
+
+[minify]
+  minifyOutput = true
+
+[services]
+  [services.googleAnalytics]
+    ID = ""
+  [services.disqus]
+    shortname = ""
