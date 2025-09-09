@@ -8,7 +8,9 @@
       "Bash(curl:*)",
       "Bash(tree:*)",
       "Bash(git clone:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(pkill:*)",
+      "Bash(git submodule add:*)"
     ],
     "deny": [],
     "ask": []

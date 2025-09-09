@@ -1,0 +1,32 @@
+{{- /* Mermaid Support for PaperMod */ -}}
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Initialize mermaid
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'default',
+        themeVariables: {
+            fontFamily: 'inherit'
+        }
+    });
+    
+    // Find all code blocks with language 'mermaid'
+    document.querySelectorAll('pre > code.language-mermaid').forEach(function(element) {
+        // Get the text content
+        var graphDefinition = element.textContent;
+        
+        // Create a div for mermaid
+        var mermaidDiv = document.createElement('div');
+        mermaidDiv.className = 'mermaid';
+        mermaidDiv.textContent = graphDefinition;
+        
+        // Replace the pre element with the mermaid div
+        var preElement = element.parentElement;
+        preElement.parentElement.replaceChild(mermaidDiv, preElement);
+    });
+    
+    // Re-render mermaid diagrams
+    mermaid.init();
+});
+</script>
