@@ -4,12 +4,12 @@ title = "Chico Gong's Tech Blog"
 theme = "PaperMod"
 
 [pagination]
-  pagerSize = 10
+  pagerSize = 12
 
 [params]
   env = "production"
   title = "Chico Gong's Tech Blog"
-  description = "对话式AI & 实时通信 & 深度学习"
+  description = "探索AI前沿技术 | Agent系统 | 语音AI | LLM应用"
   keywords = ["AI Agent", "LLM", "Voice", "WebRTC", "TTS", "微调"]
   author = "Chico Gong"
   
@@ -23,7 +23,7 @@ theme = "PaperMod"
   ShowCodeCopyButtons = true
   ShowFullTextinRSS = true
   ShowToc = true
-  TocOpen = true
+  TocOpen = false
   
   # 代码高亮设置
   pygmentsUseClasses = true
@@ -34,23 +34,28 @@ theme = "PaperMod"
     
   [params.profileMode]
     enabled = true
-    title = "Hi, I'm Chico 👋"
+    title = "Chico Gong"
     subtitle = """
-对话式AI工程师 | 实时语音系统专家
+🤖 **对话式AI工程师** | 🎙️ **实时语音系统专家**
 
-专注于 **AI Agent**、**语音技术** 和 **LLM 应用**
+专注于构建下一代智能交互系统
+
+`AI Agent` · `Voice Technology` · `LLM Applications`
     """
     imageUrl = "https://github.com/chicogong.png"
-    imageWidth = 120
-    imageHeight = 120
+    imageWidth = 150
+    imageHeight = 150
     imageTitle = "Chico Gong"
     
     [[params.profileMode.buttons]]
-      name = "文章"
+      name = "📚 文章"
       url = "/posts"
     [[params.profileMode.buttons]]
-      name = "标签"
+      name = "🏷️ 标签"
       url = "/tags"
+    [[params.profileMode.buttons]]
+      name = "🔍 搜索"
+      url = "/search"
       
   [params.homeInfoParams]
     Title = "欢迎来到我的技术博客"
@@ -86,10 +91,20 @@ theme = "PaperMod"
 
 [menu]
   [[menu.main]]
+    identifier = "home"
+    name = "🏠 首页"
+    url = "/"
+    weight = 5
+  [[menu.main]]
     identifier = "posts"
-    name = "📝 文章"
+    name = "📚 文章"
     url = "/posts/"
     weight = 10
+  [[menu.main]]
+    identifier = "categories"
+    name = "📂 分类"
+    url = "/posts/"
+    weight = 15
   [[menu.main]]
     identifier = "tags"
     name = "🏷️ 标签"
@@ -102,7 +117,7 @@ theme = "PaperMod"
     weight = 30
   [[menu.main]]
     identifier = "about"
-    name = "👤 关于"
+    name = "👨‍💻 关于"
     url = "/about/"
     weight = 40
 
