@@ -10,7 +10,10 @@
       "Bash(git clone:*)",
       "WebSearch",
       "Bash(pkill:*)",
-      "Bash(git submodule add:*)"
+      "Bash(git submodule add:*)",
+      "Bash(rm:*)",
+      "Bash(cat:*)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []
