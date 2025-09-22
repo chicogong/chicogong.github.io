@@ -14,7 +14,8 @@
       "Bash(rm:*)",
       "Bash(cat:*)",
       "Bash(git rm:*)",
-      "WebFetch(domain:realtime-ai.chat)"
+      "WebFetch(domain:realtime-ai.chat)",
+      "Bash(nslookup:*)"
     ],
     "deny": [],
     "ask": []
