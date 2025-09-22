@@ -89,6 +89,10 @@ theme = "PaperMod"
     minMatchCharLength = 0
     keys = ["title", "permalink", "summary", "content"]
 
+  # ICP备案信息
+  [params.footer]
+    text = "京ICP备2025144402号-1"
+
 [menu]
   [[menu.main]]
     identifier = "home"
