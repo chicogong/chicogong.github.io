@@ -15,7 +15,8 @@
       "Bash(cat:*)",
       "Bash(git rm:*)",
       "WebFetch(domain:realtime-ai.chat)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "WebFetch(domain:www.baidu.com)"
     ],
     "deny": [],
     "ask": []

@@ -36,7 +36,7 @@ theme = "PaperMod"
     enabled = true
     title = "Chico Gong"
     subtitle = """
-🤖 **对话式AI工程师** | 🎙️ **实时语音系统专家**
+🤖 **对话式AI工程师** | 🎙️ **实时AI语音系统**
 
 专注于构建下一代智能交互系统
 
@@ -89,9 +89,9 @@ theme = "PaperMod"
     minMatchCharLength = 0
     keys = ["title", "permalink", "summary", "content"]
 
-  # ICP备案信息
+  # ICP备案信息 - 符合法规要求
   [params.footer]
-    text = "京ICP备2025144402号-1"
+    text = '<a href="https://beian.miit.gov.cn/" target="_blank" style="color: #666; text-decoration: none;">京ICP备2025144402号-1</a>'
 
 [menu]
   [[menu.main]]

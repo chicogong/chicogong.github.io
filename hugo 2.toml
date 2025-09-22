@@ -1,0 +1,60 @@
+baseURL = "https://realtime-ai.chat/"
+languageCode = "zh-cn"
+title = "Chico Gong's Tech Blog"
+theme = "PaperMod"
+
+[pagination]
+  pagerSize = 10
+contentDir = "docs"
+
+[permalinks]
+  posts = "/:year/:month/:day/:slug/"
+
+[params]
+  env = "production"
+  title = "Chico Gong's Tech Blog"
+  description = "对话式AI & 实时通信"
+  keywords = ["AI", "WebRTC", "Voice", "LLM"]
+  author = "Chico Gong"
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"
+  ShowShareButtons = true
+  ShowReadingTime = true
+  ShowCodeCopyButtons = true
+  ShowPostNavLinks = true
+  ShowToc = true
+  TocOpen = true
+
+  [params.homeInfoParams]
+    Title = "Hi, I'm Chico 👋"
+    Content = "对话式AI · 实时通信 · 语音技术"
+
+  [params.socialIcons]
+    - name = "github"
+      url = "https://github.com/chicogong"
+    - name = "email"
+      url = "mailto:chicogong@tencent.com"
+    - name = "linkedin"
+      url = "https://linkedin.com/in/chicogong"
+
+[menu]
+  [[menu.main]]
+    name = "首页"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "文章"
+    url = "/posts/"
+    weight = 2
+  [[menu.main]]
+    name = "标签"
+    url = "/tags/"
+    weight = 3
+  [[menu.main]]
+    name = "关于"
+    url = "/about/"
+    weight = 4
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
