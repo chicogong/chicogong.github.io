@@ -10,6 +10,9 @@ This is an AI technology blog built with Hugo and hosted on GitHub Pages at http
 
 ### Local Development
 ```bash
+# Clone PaperMod theme (required for local development)
+git clone --depth=1 https://github.com/adityatelange/hugo-PaperMod themes/PaperMod
+
 # Start local development server
 hugo server -D
 

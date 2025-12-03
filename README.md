@@ -38,6 +38,9 @@ brew install hugo
 git clone https://github.com/chicogong/chicogong.github.io.git
 cd chicogong.github.io
 
+# 克隆 PaperMod 主题（本地开发需要）
+git clone --depth=1 https://github.com/adityatelange/hugo-PaperMod themes/PaperMod
+
 # 启动本地服务器
 hugo server -D
 
