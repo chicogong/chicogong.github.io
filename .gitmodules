@@ -1,3 +1,2 @@
-[submodule "themes/congo"]
-	path = themes/congo
-	url = https://github.com/jpanther/congo.git
+# This file is intentionally empty as all submodules have been removed
+# PaperMod theme is fetched during CI/CD deployment
