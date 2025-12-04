@@ -1,15 +1,15 @@
 ---
-title: "最新TTS技术突破：从ElevenLabs到OpenAI的语音合成革命"
+title: "2025 TTS技术全景：ElevenLabs、ChatTTS、Fish Speech深度横评"
 date: 2025-12-07T16:00:00+08:00
 categories: ["语音技术"]
-tags: ["语音合成", "TTS", "ElevenLabs", "OpenAI", "实时语音", "情感合成", "HiFi-GAN", "语音克隆"]
-excerpt: "深度解析2025年TTS技术最新突破，包括ElevenLabs的超逼真语音克隆（延迟降低80%）、OpenAI的实时对话系统、32种情感表达、流式合成优化等前沿技术。从商业应用到部署优化的完整指南。"
+tags: ["语音合成", "TTS", "ElevenLabs", "ChatTTS", "Fish Speech", "OpenAI", "实时语音", "情感合成", "语音克隆"]
+excerpt: "2025年TTS技术百花齐放！ElevenLabs延迟降至100ms、ChatTTS专攻对话场景、Fish Speech用LLM革新语音合成。从商业闭源到开源自部署，从情感表达到零样本克隆，一文读懂最新TTS技术格局。"
 toc: true
 ---
 
 ## 前言
 
-2024年见证了TTS（Text-to-Speech）技术的爆发式增长。从ElevenLabs的超逼真语音克隆到OpenAI的实时语音对话，从情感丰富的表达到多语言无缝切换，TTS技术正在重新定义人机语音交互的边界。本文将深入探讨最新的TTS技术突破、实现方案和应用前景。
+2025年是TTS（Text-to-Speech）技术的「寒武纪大爆发」。从ElevenLabs的超逼真语音克隆到OpenAI的实时对话系统，从专攻对话场景的ChatTTS到用LLM革新合成的Fish Speech，TTS技术正在重新定义人机语音交互的边界。更令人兴奋的是，开源社区的崛起让每个人都能在本地部署媲美商业效果的语音合成系统。本文将深入探讨最新的TTS技术突破、实现方案和应用前景。
 
 ## 一、ElevenLabs：引领超逼真语音合成
 
