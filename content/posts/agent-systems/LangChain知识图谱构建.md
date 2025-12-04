@@ -1,15 +1,15 @@
 ---
-title: "LangChain Graph 详解：构建智能知识图谱"
+title: "LangGraph 1.0 详解：构建生产级有状态Agent工作流"
 date: 2025-12-05T10:00:00+08:00
 categories: ["AI Agent"]
-tags: ["LangChain", "知识图谱", "Graph", "大语言模型", "LLM", "Neo4j", "GraphRAG"]
-excerpt: "深入探讨LangChain Graph模块的核心架构与实现，包括实体提取、关系建模、图数据库集成和GraphRAG应用。从知识图谱构建到智能问答系统的完整实践指南。"
+tags: ["LangChain", "LangGraph", "知识图谱", "Graph", "大语言模型", "LLM", "Neo4j", "GraphRAG", "状态机"]
+excerpt: "LangGraph 1.0 正式发布！作为LangChain生态的图状态引擎，它提供了持久化执行、检查点、人工干预等生产级能力。深入探讨从知识图谱构建到多Agent协作的完整实践指南。"
 toc: true
 ---
 
 ## 引言
 
-在人工智能和大语言模型(LLM)的应用中，知识的表示与组织方式直接影响系统的推理能力和智能水平。**LangChain Graph** 作为LangChain生态系统中的重要组件，提供了一套强大的工具，使开发者能够轻松地从文本中提取结构化知识，构建知识图谱，并基于图进行复杂推理。本文将深入探讨LangChain Graph的概念、工作原理、应用场景以及实践技巧，帮助您全面理解和应用这一强大工具。
+2025年，LangGraph正式发布1.0版本，成为构建生产级AI Agent的首选框架。作为LangChain生态系统的核心组件，LangGraph提供了图状态编排（Graph-based Orchestration）能力，支持Agent的循环、分支、回溯和动态决策。更重要的是，它内置了**持久化执行（Durable Execution）**、**检查点（Checkpointing）**和**人工干预（Human-in-the-Loop）**等企业级功能。本文将深入探讨LangGraph的概念、工作原理、应用场景以及实践技巧。
 
 ## 知识图谱与LangChain Graph基础
 

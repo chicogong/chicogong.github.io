@@ -1,14 +1,15 @@
 ---
-title: "LangChain Agent完全指南：构建智能对话系统"
+title: "LangChain 1.0 Agent完全指南：从create_agent到LangGraph工作流"
 date: 2025-01-02T10:00:00+08:00
 draft: false
-tags: ["LangChain", "AI Agent", "Python", "LLM"]
+tags: ["LangChain", "LangGraph", "AI Agent", "Python", "LLM", "create_agent", "中间件"]
 categories: ["AI Agent", "教程"]
+excerpt: "2025年LangChain 1.0正式发布！全新的create_agent抽象、强大的中间件系统、LangGraph图状态机。从快速上手到生产部署，一文掌握现代AI Agent开发的最佳实践。"
 ---
 
 ## 前言
 
-LangChain作为最流行的LLM应用开发框架，其Agent系统提供了强大的工具来构建智能对话系统。本文将全面介绍LangChain Agent的核心概念、实现方式和最佳实践。
+2025年，LangChain正式发布1.0版本（GA版本10月上线），这标志着AI Agent开发进入成熟期。全新的`create_agent`抽象让入门更简单，强大的中间件系统（Middleware）让扩展更灵活，而底层的LangGraph则提供了生产级的状态管理和持久化能力。本文将全面介绍LangChain 1.0 Agent的核心概念、实现方式和最佳实践。
 
 ## 1. LangChain Agent基础
 
