@@ -1,9 +1,9 @@
 ---
 title: "Qwen-Audio深度解析：阿里通义千问的多模态语音革命"
-date: 2024-12-28T17:00:00+08:00
-categories: [AI-Technology, Multi-Modal]
-tags: [Qwen-Audio, 多模态, 语音识别, 语音理解, ASR, 阿里巴巴]
-excerpt: "全面解析Qwen2-Audio和Qwen2.5-Omni的技术架构、创新特性、实战应用，探索多模态语音AI的最新突破"
+date: 2025-12-08T17:00:00+08:00
+categories: ["语音技术", "多模态AI"]
+tags: ["Qwen-Audio", "多模态", "语音识别", "语音理解", "ASR", "阿里巴巴", "Qwen2-Audio", "实时对话"]
+excerpt: "全面解析Qwen2-Audio和Qwen2.5-Omni的技术架构、创新特性与实战应用。从统一多任务处理架构到实时多模态对话，探索阿里巴巴在语音AI领域的最新突破和工程实践。"
 toc: true
 ---
 

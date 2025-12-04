@@ -1,9 +1,10 @@
 ---
 title: "LLM微调完全指南：从原理到生产部署"
-date: 2025-01-07T10:00:00+08:00
+date: 2025-12-03T10:00:00+08:00
 draft: false
-tags: ["LLM", "微调", "LoRA", "QLoRA", "PEFT"]
-categories: ["深度学习", "NLP"]
+tags: ["LLM", "微调", "LoRA", "QLoRA", "PEFT", "RLHF", "DPO", "参数高效微调"]
+categories: ["深度学习"]
+excerpt: "全面介绍LLM微调技术栈：从LoRA/QLoRA参数高效微调，到RLHF/DPO强化学习，再到分布式训练和生产部署。包含完整代码实现和最佳实践。"
 ---
 
 ## 引言

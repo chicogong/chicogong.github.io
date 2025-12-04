@@ -1,9 +1,10 @@
 ---
 title: "AI Agent架构深度解析：从原理到实践"
-date: 2025-01-01T10:00:00+08:00
+date: 2025-12-01T10:00:00+08:00
 draft: false
-tags: ["AI Agent", "架构设计", "LLM", "深度学习"]
+tags: ["AI Agent", "架构设计", "LLM", "深度学习", "ReAct", "多Agent系统"]
 categories: ["AI Agent"]
+excerpt: "深入探讨AI Agent的核心架构模式，包括ReAct架构、分层设计、记忆系统和工具集成。从感知-推理-行动循环到实际应用案例的完整实现指南。"
 ---
 
 ## 引言

@@ -1,9 +1,10 @@
 ---
 title: "现代TTS系统实战：从文本到自然语音的完整实现"
-date: 2025-01-06T10:00:00+08:00
+date: 2025-12-04T10:00:00+08:00
 draft: false
-tags: ["TTS", "语音合成", "深度学习", "实时音频"]
-categories: ["语音技术", "AI"]
+tags: ["TTS", "语音合成", "深度学习", "实时音频", "HiFi-GAN", "WaveNet", "声码器"]
+categories: ["语音技术"]
+excerpt: "从端到端架构到神经声码器的完整TTS系统实现。涵盖文本前端处理、Transformer声学模型、HiFi-GAN/WaveNet声码器、多说话人支持和实时流式合成优化。"
 ---
 
 ## 引言

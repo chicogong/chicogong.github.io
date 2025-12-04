@@ -1,9 +1,9 @@
 ---
 title: "Qwen3-235B技术革命：从MoE架构到多模态语音突破"
-date: 2024-12-28T18:00:00+08:00
-categories: [AI-Technology, LLM]
-tags: [Qwen3, MoE, 语音识别, 大语言模型, 阿里巴巴, 混合专家模型]
-excerpt: "深度解析Qwen3-235B-A22B的革命性MoE架构、双模式推理系统、ASR应用及其对AI行业的深远影响"
+date: 2025-12-02T18:00:00+08:00
+categories: ["LLM"]
+tags: ["Qwen3", "MoE", "语音识别", "大语言模型", "阿里巴巴", "混合专家模型", "ASR", "思考模式"]
+excerpt: "深度解析Qwen3-235B-A22B的革命性MoE架构、双模式推理系统（Thinking/Non-Thinking）、ASR应用及其对AI行业的深远影响。2350亿参数，128个专家网络，性能媲美GPT-4o。"
 toc: true
 ---
 

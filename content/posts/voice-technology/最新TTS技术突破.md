@@ -1,9 +1,9 @@
 ---
 title: "最新TTS技术突破：从ElevenLabs到OpenAI的语音合成革命"
-date: 2024-12-28T16:00:00+08:00
-categories: [AI-Technology, TTS]
-tags: [语音合成, TTS, ElevenLabs, OpenAI, 实时语音, 情感合成]
-excerpt: "深度解析2024-2025年TTS技术最新突破，包括ElevenLabs的超逼真语音、OpenAI的实时对话系统、情感语音合成等前沿技术"
+date: 2025-12-07T16:00:00+08:00
+categories: ["语音技术"]
+tags: ["语音合成", "TTS", "ElevenLabs", "OpenAI", "实时语音", "情感合成", "HiFi-GAN", "语音克隆"]
+excerpt: "深度解析2025年TTS技术最新突破，包括ElevenLabs的超逼真语音克隆（延迟降低80%）、OpenAI的实时对话系统、32种情感表达、流式合成优化等前沿技术。从商业应用到部署优化的完整指南。"
 toc: true
 ---
 

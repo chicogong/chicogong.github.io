@@ -1,8 +1,9 @@
 ---
 title: "LangChain Graph 详解：构建智能知识图谱"
-date: 2024-12-27
-categories: [AI-Technology]
-tags: [LangChain, 知识图谱, Graph, 大语言模型, LLM]
+date: 2025-12-05T10:00:00+08:00
+categories: ["AI Agent"]
+tags: ["LangChain", "知识图谱", "Graph", "大语言模型", "LLM", "Neo4j", "GraphRAG"]
+excerpt: "深入探讨LangChain Graph模块的核心架构与实现，包括实体提取、关系建模、图数据库集成和GraphRAG应用。从知识图谱构建到智能问答系统的完整实践指南。"
 toc: true
 ---
 
