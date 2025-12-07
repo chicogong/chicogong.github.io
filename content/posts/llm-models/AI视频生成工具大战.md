@@ -2,9 +2,10 @@
 title: "2025 AI视频生成大战：Sora vs Kling vs Vidu vs Runway"
 date: 2025-12-22T10:00:00+08:00
 draft: false
+weight: 6
 tags: ["Sora", "Kling", "Vidu", "Runway", "AI视频", "视频生成"]
 categories: ["AI应用", "多媒体"]
-excerpt: "OpenAI的Sora终于开放，但中国选手Kling和Vidu早已杀疯。Runway Gen-3持续迭代。这场AI视频生成的战争，谁才是真正的王者？实测告诉你答案。"
+summary: "OpenAI的Sora终于开放，但中国选手Kling和Vidu早已杀疯。Runway Gen-3持续迭代。这场AI视频生成的战争，谁才是真正的王者？实测告诉你答案。"
 ---
 
 ## 前言：视频生成元年
@@ -275,7 +276,3 @@ Prompt 4（人物表演）：
 
 选择适合自己的工具，开始创作吧！
 
----
-
-**互动话题**：
-你最常用哪款AI视频工具？有什么独门技巧？评论区分享一下！👇

@@ -896,8 +896,3 @@ genai.configure(api_key="YOUR_KEY")
 - [Qwen-VL GitHub](https://github.com/QwenLM/Qwen-VL)
 - [CLIP Paper](https://arxiv.org/abs/2103.00020)
 
----
-
-**你最想用多模态AI做什么？**
-
-评论区聊聊！👇

@@ -2,9 +2,10 @@
 title: "Vibe Coding：当编程变成聊天，程序员该何去何从"
 date: 2025-12-21T10:00:00+08:00
 draft: false
+weight: 4
 tags: ["Vibe Coding", "AI编程", "Cursor", "程序员转型", "未来趋势"]
 categories: ["行业观察", "AI"]
-excerpt: "Andrej Karpathy提出的Vibe Coding正在成为现实：你不再写代码，而是用自然语言描述需求，AI来实现。这不是未来，这是现在。问题是：你准备好了吗？"
+summary: "Andrej Karpathy提出的Vibe Coding正在成为现实：你不再写代码，而是用自然语言描述需求，AI来实现。这不是未来，这是现在。问题是：你准备好了吗？"
 ---
 
 ## 什么是 Vibe Coding？
@@ -335,7 +336,3 @@ Vibe Coding 不是要消灭程序员，而是在重新定义什么是编程。
 
 你可以选择抵触，也可以选择拥抱。但无论如何，这个浪潮已经来了。
 
----
-
-**互动话题**：
-你开始 Vibe Coding 了吗？你觉得程序员未来5年会变成什么样？评论区聊聊！👇

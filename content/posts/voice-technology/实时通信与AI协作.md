@@ -1049,8 +1049,3 @@ client = OpenAI()
 - [aiortc GitHub](https://github.com/aiortc/aiortc)
 - [Gemini Live](https://ai.google.dev/gemini-api/docs/live)
 
----
-
-**你最想用实时AI做什么？**
-
-评论区聊聊！👇

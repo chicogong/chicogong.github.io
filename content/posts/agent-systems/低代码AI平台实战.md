@@ -2,9 +2,10 @@
 title: "Dify vs Coze vs FastGPT：低代码AI平台终极对决"
 date: 2025-12-24T10:00:00+08:00
 draft: false
+weight: 5
 tags: ["Dify", "Coze", "FastGPT", "低代码", "AI平台", "工作流"]
 categories: ["AI应用", "开发工具"]
-excerpt: "不会写代码也想玩AI？Dify、Coze、FastGPT三大低代码平台让你拖拖拽拽就能搭建AI应用。但它们各有什么特点？哪个更适合你？这篇文章给你答案。"
+summary: "不会写代码也想玩AI？Dify、Coze、FastGPT三大低代码平台让你拖拖拽拽就能搭建AI应用。但它们各有什么特点？哪个更适合你？这篇文章给你答案。"
 ---
 
 ## 低代码AI平台是什么？
@@ -513,7 +514,3 @@ docker compose up -d
 
 别犹豫了，去试试吧！
 
----
-
-**互动话题**：
-你用过哪个低代码AI平台？搭建过什么有趣的应用？评论区分享一下！👇

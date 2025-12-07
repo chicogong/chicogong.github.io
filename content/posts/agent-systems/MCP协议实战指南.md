@@ -786,17 +786,4 @@ mcp create my-first-server
 - [MCP服务器列表](https://github.com/modelcontextprotocol/servers)
 - [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 
----
-
-**你会用MCP做什么？**
-
-评论区分享你的想法！👇
-
-可能的方向：
-- 🏢 企业内部知识库
-- 🎮 游戏NPC智能化
-- 📊 自动化数据分析
-- 🏠 智能家居控制
-- 💼 个人效率工具
-
 **MCP的时代才刚刚开始。**
