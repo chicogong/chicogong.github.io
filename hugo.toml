@@ -6,8 +6,6 @@ theme = "PaperMod"
 [pagination]
   pagerSize = 12
 
-mainSections = ["posts"]
-
 [params]
   env = "production"
   title = "Chico Gong's Tech Blog"
@@ -35,16 +33,36 @@ mainSections = ["posts"]
     disableHLJS = false # 启用highlight.js
     
   [params.profileMode]
-    enabled = false
+    enabled = true
+    title = "Chico Gong"
+    subtitle = """
+🤖 **对话式AI工程师** | 🎙️ **实时AI语音系统**
+
+专注于构建下一代智能交互系统
+
+`AI Agent` · `Voice Technology` · `LLM Applications`
+    """
+    imageUrl = "https://github.com/chicogong.png"
+    imageWidth = 150
+    imageHeight = 150
+    imageTitle = "Chico Gong"
+    
+    [[params.profileMode.buttons]]
+      name = "📚 文章"
+      url = "/posts"
+    [[params.profileMode.buttons]]
+      name = "🏷️ 标签"
+      url = "/tags"
+    [[params.profileMode.buttons]]
+      name = "🔍 搜索"
+      url = "/search"
       
   [params.homeInfoParams]
-    Title = "Chico Gong"
+    Title = "欢迎来到我的技术博客"
     Content = """
-对话式AI工程师 | 实时AI语音系统
+分享关于 AI Agent、语音技术、LLM 微调等领域的深度技术文章。
 
-专注于构建下一代智能交互系统：AI Agent、Voice Technology、LLM Applications
-
-分享关于大模型、AI Agent、语音技术等领域的深度技术文章。
+探索人工智能的前沿技术，构建下一代智能系统。
     """
     
   [[params.socialIcons]]
@@ -73,42 +91,37 @@ mainSections = ["posts"]
 
   # ICP备案信息 - 符合法规要求
   [params.footer]
-    text = '<div style="text-align: center; margin: 15px 0; font-size: 15px;"><a href="https://beian.miit.gov.cn/" target="_blank" style="color: #555; font-weight: 500; text-decoration: none; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9;">京ICP备2025144402号-1</a></div>'
+    text = '<div style="text-align: center; margin: 15px 0; font-size: 15px;"><a href="https://beian.miit.gov.cn/" target="_blank" style="color: #555; font-weight: 500; text-decoration: none; padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9;">🏛️ 京ICP备2025144402号-1</a></div>'
 
 [menu]
   [[menu.main]]
     identifier = "home"
-    name = "首页"
+    name = "🏠 首页"
     url = "/"
     weight = 5
   [[menu.main]]
     identifier = "posts"
-    name = "文章"
+    name = "📚 文章"
     url = "/posts/"
     weight = 10
   [[menu.main]]
     identifier = "categories"
-    name = "分类"
+    name = "📂 分类"
     url = "/posts/"
     weight = 15
   [[menu.main]]
     identifier = "tags"
-    name = "标签"
+    name = "🏷️ 标签"
     url = "/tags/"
     weight = 20
   [[menu.main]]
-    identifier = "tools"
-    name = "工具"
-    url = "https://tools.realtime-ai.chat"
-    weight = 25
-  [[menu.main]]
     identifier = "search"
-    name = "搜索"
+    name = "🔍 搜索"
     url = "/search/"
     weight = 30
   [[menu.main]]
     identifier = "about"
-    name = "关于"
+    name = "👨‍💻 关于"
     url = "/about/"
     weight = 40
 
