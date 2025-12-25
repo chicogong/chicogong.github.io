@@ -115,6 +115,11 @@ theme = "PaperMod"
     url = "/tags/"
     weight = 20
   [[menu.main]]
+    identifier = "tools"
+    name = "🛠️ 工具"
+    url = "https://tools.realtime-ai.chat"
+    weight = 25
+  [[menu.main]]
     identifier = "search"
     name = "🔍 搜索"
     url = "/search/"
