@@ -57,6 +57,7 @@ Articles use Markdown with Hugo front matter:
 ---
 title: "Article Title"
 date: 2024-12-28T10:00:00+08:00
+draft: false
 categories: [Category1, Category2]
 tags: [tag1, tag2, tag3]
 excerpt: "Article summary"
@@ -64,9 +65,24 @@ toc: true
 ---
 ```
 
+**Important**:
+- Set `draft: false` for published articles
+- Use Chinese for all content (titles, excerpts, body text)
+- Date format must include timezone: `+08:00`
+- Articles support Mermaid diagrams and code blocks with syntax highlighting
+
 ### Key Configuration
 - Main config: `hugo.toml` - site settings, theme parameters, menu structure
 - Base URL: https://realtime-ai.chat/
 - Language: Chinese (zh-cn)
-- Theme settings: Light theme default, code highlighting enabled
+- Theme settings: Light theme default, code highlighting enabled (Monokai style)
+- Search: Fuse.js powered search with JSON index
 - Deployment: Automatic via GitHub Actions on push to main branch
+  - Workflow ignores changes to: README.md, CLAUDE.md, .claude/**
+  - Can be manually triggered via workflow_dispatch
+
+### Theme Notes
+- PaperMod theme is NOT committed to the repository
+- Local development: Clone theme manually to `themes/PaperMod`
+- CI/CD: Theme is automatically fetched during build process
+- Never commit the `themes/` directory to git

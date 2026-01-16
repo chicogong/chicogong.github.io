@@ -1,6 +1,6 @@
 ---
 title: "Vibe Coding：当编程变成聊天，程序员该何去何从"
-date: 2025-12-21T10:00:00+08:00
+date: 2026-01-14T10:00:00+08:00
 draft: false
 weight: 4
 tags: ["Vibe Coding", "AI编程", "Cursor", "程序员转型", "未来趋势"]

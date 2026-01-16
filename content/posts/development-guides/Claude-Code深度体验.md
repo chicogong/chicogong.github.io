@@ -1,6 +1,6 @@
 ---
 title: "Claude Code 深度体验：终端里的AI编程革命"
-date: 2025-12-20T10:00:00+08:00
+date: 2026-01-13T10:00:00+08:00
 draft: false
 tags: ["Claude Code", "AI编程", "终端工具", "Anthropic", "编程效率"]
 categories: ["开发工具", "AI"]

@@ -1,6 +1,6 @@
 ---
 title: "Dify vs Coze vs FastGPT：低代码AI平台终极对决"
-date: 2025-12-24T10:00:00+08:00
+date: 2026-01-14T10:00:00+08:00
 draft: false
 weight: 5
 tags: ["Dify", "Coze", "FastGPT", "低代码", "AI平台", "工作流"]

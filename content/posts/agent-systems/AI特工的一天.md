@@ -1,6 +1,6 @@
 ---
 title: "AI特工的一天：揭秘Agent如何像人类一样「打工」"
-date: 2025-12-09T10:00:00+08:00
+date: 2026-01-09T10:00:00+08:00
 draft: false
 tags: ["AI Agent", "工作流自动化", "智能助理", "实战案例", "MCP协议"]
 categories: ["AI Agent"]

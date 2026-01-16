@@ -1,6 +1,6 @@
 ---
 title: "MCP协议：AI工具的「乐高积木」玩法"
-date: 2025-12-11T10:00:00+08:00
+date: 2026-01-11T10:00:00+08:00
 draft: false
 tags: ["MCP", "AI Agent", "协议标准", "工具集成", "Claude"]
 categories: ["AI Agent"]
