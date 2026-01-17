@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Low-value pages
+Disallow: /search/
+Disallow: /page/
+
+Sitemap: https://realtime-ai.chat/sitemap.xml

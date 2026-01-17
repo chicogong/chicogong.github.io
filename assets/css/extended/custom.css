@@ -261,3 +261,132 @@ pre code {
     display: none;
   }
 }
+
+/* ========================================
+   10. UX 增强样式
+   ======================================== */
+
+/* 10.1 页面进入动画 */
+.post-content,
+.post-header,
+article.post-entry {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 10.2 阅读进度条 */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+  z-index: 9999;
+  transition: width 0.1s ease;
+  width: 0%;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+/* 10.3 链接悬停效果增强 */
+.post-content a:not(.anchor) {
+  position: relative;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.post-content a:not(.anchor)::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.post-content a:not(.anchor):hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.post-content a:not(.anchor):hover {
+  color: #8b5cf6;
+}
+
+/* 10.4 滚动平滑 */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 10.5 文本选中样式 */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
+}
+
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
+}
+
+/* 10.6 TOC 当前章节高亮 */
+.toc a.active {
+  color: var(--primary) !important;
+  opacity: 1 !important;
+  font-weight: 600;
+  border-left: 2px solid #3b82f6;
+  padding-left: 8px;
+  margin-left: -10px;
+}
+
+/* 10.7 TOC 智能停止状态 */
+.toc.toc-stopped {
+  position: absolute !important;
+  bottom: 0;
+  top: auto !important;
+}
+
+/* 10.8 代码块复制按钮优化 */
+.copy-code {
+  transition: all 0.2s;
+}
+
+.copy-code:hover {
+  background: var(--primary) !important;
+  color: white !important;
+}
+
+/* 10.9 卡片悬停效果增强 */
+article.post-entry {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+article.post-entry:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+.dark article.post-entry:hover {
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.4);
+}
+
+/* 10.10 按钮点击反馈 */
+.profile .buttons a:active,
+button:active {
+  transform: scale(0.98);
+}
