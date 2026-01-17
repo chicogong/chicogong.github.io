@@ -1,0 +1,61 @@
+/* 自定义字体优化 - PaperMod扩展样式 */
+
+/* 中文字体优化：使用系统原生字体栈 */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", 
+               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", 
+               sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", "Source Code Pro",
+               Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.8;  /* 中文阅读更舒适 */
+  letter-spacing: 0.02em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 标题字体 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* 代码字体 */
+code, pre, .highlight {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* 文章内容优化 */
+.post-content {
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* 引用块样式优化 */
+blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+  font-style: normal;
+  color: var(--secondary);
+}
+
+/* 链接悬停效果 */
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 表格优化 */
+table {
+  font-size: 0.95em;
+}
+
+th {
+  font-weight: 600;
+}
