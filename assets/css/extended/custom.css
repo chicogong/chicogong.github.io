@@ -188,4 +188,76 @@ pre code {
   background: var(--primary);
 }
 
+/* 9. 侧边悬浮目录 (Floating Left TOC) */
+@media screen and (min-width: 1400px) {
+  .toc {
+    position: fixed !important;
+    top: 100px;
+    left: calc(50% - 380px - 280px);
+    width: 240px;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 99;
+  }
 
+  .toc details {
+    border: none !important;
+  }
+  
+  .toc details summary {
+    cursor: default;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .toc .details {
+    display: block;
+    color: var(--primary);
+  }
+  
+  .toc .inner {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-family: var(--font-sans);
+  }
+
+  .toc ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .toc li ul {
+    padding-left: 12px;
+  }
+
+  .toc a {
+    font-size: 13px;
+    color: var(--secondary);
+    text-decoration: none;
+    line-height: 1.5;
+    display: block;
+    padding: 3px 0;
+    transition: all 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+
+  .toc a:hover {
+    color: var(--primary);
+    opacity: 1;
+    transform: translateX(2px);
+  }
+  
+  .toc details > summary {
+    list-style: none;
+  }
+  .toc details > summary::-webkit-details-marker {
+    display: none;
+  }
+}
