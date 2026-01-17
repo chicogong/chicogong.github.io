@@ -1,61 +1,189 @@
 /* 自定义字体优化 - PaperMod扩展样式 */
 
-/* 中文字体优化：使用系统原生字体栈 */
+/* 1. 字体配置：使用系统原生高级字体栈 */
 :root {
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", 
-               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", 
+               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 
+               "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", 
                sans-serif;
-  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", "Source Code Pro",
-               Menlo, Monaco, Consolas, monospace;
+  --font-mono: "SF Mono", "JetBrains Mono", "Fira Code", "Roboto Mono", 
+               Menlo, Monaco, Consolas, "Courier New", monospace;
+               
+  /* 间距与圆角微调 */
+  --gap: 30px; /* 增加卡片间距 */
+  --radius: 12px; /* 更圆润的圆角 */
 }
 
+/* 2. 基础排版优化 */
 body {
   font-family: var(--font-sans);
   font-size: 16px;
-  line-height: 1.8;  /* 中文阅读更舒适 */
-  letter-spacing: 0.02em;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 标题字体 */
+/* 标题优化 */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-sans);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.02em;
+  color: var(--primary);
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
 }
 
-/* 代码字体 */
-code, pre, .highlight {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
+/* 3. 卡片式设计提升 (首页/列表页) */
+.entry-content {
+    font-size: 15px;
+    color: var(--secondary);
+    line-height: 1.6;
 }
 
-/* 文章内容优化 */
+article.post-entry {
+  background: var(--entry);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--border);
+  padding: var(--gap);
+  margin-bottom: var(--gap);
+}
+
+/* 悬停效果：轻微上浮 + 阴影增强 */
+article.post-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+  border-color: var(--tertiary);
+}
+
+/* 暗色模式下的悬停微调 */
+.dark article.post-entry:hover {
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* 4. 导航栏毛玻璃效果 */
+.nav {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(var(--theme), 0.8);
+  border-bottom: 1px solid var(--border);
+}
+
+.dark .nav {
+  background: rgba(29, 30, 32, 0.8); /* 适配暗色模式 */
+}
+
+/* 5. 文章内页优化 */
 .post-content {
   font-size: 17px;
   line-height: 1.9;
+  color: var(--content);
 }
 
-/* 引用块样式优化 */
-blockquote {
-  border-left: 4px solid var(--primary);
-  padding-left: 1rem;
-  font-style: normal;
-  color: var(--secondary);
+.post-content h2 {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
 }
 
-/* 链接悬停效果 */
-a:hover {
+/* 链接样式 */
+.post-content a {
+  color: #3b82f6; /* 更现代的蓝色 */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.post-content a:hover {
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
 }
 
-/* 表格优化 */
-table {
-  font-size: 0.95em;
+/* 引用块优化 */
+blockquote {
+  border-left: 4px solid #3b82f6;
+  background: var(--code-bg);
+  padding: 1rem 1.5rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 1.5rem 0;
+  font-style: normal;
 }
 
-th {
-  font-weight: 600;
+/* 代码块优化 */
+.highlight {
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* 6. 标签与按钮优化 */
+.tags a {
+  background: var(--code-bg);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.tags a:hover {
+  background: var(--tertiary);
+  transform: scale(1.05);
+}
+
+/* 7. Profile 模式 (首页) 优化 */
+.profile img {
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.profile img:hover {
+  transform: rotate(360deg);
+}
+
+.profile .buttons a {
+  border-radius: 25px;
+  background: var(--primary);
+  color: var(--theme);
+  padding: 10px 25px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.profile .buttons a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* 8. 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }

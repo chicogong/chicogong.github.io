@@ -36,11 +36,11 @@ theme = "PaperMod"
     enabled = true
     title = "Chico Gong"
     subtitle = """
-🤖 **对话式AI工程师** | 🎙️ **实时AI语音系统**
+对话式 AI 工程师 | 实时语音系统构建者
 
 专注于构建下一代智能交互系统
 
-`AI Agent` · `Voice Technology` · `LLM Applications`
+AI Agent · Voice Technology · LLM Applications
     """
     imageUrl = "https://github.com/chicogong.png"
     imageWidth = 150
@@ -48,13 +48,13 @@ theme = "PaperMod"
     imageTitle = "Chico Gong"
     
     [[params.profileMode.buttons]]
-      name = "📚 文章"
+      name = "文章"
       url = "/posts"
     [[params.profileMode.buttons]]
-      name = "🏷️ 标签"
+      name = "标签"
       url = "/tags"
     [[params.profileMode.buttons]]
-      name = "🔍 搜索"
+      name = "搜索"
       url = "/search"
       
   [params.homeInfoParams]
@@ -96,37 +96,37 @@ theme = "PaperMod"
 [menu]
   [[menu.main]]
     identifier = "home"
-    name = "🏠 首页"
+    name = "首页"
     url = "/"
     weight = 5
   [[menu.main]]
     identifier = "posts"
-    name = "📚 文章"
+    name = "文章"
     url = "/posts/"
     weight = 10
   [[menu.main]]
     identifier = "categories"
-    name = "📂 分类"
+    name = "分类"
     url = "/posts/"
     weight = 15
   [[menu.main]]
     identifier = "tags"
-    name = "🏷️ 标签"
+    name = "标签"
     url = "/tags/"
     weight = 20
   [[menu.main]]
     identifier = "tools"
-    name = "🛠️ 工具"
+    name = "工具"
     url = "https://tools.realtime-ai.chat"
     weight = 25
   [[menu.main]]
     identifier = "search"
-    name = "🔍 搜索"
+    name = "搜索"
     url = "/search/"
     weight = 30
   [[menu.main]]
     identifier = "about"
-    name = "👨‍💻 关于"
+    name = "关于"
     url = "/about/"
     weight = 40
 
