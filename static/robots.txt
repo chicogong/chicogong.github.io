@@ -5,4 +5,4 @@ Allow: /
 Disallow: /search/
 Disallow: /page/
 
-Sitemap: https://realtime-ai.chat/sitemap.xml
+Sitemap: https://blog.aimake.cc/sitemap.xml
