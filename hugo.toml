@@ -1,6 +1,6 @@
 baseURL = "https://realtime-ai.chat/"
 languageCode = "zh-cn"
-title = "Chico Gong's Tech Blog"
+title = "Chico's Tech Blog"
 theme = "PaperMod"
 
 [pagination]
@@ -8,10 +8,10 @@ theme = "PaperMod"
 
 [params]
   env = "production"
-  title = "Chico Gong's Tech Blog"
+  title = "Chico's Tech Blog"
   description = "探索AI前沿技术 | Agent系统 | 语音AI | LLM应用"
   keywords = ["AI Agent", "LLM", "Voice", "WebRTC", "TTS", "微调"]
-  author = "Chico Gong"
+  author = "Chico"
   
   defaultTheme = "light" # dark, light, auto
   disableThemeToggle = false
@@ -35,7 +35,7 @@ theme = "PaperMod"
     
   [params.profileMode]
     enabled = true
-    title = "Chico Gong"
+    title = "Chico"
     subtitle = """
 对话式 AI 工程师 | 实时语音系统构建者
 
@@ -46,7 +46,7 @@ AI Agent · Voice Technology · LLM Applications
     imageUrl = "https://github.com/chicogong.png"
     imageWidth = 150
     imageHeight = 150
-    imageTitle = "Chico Gong"
+    imageTitle = "Chico"
     
     [[params.profileMode.buttons]]
       name = "文章"

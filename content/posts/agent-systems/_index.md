@@ -1,5 +1,5 @@
 ---
-title: "Agent系统技术"
+title: "AI Agent"
 description: "深入探索AI Agent架构、多智能体协作、RAG系统等前沿技术"
 ---
 

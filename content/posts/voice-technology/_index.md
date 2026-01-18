@@ -1,5 +1,5 @@
 ---
-title: "语音技术前沿"
+title: "Voice AI"
 description: "ASR、TTS、Voice Agent等语音AI技术的最新进展"
 ---
 

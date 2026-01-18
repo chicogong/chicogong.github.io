@@ -1,5 +1,5 @@
 ---
-title: "大语言模型"
+title: "LLM"
 description: "探索Qwen、GPT、Claude等前沿大语言模型技术"
 ---
 
