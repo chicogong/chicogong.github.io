@@ -29,9 +29,8 @@ enableEmoji = true
   ShowCodeCopyButtons = true
   ShowFullTextinRSS = true
   ShowToc = true
-  TocOpen = true
-  TocSide = "left"
-  
+  TocOpen = false
+
   # 代码高亮设置
   pygmentsUseClasses = true
   pygmentsCodeFences = true

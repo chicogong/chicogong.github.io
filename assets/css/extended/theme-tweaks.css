@@ -1,7 +1,14 @@
-/* --- Theme tweaks: soften the pure-white light theme --- */
-/* Page background becomes a warm off-white; cards stay pure white so
-   they lift off the background. Dark mode (.dark) is untouched. */
+/* --- Theme tweaks --- */
 :root {
+  /* Soften the pure-white light theme: warm off-white page,
+     white cards that lift off it. Dark mode (.dark) is untouched. */
   --theme: #faf9f6;
   --entry: #ffffff;
+
+  /* Align the header with the article column: PaperMod ships a wide
+     nav (1024px) over a narrow content column (720px), so the brand
+     sits ~150px left of the content. Make both the same width so the
+     header, breadcrumb, title and body share one left edge. */
+  --nav-width: 800px;
+  --main-width: 800px;
 }
