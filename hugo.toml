@@ -29,7 +29,7 @@ enableEmoji = true
   ShowCodeCopyButtons = true
   ShowFullTextinRSS = true
   ShowToc = true
-  TocOpen = false
+  TocOpen = true
 
   # 代码高亮设置
   pygmentsUseClasses = true

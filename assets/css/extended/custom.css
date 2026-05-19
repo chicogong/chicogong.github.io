@@ -189,6 +189,50 @@ pre code {
 }
 
 /* ========================================
+   侧边悬浮目录 (wide screens only)
+   正文宽 800px、居中 -> 左边缘在 calc(50% - 400px)。
+   目录放进左侧留白,宽 220px,与正文留 40px 间距。
+   ======================================== */
+@media screen and (min-width: 1400px) {
+  .toc {
+    position: fixed;
+    top: 110px;
+    left: calc(50% - 660px);
+    width: 220px;
+    max-height: 76vh;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    z-index: 40;
+  }
+  .toc details summary {
+    cursor: default;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .toc .details { display: block; color: var(--primary); }
+  .toc .inner { margin: 0; padding: 0; }
+  .toc ul { padding-left: 0; list-style: none; }
+  .toc li ul { padding-left: 12px; }
+  .toc a {
+    display: block;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 3px 0;
+    color: var(--secondary);
+    opacity: 0.85;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .toc a:hover { opacity: 1; color: var(--primary); }
+}
+
+/* ========================================
    UX 增强样式
    ======================================== */
 
