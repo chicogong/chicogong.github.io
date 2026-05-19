@@ -112,6 +112,11 @@ AI Agent · Voice Technology · LLM Applications
     url = "/posts/"
     weight = 10
   [[menu.main]]
+    identifier = "projects"
+    name = "作品"
+    url = "/projects/"
+    weight = 12
+  [[menu.main]]
     identifier = "categories"
     name = "分类"
     url = "/posts/"

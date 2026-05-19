@@ -1,0 +1,88 @@
+/* --- Projects / 作品 page --- */
+
+.proj-intro {
+  color: var(--secondary);
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 4px 0 28px;
+}
+.proj-intro strong { color: var(--primary); }
+
+.proj-section {
+  font-size: 20px;
+  margin: 36px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.proj-card {
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.proj-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+.proj-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.proj-name {
+  font-size: 17px;
+  font-weight: 700;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  color: var(--primary) !important;
+}
+.proj-name:hover { color: #e8b23c !important; }
+
+.proj-demo {
+  font-size: 12.5px;
+  color: var(--secondary) !important;
+  white-space: nowrap;
+}
+.proj-demo:hover { color: #e8b23c !important; }
+
+.proj-desc {
+  color: var(--content);
+  font-size: 14.5px;
+  line-height: 1.65;
+  margin: 10px 0 12px;
+}
+
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.proj-tags span {
+  font-size: 11.5px;
+  color: var(--secondary);
+  background: var(--tertiary);
+  border-radius: 5px;
+  padding: 2px 8px;
+}
+
+.proj-foot {
+  margin-top: 32px;
+  text-align: center;
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .proj-grid { grid-template-columns: 1fr; }
+}
