@@ -1,5 +1,7 @@
 ---
 title: "AI Agent架构：想清楚再动手"
+slug: agent-architecture
+description: "AI Agent 架构设计入门:感知—思考—行动—反馈的核心循环,先想清楚架构再动手,避开常见设计陷阱。"
 date: 2026-01-08T10:00:00+08:00
 draft: false
 tags: ["AI Agent", "架构设计", "LLM"]

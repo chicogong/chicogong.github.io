@@ -1,5 +1,7 @@
 ---
 title: "TTS数据准备：从录音到训练的完整流程"
+slug: tts-data-preparation
+description: "TTS 数据准备完整流程:从录音、采样率到清洗标注,数据质量决定 80% 的语音合成效果。"
 date: 2026-01-15T10:00:00+08:00
 draft: false
 tags: ["TTS", "语音数据", "数据清洗", "音频处理"]

@@ -1,5 +1,7 @@
 ---
 title: "Qwen-Audio深度解析：阿里通义千问的多模态语音革命"
+description: "Qwen-Audio 系列深度解析:从 ASR 到全方位语音理解,阿里通义千问的多模态语音技术演进。"
+slug: qwen-audio-deep-dive
 date: 2025-12-08T17:00:00+08:00
 categories: ["语音技术", "多模态AI"]
 tags: ["Qwen-Audio", "多模态", "语音识别", "语音理解", "ASR", "阿里巴巴", "Qwen2-Audio", "实时对话"]

@@ -1,5 +1,7 @@
 ---
 title: "LLM微调完全指南：从原理到生产部署"
+description: "LLM 微调完全指南:全量微调、LoRA/QLoRA 等参数高效微调、RLHF 与 DPO,从原理到生产部署一文讲透。"
+slug: llm-finetuning-guide
 date: 2025-12-03T10:00:00+08:00
 draft: false
 tags: ["LLM", "微调", "LoRA", "QLoRA", "PEFT", "RLHF", "DPO", "参数高效微调"]

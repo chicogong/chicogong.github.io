@@ -1,5 +1,7 @@
 ---
 title: "RAG实战：让AI不再胡说八道"
+slug: rag-practical-guide
+description: "RAG 实战指南:用检索增强生成让大模型「先查资料再回答」,有效减少幻觉,附向量数据库落地要点。"
 date: 2026-01-12T10:00:00+08:00
 draft: false
 tags: ["RAG", "向量数据库", "LLM"]

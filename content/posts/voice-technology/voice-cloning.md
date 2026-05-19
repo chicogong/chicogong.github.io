@@ -1,5 +1,7 @@
 ---
 title: "声音克隆：60秒复制你的声音，然后呢？"
+slug: voice-cloning
+description: "声音克隆技术现状:60 秒复制一个人的声音有多容易,以及随之而来的诈骗风险与防范。"
 date: 2026-01-10T14:00:00+08:00
 draft: false
 tags: ["TTS", "语音克隆", "ElevenLabs", "AI"]

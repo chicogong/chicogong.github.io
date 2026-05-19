@@ -1,5 +1,7 @@
 ---
 title: "TTS选型指南：ElevenLabs、ChatTTS、Fish Speech怎么选"
+slug: tts-comparison
+description: "TTS 选型指南:ElevenLabs、ChatTTS、Fish Speech 的音质、克隆能力与使用场景对比。"
 date: 2026-01-07T16:00:00+08:00
 categories: ["语音技术"]
 tags: ["TTS", "语音合成", "ElevenLabs", "ChatTTS", "Fish Speech"]

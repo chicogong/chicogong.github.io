@@ -1,5 +1,7 @@
 ---
 title: "AI特工的一天：揭秘Agent如何像人类一样「打工」"
+description: "通过一个 AI Agent 的「一天工作流」,直观拆解 Agent 如何感知、规划、调用工具并自动完成任务,附 MCP 协议实战案例。"
+slug: ai-agent-daily-workflow
 date: 2026-01-09T10:00:00+08:00
 draft: false
 tags: ["AI Agent", "工作流自动化", "智能助理", "实战案例", "MCP协议"]

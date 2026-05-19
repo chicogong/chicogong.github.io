@@ -1,5 +1,7 @@
 ---
 title: "MCP协议：AI工具的「乐高积木」玩法"
+description: "用「乐高积木」的比喻讲清 MCP 协议:它如何像 USB 一样让任意工具接入 AI,以及工具集成的实战玩法。"
+slug: mcp-protocol-guide
 date: 2026-01-11T10:00:00+08:00
 draft: false
 tags: ["MCP", "AI Agent", "协议标准", "工具集成", "Claude"]

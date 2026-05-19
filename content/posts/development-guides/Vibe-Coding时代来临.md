@@ -1,5 +1,7 @@
 ---
 title: "Vibe Coding：当编程变成聊天，程序员该何去何从"
+description: "Vibe Coding 时代来临:当编程变成与 AI 聊天,程序员的角色如何转变,又该如何应对。"
+slug: vibe-coding-era
 date: 2026-01-14T10:00:00+08:00
 draft: false
 weight: 4

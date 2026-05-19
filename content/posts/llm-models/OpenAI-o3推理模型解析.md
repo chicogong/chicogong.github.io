@@ -1,5 +1,7 @@
 ---
 title: "OpenAI o3 深度解析：推理模型的极限在哪里？"
+description: "OpenAI o3 推理模型深度解析:ARC-AGI 87.5% 的突破意味着什么,推理模型的能力边界在哪里。"
+slug: openai-o3-reasoning-model
 date: 2025-12-25T10:00:00+08:00
 draft: false
 weight: 3

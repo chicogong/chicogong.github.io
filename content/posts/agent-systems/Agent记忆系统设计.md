@@ -1,5 +1,7 @@
 ---
 title: "Agent记忆系统设计：构建有记忆的智能体"
+description: "深入讲解如何为 AI Agent 构建记忆系统:短期与长期记忆、向量数据库选型、认知架构设计,让智能体能积累经验、维持上下文。"
+slug: agent-memory-system-design
 date: 2025-01-05T10:00:00+08:00
 draft: false
 tags: ["记忆系统", "向量数据库", "认知架构", "长期记忆"]

@@ -1,5 +1,7 @@
 ---
 title: "2025 AI视频生成大战：Sora vs Kling vs Vidu vs Runway"
+description: "2025 AI 视频生成横评:Sora、可灵 Kling、Vidu、Runway 四大工具的画质、能力与适用场景对比。"
+slug: ai-video-generation-comparison
 date: 2025-12-22T10:00:00+08:00
 draft: false
 weight: 6

@@ -1,5 +1,7 @@
 ---
 title: "Voice Agent架构：从语音输入到智能响应"
+slug: voice-agent-architecture
+description: "Voice Agent 架构详解:ASR→LLM→TTS 的完整链路,如何构建能听会说的实时语音助手。"
 date: 2026-01-14T10:00:00+08:00
 draft: false
 tags: ["Voice Agent", "ASR", "TTS", "LLM", "实时语音"]

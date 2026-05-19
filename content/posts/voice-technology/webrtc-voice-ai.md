@@ -1,5 +1,7 @@
 ---
 title: "Building Real-time Voice AI with WebRTC"
+slug: webrtc-voice-ai
+description: "用 WebRTC 构建实时语音 AI:GPT-4o 实时语音背后的技术挑战、流式架构与工程实践。"
 date: 2025-01-16T10:00:00+08:00
 draft: false
 tags: ["WebRTC", "Voice AI", "Real-time", "Streaming", "语音交互"]

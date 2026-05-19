@@ -1,5 +1,7 @@
 ---
 title: "Qwen3全家桶深度解析：从MoE架构到Qwen3-Max与Omni多模态"
+description: "Qwen3 全家桶深度解析:从 MoE 架构、Qwen3-Max 到 Omni 多模态,以及思考/非思考模式切换的新范式。"
+slug: qwen3-deep-dive
 date: 2025-12-02T18:00:00+08:00
 categories: ["LLM"]
 tags: ["Qwen3", "Qwen3-Max", "Qwen3-Omni", "MoE", "大语言模型", "阿里巴巴", "混合专家模型", "多模态", "思考模式"]

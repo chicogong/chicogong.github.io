@@ -1,5 +1,7 @@
 ---
 title: "Claude Code 高级功能实战：MCP、Hooks、SubAgent 与自定义命令"
+description: "Claude Code 高级功能实战:MCP、Hooks、SubAgent 与自定义命令,把 AI 编程从「对话写代码」升级为自动化工作流。"
+slug: claude-code-advanced-features
 date: 2025-12-26T10:00:00+08:00
 draft: false
 weight: 1

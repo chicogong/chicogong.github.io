@@ -1,5 +1,7 @@
 ---
 title: "多模态AI：当机器学会「看图说话」"
+description: "多模态 AI 最新进展:GPT-4V、Gemini、CLIP 等视觉语言模型如何让机器「看图说话」,理解图像并给出建议。"
+slug: multimodal-ai-breakthrough
 date: 2025-12-12T10:00:00+08:00
 draft: false
 tags: ["多模态AI", "GPT-4V", "Gemini", "视觉语言模型", "CLIP"]

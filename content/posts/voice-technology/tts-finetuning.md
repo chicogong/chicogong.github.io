@@ -1,5 +1,7 @@
 ---
 title: "TTS模型微调：用自己的声音训练语音模型"
+slug: tts-finetuning
+description: "TTS 模型微调实战:用 XTTS、Fish Speech 训练你自己的声音,语音克隆的完整步骤。"
 date: 2026-01-16T10:00:00+08:00
 draft: false
 tags: ["TTS", "XTTS", "Fish Speech", "模型微调", "语音克隆"]

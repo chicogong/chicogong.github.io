@@ -1,5 +1,7 @@
 ---
 title: "LangGraph 1.0 详解：构建生产级有状态Agent工作流"
+description: "LangGraph 1.0 完整详解:图状态编排、持久化执行、检查点机制,手把手构建生产级有状态 Agent 工作流。"
+slug: langgraph-stateful-agent-workflow
 date: 2025-12-05T10:00:00+08:00
 categories: ["AI Agent"]
 tags: ["LangChain", "LangGraph", "知识图谱", "Graph", "大语言模型", "LLM", "Neo4j", "GraphRAG", "状态机"]

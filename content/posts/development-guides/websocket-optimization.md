@@ -1,5 +1,7 @@
 ---
 title: "Optimizing WebSocket Performance for AI Agents"
+slug: websocket-optimization
+description: "面向 AI Agent 的 WebSocket 性能优化:为什么流式对话不适合 HTTP,以及连接、并发与延迟的优化实践。"
 date: 2025-01-16T09:00:00+08:00
 draft: false
 tags: ["WebSocket", "AI Agent", "Performance", "Optimization", "实时通信"]

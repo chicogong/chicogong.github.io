@@ -1,5 +1,7 @@
 ---
 title: "Claude Code 深度体验：终端里的AI编程革命"
+description: "Claude Code 深度体验评测:终端里的 AI 编程到底强在哪,与 Cursor、Copilot 的真实差异。"
+slug: claude-code-deep-dive
 date: 2026-01-13T10:00:00+08:00
 draft: false
 tags: ["Claude Code", "AI编程", "终端工具", "Anthropic", "编程效率"]

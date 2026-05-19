@@ -1,5 +1,7 @@
 ---
 title: "多Agent系统协作：构建智能团队的艺术"
+description: "多 Agent 系统设计全解:协作分工机制、Agent 间通信、分布式编排,如何让多个智能体实现 1+1>2。"
+slug: multi-agent-collaboration
 date: 2025-01-03T10:00:00+08:00
 draft: false
 tags: ["Multi-Agent", "协作系统", "分布式AI", "Agent通信"]

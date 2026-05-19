@@ -1,5 +1,7 @@
 ---
 title: "2026大模型怎么选：GPT-4o、Claude、DeepSeek、Gemini实测对比"
+slug: llm-comparison-2025
+description: "2026 大模型选型实测:GPT-4o、Claude、DeepSeek、Gemini 的能力、价格与适用场景对比。"
 date: 2026-01-16T10:00:00+08:00
 draft: false
 tags: ["GPT-4o", "Claude", "DeepSeek", "Gemini", "LLM对比"]

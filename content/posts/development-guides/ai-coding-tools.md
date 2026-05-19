@@ -1,5 +1,7 @@
 ---
 title: "AI编程助手怎么选？Copilot vs Cursor vs Claude Code"
+slug: ai-coding-tools
+description: "GitHub Copilot、Cursor、Claude Code 三大 AI 编程助手怎么选:实测体验对比与选型建议。"
 date: 2026-01-15T10:00:00+08:00
 draft: false
 tags: ["GitHub Copilot", "Cursor", "Claude Code", "AI编程", "IDE"]

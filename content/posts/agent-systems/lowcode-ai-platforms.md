@@ -1,5 +1,7 @@
 ---
 title: "Dify vs Coze vs FastGPT：低代码AI平台终极对决"
+slug: lowcode-ai-platforms
+description: "Dify、Coze、FastGPT 三大低代码 AI 平台横向对决:工作流能力、适用场景与选型建议。"
 date: 2026-01-14T10:00:00+08:00
 draft: false
 weight: 5
