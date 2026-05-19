@@ -142,8 +142,17 @@ AI Agent · Voice Technology · LLM Applications
     weight = 40
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
-  
+  home = ["HTML", "RSS", "JSON", "llms"]
+
+# llms.txt — 让 AI 工具/爬虫能发现和理解本站内容
+[outputFormats]
+  [outputFormats.llms]
+    mediaType = "text/plain"
+    baseName = "llms"
+    isPlainText = true
+    rel = "alternate"
+
+
 [markup]
   defaultMarkdownHandler = "goldmark"
   

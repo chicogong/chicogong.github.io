@@ -1,0 +1,19 @@
+# Chico's Tech Blog
+
+> 实时语音 AI、AI Agent、LLM 工程方向的中文技术博客。作者 Chico,对话式 AI 工程师 / 实时语音系统构建者。文章偏工程实战与技术判断,主题覆盖语音 AI、Agent 系统、大模型应用、AI 编程。
+
+站点:{{ site.BaseURL }}
+{{ with site.Params.description }}定位:{{ . }}{{ end }}
+
+## 技术文章
+{{ range (sort (where site.RegularPages "Section" "posts") "Date" "desc") }}
+- [{{ .Title }}]({{ .Permalink }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+
+## 站内主要页面
+- [作品 / 开源项目]({{ "projects/" | absURL }}): Chico 开发的工具与项目
+- [关于]({{ "about/" | absURL }})
+- [全部文章]({{ "posts/" | absURL }})
+
+## 站外
+- GitHub: https://github.com/chicogong
