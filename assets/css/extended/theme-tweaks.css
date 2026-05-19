@@ -1,0 +1,7 @@
+/* --- Theme tweaks: soften the pure-white light theme --- */
+/* Page background becomes a warm off-white; cards stay pure white so
+   they lift off the background. Dark mode (.dark) is untouched. */
+:root {
+  --theme: #faf9f6;
+  --entry: #ffffff;
+}
