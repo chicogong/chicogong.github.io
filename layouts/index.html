@@ -1,0 +1,60 @@
+{{- define "main" }}
+
+<div class="home">
+
+  <section class="home-hero">
+    <img class="home-avatar" src="{{ site.Params.profileMode.imageUrl }}" width="104" height="104" alt="Chico" />
+    <div class="home-id">
+      <h1 class="home-name">Chico</h1>
+      <p class="home-role">对话式 AI 工程师 · 实时语音系统构建者</p>
+      <p class="home-bio">专注构建下一代智能交互系统 —— Voice AI · AI Agent · LLM Applications</p>
+      <div class="home-social">
+        {{- partial "social_icons.html" (dict "align" "left" "Site" site) -}}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-block">
+    <div class="home-block-head">
+      <h2>最新文章</h2>
+      <a class="home-more" href="/posts/">全部文章 →</a>
+    </div>
+    <div class="home-posts">
+      {{- range first 6 (where site.RegularPages "Section" "posts") }}
+      <a class="home-post" href="{{ .Permalink }}">
+        <div class="home-post-meta">{{ .Date.Format "2006-01-02" }}{{ if .ReadingTime }} · {{ .ReadingTime }} min{{ end }}</div>
+        <div class="home-post-title">{{ .Title }}</div>
+        <div class="home-post-desc">{{ .Description | default .Summary }}</div>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+
+  <section class="home-block">
+    <div class="home-block-head">
+      <h2>作品精选</h2>
+      <a class="home-more" href="/projects/">全部作品 →</a>
+    </div>
+    <div class="home-projects">
+      <a class="home-proj" href="https://www.voxflow.studio/" target="_blank" rel="noopener">
+        <div class="home-proj-name">VoxFlow Studio</div>
+        <div class="home-proj-desc">AI 语音生成与克隆平台,200+ 音色</div>
+      </a>
+      <a class="home-proj" href="https://github.com/chicogong/html-tools" target="_blank" rel="noopener">
+        <div class="home-proj-name">html-tools</div>
+        <div class="home-proj-desc">1086+ 纯前端在线工具集</div>
+      </a>
+      <a class="home-proj" href="/envseal/">
+        <div class="home-proj-name">envseal</div>
+        <div class="home-proj-desc">多仓库 .env 加密管理 CLI</div>
+      </a>
+      <a class="home-proj" href="https://github.com/chicogong/obsidian-claude-code" target="_blank" rel="noopener">
+        <div class="home-proj-name">obsidian-claude-code</div>
+        <div class="home-proj-desc">Obsidian 里的 AI CLI 终端</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+{{- end }}
