@@ -1,7 +1,10 @@
-baseURL = "https://blog.aimake.cc/"
+baseURL = "https://realtime-ai.chat/"
 languageCode = "zh-cn"
 title = "Chico's Tech Blog"
 theme = "PaperMod"
+
+enableRobotsTXT = true
+enableEmoji = true
 
 [pagination]
   pagerSize = 12
@@ -12,6 +15,9 @@ theme = "PaperMod"
   description = "探索AI前沿技术 | Agent系统 | 语音AI | LLM应用"
   keywords = ["AI Agent", "LLM", "Voice", "WebRTC", "TTS", "微调"]
   author = "Chico"
+  # Default og:image / twitter:image when a page has no cover of its own
+  images = ["https://github.com/chicogong.png"]
+  DateFormat = "2006-01-02"
   
   defaultTheme = "light" # dark, light, auto
   disableThemeToggle = false
