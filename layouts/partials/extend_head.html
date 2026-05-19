@@ -72,24 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
         progressBar.style.width = progress + '%';
 
-        // TOC 智能停止
-        if (toc && article) {
-          const articleRect = article.getBoundingClientRect();
-          const tocHeight = toc.offsetHeight;
-          const viewportHeight = window.innerHeight;
-          
-          // 当文章底部进入视口时，停止 TOC 跟随
-          if (articleRect.bottom < viewportHeight - 50) {
-            toc.style.position = 'absolute';
-            toc.style.top = 'auto';
-            toc.style.bottom = '0';
-          } else if (articleRect.top < 100) {
-            toc.style.position = 'fixed';
-            toc.style.top = '100px';
-            toc.style.bottom = 'auto';
-          }
-        }
-
         ticking = false;
       });
       ticking = true;
